@@ -14,7 +14,6 @@ export const generateJwtCode = (user: User) => {
 };
 
 export const verifyJwtCode = (token: string) => {
-  console.log("tokenInJWTUtils:", token);
   return jwt.verify(token, jwt_secret as string) as {
     id: string;
     email: string;

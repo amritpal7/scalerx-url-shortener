@@ -9,8 +9,6 @@ interface AuthRequest extends Request {
 }
 
 export const generateShortUrl = async (req: AuthRequest, res: Response) => {
-  // const { nanoid } = await import("nanoid");
-
   const { longUrl } = req.body;
   const shortCode = nanoid(7);
   console.log("shortcode: ", shortCode);
