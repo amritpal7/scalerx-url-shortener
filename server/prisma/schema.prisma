@@ -12,14 +12,14 @@ model ShortUrl {
   shortCode String   @unique
   longUrl   String
   clicks    Int      @default(0)
-  userId    String
+  userId    String   @db.ObjectId
   user      User     @relation(fields: [userId], references: [id])
   createdAt DateTime @default(now())
 }
 
 model User {
-  id       String   @id @default(auto()) @map("_id") @db.ObjectId
-  email    String   @unique
+  id       String     @id @default(auto()) @map("_id") @db.ObjectId
+  email    String     @unique
   password String
   urls     ShortUrl[]
 }
