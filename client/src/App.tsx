@@ -1,7 +1,5 @@
 function App() {
-  return (
-    <div className="text-center text-5xl text-amber-500/70">urlX shortner</div>
-  );
+  return <div></div>;
 }
 
 export default App;

@@ -1,13 +1,22 @@
 import { Router } from "express";
-import { login, registerUser } from "../controllers/authController";
+import {
+  registerUserHandler,
+  loginHandler,
+  getUserHandler,
+  logoutHandler,
+} from "../controllers/authController";
+import { authenticate } from "../middleware/auth";
 const router = Router();
 
-router.post("/register", (req, res) => {
-  registerUser(req, res);
-});
+//@ts-ignore
+router.post("/register", registerUserHandler);
 
-router.post("/login", (req, res) => {
-  login(req, res);
-});
+//@ts-ignore
+router.post("/login", loginHandler);
+
+//@ts-ignore
+router.get("/me", authenticate, getUserHandler);
+// @ts-ignore
+router.post("/logout", authenticate, logoutHandler);
 
 export default router;

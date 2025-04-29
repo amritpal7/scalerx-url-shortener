@@ -1,0 +1,7 @@
+{
+  "verbose": true,
+  "watch": ["src/**/*.ts", "package.json", "tsconfig.json", "prisma"],
+  "execMap": {
+    ".ts": "ts-node --insect=0.0.0.0:9229 --nolazy -r ts-node/register"
+  }
+}

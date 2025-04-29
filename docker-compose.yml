@@ -1,13 +1,40 @@
-version: '3'
 services:
   client:
-    build: ./client
+    build:
+      context: ./client
+      dockerfile: Dockerfile.dev
     ports:
-      - "3000:3000"
+      - "3000:5173"
+    volumes:
+      - ./client:/src
+      - /src/node_modules
+    container_name: client
+    env_file:
+      - ./client/.env
+    environment:
+      - CHOKIDAR_USEPOLLING=true
+    working_dir: /src
+    command: npm run dev
+    depends_on:
+      - server
   server:
-    build: ./server
+    build:
+      context: ./server
+      dockerfile: Dockerfile
+      target: base
+    volumes:
+      - ./src:/home/node/app/src
+      - ./nodemon.json:/home/node/app/nodemon.json
+    container_name: server
+    expose:
+      - 8080
     ports:
-      - "5000:5000"
+      - "8080:8080"
+    command: npm run dev
+    env_file:
+      - ./server/.env
+    environment:
+      - NODE_ENV=development
     depends_on:
       - redis
       - mongo
@@ -15,7 +42,14 @@ services:
     image: mongo
     ports:
       - "27017:27017"
+    volumes:
+      - mongo-data:/data/db
+    container_name: mongodb
   redis:
     image: redis
     ports:
       - "6379:6379"
+    container_name: redis
+
+volumes:
+  mongo-data:

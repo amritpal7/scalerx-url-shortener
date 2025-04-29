@@ -1,25 +1,23 @@
 import { Request, Response, NextFunction } from "express";
 import { verifyJwtCode } from "../utils/jwt";
-import { PrismaClient, User } from "@prisma/client";
+import { PrismaClient } from "../generated";
 
 const prisma = new PrismaClient();
 
-export interface AuthRequest extends Request {
-  user?: User;
-}
-
 export const authenticate = async (
-  req: AuthRequest,
+  req: Request,
   res: Response,
   next: NextFunction
 ) => {
-  const authHeader = req.headers.authorization;
+  const token = req.cookies.token;
 
-  if (!authHeader || !authHeader.startsWith("Bearer ")) {
+  // console.log("Auth header:", token); // working
+
+  if (!token) {
     return res.status(401).json({ error: "No toekn provided." });
   }
 
-  const token = authHeader?.split(" ")[1];
+  // const token = authHeader?.split(" ")[1];
 
   try {
     const decoded = verifyJwtCode(token as string);
@@ -30,9 +28,16 @@ export const authenticate = async (
     }
 
     req.user = user;
+    // console.log("after verifying req_user: ", req.user); // working
 
     next();
   } catch (error) {
+    // Clear the cookie if expired or invalid
+    res.clearCookie("token", {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "strict",
+    });
     return res.status(401).json({ msg: "Invalid token or toekn expired!" });
   }
 };

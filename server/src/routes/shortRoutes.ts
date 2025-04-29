@@ -1,33 +1,16 @@
-import { Request, Response, NextFunction, Router } from "express";
+import { Router } from "express";
 import {
   generateShortUrl,
   redirectShortUrl,
-  getAllUrls,
+  getShortUrls,
 } from "../controllers/urlController";
 import { authenticate } from "../middleware/auth";
 
 const router = Router();
-
-router.get(
-  "/my-urls",
-  async (req: Request, res: Response, next: NextFunction) => {
-    await authenticate(req, res, next);
-  },
-  (req, res) => {
-    getAllUrls(req, res);
-  }
-);
-
-router.post(
-  "/shorten",
-  async (req: Request, res: Response, next: NextFunction) => {
-    await authenticate(req, res, next);
-  },
-  (req, res) => {
-    generateShortUrl(req, res);
-  }
-);
-
+//@ts-ignore
+router.get("/my-urls", authenticate, getShortUrls);
+//@ts-ignore
+router.post("/shorten", authenticate, generateShortUrl);
 router.get("/:code", redirectShortUrl);
 
 export default router;
