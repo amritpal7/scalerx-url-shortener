@@ -1,4 +1,5 @@
 import axios from "axios";
+import api from "../lib/api";
 
 const API_URL = import.meta.env.VITE_API_URL;
 
@@ -15,8 +16,9 @@ export const login = async (credentials: {
 
 export const register = async (credentials: {
   email: string;
-  password: string;
   username: string;
+  password: string;
+  confirmPassword: string;
 }) => {
   const response = await axios.post(`${API_URL}/auth/register`, credentials, {
     withCredentials: true,
@@ -30,9 +32,7 @@ export const logout = () => {
 };
 
 export const fetchMe = async () => {
-  const response = await axios.get(`${API_URL}/auth/me`, {
-    withCredentials: true,
-  });
+  const response = await api.get("/auth/me");
 
   return response.data;
 };

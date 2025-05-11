@@ -7,6 +7,9 @@ import { TanStackRouterDevtools } from "@tanstack/react-router-devtools";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import type { QueryClient } from "@tanstack/react-query";
 import Navbar from "../components/Navbar";
+import { AuthProvider } from "../context/authContext";
+import { Toaster } from "react-hot-toast";
+
 export const Route = createRootRouteWithContext<{
   queryClient: QueryClient;
 }>()({
@@ -23,11 +26,12 @@ export const Route = createRootRouteWithContext<{
 
 function RootComponent() {
   return (
-    <>
+    <AuthProvider>
       <Navbar />
+      <Toaster position="top-center" reverseOrder={false} />
       <Outlet />
       <ReactQueryDevtools buttonPosition="bottom-left" />
       <TanStackRouterDevtools position="bottom-right" />
-    </>
+    </AuthProvider>
   );
 }

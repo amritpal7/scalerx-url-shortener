@@ -3,10 +3,12 @@ WORKDIR /src
 
 # Install dependencoes
 COPY package*.json ./ 
+
 RUN npm install
 
 # Copy rest of the files
 COPY . .
+
 
 # run prisma generate 
 RUN npx prisma generate

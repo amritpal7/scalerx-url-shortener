@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import toast from "react-hot-toast";
 import { useAuth } from "../context/authContext";
 import { IoMdCopy } from "react-icons/io";
+import Button from "../components/Button";
 // import Button from "../components/Button";
 
 function Home() {
@@ -62,15 +63,31 @@ function Home() {
   }, [newShortUrl, countdown]);
 
   return (
-    <div className="flex flex-col items-center justify-center mt-20">
-      <div className="text-center mt-20 md:mx-50 sm:mx-8 mx-4">
-        <h1 className="text-2xl">
-          Welcome, Get your large and long links convert into the tiny small
-          urls
-        </h1>
-        <p>Yep, know the best part! Its is lifetime free.</p>
-        {/* <p>{url}</p> */}
+    <div className="flex flex-col items-center justify-center mt-10 md:px-30 lg:px-40">
+      <div className="flex flex-col-reverse md:flex-row items-center justify-center gap-10 mt-10 px-4 max-w-6xl mx-auto">
+        {/* Text Content */}
+        <div className="text-center md:text-left flex-1">
+          <h1 className="text-3xl md:text-5xl font-bold mb-4">
+            Simplify Your Links, Instantly
+          </h1>
+          <p className="text-lg md:text-xl text-gray-600 dark:text-gray-300">
+            Convert long and messy URLs into short, elegant links – for free,
+            forever.
+          </p>
+        </div>
+
+        {/* Illustration */}
+        <div className="flex-1">
+          <img
+            src="/pic.svg" // <-- Replace with your local or external SVG
+            alt="Link Shortening Illustration"
+            className="w-full max-w-md mx-auto"
+          />
+        </div>
       </div>
+
+      <hr className="w-full max-w-4xl border-t border-gray-300 dark:border-gray-700 my-10" />
+
       {user && (
         <form
           className="flex items-center justify-center mt-10 w-full px-4"
@@ -86,12 +103,7 @@ function Home() {
               id=""
               placeholder="Paste your long URL here"
             />
-            <button
-              className="bg-black text-xl p-4 text-white shadow-[2px_2px_00_#000] border-2 border-white hover:border-black hover:scale-90 transform transition-all duration-200 ease-in-out"
-              type="submit"
-            >
-              Generate
-            </button>
+            <Button type="submit">Generate</Button>
           </div>
         </form>
       )}

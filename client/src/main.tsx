@@ -6,8 +6,6 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { routeTree } from "./routeTree.gen";
 
 import "./index.css";
-import { AuthProvider } from "./context/authContext";
-import { Toaster } from "react-hot-toast";
 
 const queryClient = new QueryClient();
 
@@ -28,10 +26,7 @@ if (!rootElement.innerHTML) {
   root.render(
     <StrictMode>
       <QueryClientProvider client={queryClient}>
-        <AuthProvider>
-          <RouterProvider router={router} />
-          <Toaster position="top-center" reverseOrder={false} />
-        </AuthProvider>
+        <RouterProvider router={router} />
       </QueryClientProvider>
     </StrictMode>
   );
