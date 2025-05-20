@@ -1,16 +1,14 @@
-import { useState } from "react";
 import { Link, useNavigate } from "@tanstack/react-router";
 import { useAuth } from "../context/authContext";
 import { uselogout } from "../hooks/useLogout";
-import { HiMenu, HiUser, HiX } from "react-icons/hi";
-import { IoMdLogIn, IoMdLogOut } from "react-icons/io";
+import { SiShortcut } from "react-icons/si";
+import { IoMdLogIn } from "react-icons/io";
+
 import toast from "react-hot-toast";
-import { CiHome } from "react-icons/ci";
 
 function Navbar() {
   const { user, logout } = useAuth();
   const { mutate } = uselogout();
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
   const navigate = useNavigate();
 
   const handleUserLogout = () => {
@@ -44,91 +42,55 @@ function Navbar() {
   };
 
   return (
-    <div className="w-full p-2 sm:px-6 md:px-8 lg:px-44 mt-10 border-b-2 border-black">
-      <nav className="flex items-center justify-between relative text-2xl">
-        {/* Logo or Home */}
-        <Link
-          to="/"
-          className="flex items-center hover:bg-amber-100 border-2 p-2 border-black hover:shadow-[6px_6px_0_#00a4ef] hover:box-border overflow-hidden hover:transition-all hover:duration-100 hover:ease-out hover:scale-105 active:translate-x-[4px] active:translate-y-[4px] active:shadow-none active:bg-amber-400 active:text-black active:border-black"
-        >
-          <CiHome size={40} /> Home
-        </Link>
-
-        {/* Desktop Links */}
-        <div className="hidden md:flex items-center gap-4">
+    <header className="fixed top-0 left-0 w-full z-50 backdrop-blur-md bg-[#2F2E41] border-b border-white/10">
+      <div className="max-w-6xl mx-auto px-4 py-3 flex justify-between items-center">
+        <h1>
+          {/* Logo or Home */}
+          <Link to="/" className="flex items-center text-white">
+            <SiShortcut size={40} />
+          </Link>
+        </h1>
+        <nav className="flex items-center gap-4 px-4 py-2">
           {user ? (
-            <>
-              <Link
-                to="/profile"
-                className="flex items-center hover:bg-amber-100 border-2 p-2 border-black hover:shadow-[6px_6px_0_#00a4ef] hover:box-border overflow-hidden hover:transition-all hover:duration-100 hover:ease-out hover:scale-105 active:translate-x-[4px] active:translate-y-[4px] active:shadow-none active:bg-amber-400 active:text-black active:border-black"
+            <div className="dropdown dropdown-end">
+              <div
+                tabIndex={0}
+                role="button"
+                className="btn btn-ghost btn-circle avatar"
               >
-                <HiUser size={30} />
-              </Link>
-              <Link
-                onClick={handleUserLogout}
-                to="/"
-                className="flex items-center hover:bg-amber-100 border-2 p-2 border-black hover:shadow-[6px_6px_0_#00a4ef] hover:box-border overflow-hidden hover:transition-all hover:duration-100 hover:ease-out hover:scale-105 active:translate-x-[4px] active:translate-y-[4px] active:shadow-none active:bg-amber-400 active:text-black active:border-black"
+                <div className="w-10 rounded-full ring hover:ring-primary hover:ring-offset-base-100 hover:ring-offset-2">
+                  <img src={user.image} alt="User Avatar" />
+                </div>
+              </div>
+              <ul
+                tabIndex={0}
+                className="mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-52"
               >
-                <IoMdLogOut />
-                Logout
-              </Link>
-            </>
+                <li>
+                  <Link to="/profile">Profile</Link>
+                </li>
+                <li>
+                  <Link to="/GenerateUrls">Generate urls</Link>
+                </li>
+                <li>
+                  <Link to="/" onClick={handleUserLogout}>
+                    Logout
+                  </Link>
+                </li>
+              </ul>
+            </div>
           ) : (
             <Link
               to="/login"
-              className="flex items-center hover:bg-amber-100 border-2 p-2 border-black hover:shadow-[6px_6px_0_#00a4ef] hover:box-border overflow-hidden hover:transition-all hover:duration-100 hover:ease-out hover:scale-105 active:translate-x-[4px] active:translate-y-[4px] active:shadow-none active:bg-amber-400 active:text-black active:border-black"
+              className="flex items-center gap-2 px-4 py-2 text-white bg-black border border-transparent rounded-lg shadow hover:bg-primary transition-transform duration-150 hover:scale-105 active:translate-x-[2px] active:translate-y-[2px] active:shadow-none"
             >
               <IoMdLogIn />
               Login
             </Link>
           )}
-        </div>
-
-        {/* Mobile Menu Icon */}
-        <div className="md:hidden">
-          <button
-            onClick={() => setIsMenuOpen(!isMenuOpen)}
-            className="text-xl"
-          >
-            {isMenuOpen ? <HiX /> : <HiMenu />}
-          </button>
-        </div>
-
-        {/* Mobile Menu */}
-        {isMenuOpen && (
-          <div className="absolute top-14 right-0 bg-white border border-gray-200 shadow-md rounded-md w-40 p-4 flex flex-col gap-3 z-50 md:hidden">
-            {user ? (
-              <div className="flex items-center gap-4">
-                <Link
-                  to="/profile"
-                  onClick={() => setIsMenuOpen(false)}
-                  className="flex items-center hover:bg-amber-100 border-2 p-2 border-black hover:shadow-[6px_6px_0_#00a4ef] hover:box-border overflow-hidden hover:transition-all hover:duration-100 hover:ease-out hover:scale-105 active:translate-x-[4px] active:translate-y-[4px] active:shadow-none active:bg-amber-400 active:text-black active:border-black"
-                >
-                  <HiUser size={30} />
-                </Link>
-
-                <Link
-                  onClick={handleUserLogout}
-                  to="/"
-                  className="flex items-center hover:bg-amber-100 border-2 p-2 border-black hover:shadow-[6px_6px_0_#00a4ef] hover:box-border overflow-hidden hover:transition-all hover:duration-100 hover:ease-out hover:scale-105 active:translate-x-[4px] active:translate-y-[4px] active:shadow-none active:bg-amber-400 active:text-black active:border-black"
-                >
-                  <IoMdLogOut size={30} />
-                </Link>
-              </div>
-            ) : (
-              <Link
-                to="/login"
-                onClick={() => setIsMenuOpen(false)}
-                className="flex items-center hover:bg-amber-100 border-2 p-2 border-black hover:shadow-[6px_6px_0_#00a4ef] hover:box-border overflow-hidden hover:transition-all hover:duration-100 hover:ease-out hover:scale-105 active:translate-x-[4px] active:translate-y-[4px] active:shadow-none active:bg-amber-400 active:text-black active:border-black"
-              >
-                <IoMdLogIn />
-                Login
-              </Link>
-            )}
-          </div>
-        )}
-      </nav>
-    </div>
+        </nav>
+      </div>
+    </header>
   );
 }
 

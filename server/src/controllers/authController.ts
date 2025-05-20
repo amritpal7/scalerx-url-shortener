@@ -2,11 +2,18 @@ import { User } from "../generated";
 import { generateJwtCode, verifyJwtCode } from "../utils/jwt";
 import bcrypt from "bcryptjs";
 import { Request, Response } from "express";
+import { omit, without } from "lodash";
 import {
   createUser,
   getUserById,
   getUserByEmail,
+  deleteUser,
+  getAllUsers,
+  updateUserCredential,
+  comparePassword,
 } from "../service/user.service";
+import { redisClient } from "../lib/redis";
+import prisma from "lib/prisma";
 
 export const registerUserHandler = async (
   request: Request,
@@ -31,6 +38,7 @@ export const registerUserHandler = async (
     email,
     password,
     username,
+    isDeleted: false,
     image: null,
     isAdmin: false,
   };
@@ -41,7 +49,7 @@ export const registerUserHandler = async (
     httpOnly: true,
     secure: process.env.NODE_ENV === "production",
     sameSite: "strict",
-    maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
+    maxAge: 15 * 60 * 60 * 1000, // 15 mins
   });
   response.cookie("refreshToken", token.refreshToken, {
     httpOnly: true,
@@ -50,44 +58,51 @@ export const registerUserHandler = async (
     maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
   });
 
-  return response.status(201).json({ msg: "user created successfully", user });
+  return response.send(omit(user, "password", "isAdmin", "isDeleted"));
 };
 
 export const loginHandler = async (req: Request, res: Response) => {
-  const { email, password, username } = req.body;
+  try {
+    const { email, password, username } = req.body;
+    if (!email || !password) {
+      return res
+        .status(400)
+        .json({ msg: "Please provide user's credentials." });
+    }
 
-  if (!email || !password) {
-    return res.status(400).json({ msg: "Please provide email or password" });
+    const user = await getUserByEmail(email);
+
+    // console.log("user:", user);
+    if (!user) {
+      return res.status(401).json({ msg: "User not found" });
+    }
+
+    const isMatch = await comparePassword(password, user.password);
+    if (!isMatch) {
+      return res.status(400).json({ msg: "Incorrect password!" });
+    }
+
+    const token = generateJwtCode(user);
+
+    // store token in cookie
+    res.cookie("refreshToken", token.refreshToken, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "strict",
+      maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
+    });
+    // store token in cookie
+    res.cookie("accessToken", token.accessToken, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "strict",
+      maxAge: 15 * 60 * 1000, // 15 mins
+    });
+
+    res.send(omit(user, "password", "isAdmin", "isDeleted"));
+  } catch (e: any) {
+    res.status(400).json({ msg: e.message });
   }
-
-  const user = await getUserByEmail(email);
-  if (!user) {
-    return res.status(400).json({ msg: "User not found" });
-  }
-
-  const isMatch = await bcrypt.compare(password, user.password);
-  if (!isMatch) {
-    return res.status(400).json({ msg: "Incorrect password!" });
-  }
-
-  const token = generateJwtCode(user);
-
-  // store token in cookie
-  res.cookie("refreshToken", token.refreshToken, {
-    httpOnly: true,
-    secure: process.env.NODE_ENV === "production",
-    sameSite: "strict",
-    maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
-  });
-  // store token in cookie
-  res.cookie("accessToken", token.accessToken, {
-    httpOnly: true,
-    secure: process.env.NODE_ENV === "production",
-    sameSite: "strict",
-    maxAge: 1 * 60 * 1000, // 5 min
-  });
-
-  res.status(200).json({ msg: "Login successfull", user, token });
 };
 
 export const getUserHandler = async (req: Request, res: Response) => {
@@ -103,7 +118,20 @@ export const getUserHandler = async (req: Request, res: Response) => {
     return res.status(404).json({ msg: "User not found!" });
   }
 
-  res.status(200).json({ user });
+  res.send(omit(user, "password", "isAdmin", "isDeleted"));
+};
+
+export const getAllUsersHandler = async (req: Request, res: Response) => {
+  try {
+    const users = await getAllUsers();
+
+    if (!users) res.status(404).json({ msg: "Users not found." });
+    // console.log("from handler", users);
+
+    res.send(users.map(user => omit(user, "password")));
+  } catch (e: any) {
+    res.status(400).json({ msg: "Error fetching users data", e });
+  }
 };
 
 export const logoutHandler = async (req: Request, res: Response) => {
@@ -127,23 +155,71 @@ export const logoutHandler = async (req: Request, res: Response) => {
   res.status(200).json({ msg: "Logout successfully" });
 };
 
+export const updateUserCredentialsHandler = async (
+  req: Request,
+  res: Response
+) => {
+  const userId = req.user?.id;
+
+  // console.log("from update cred", userId); // working
+
+  if (!userId) res.status(404).json({ msg: "User not authorized." });
+
+  if (!req.body)
+    return res
+      .status(400)
+      .json({ msg: "Please provide entries for updating the credentials." });
+
+  try {
+    const updatedUser = await updateUserCredential(userId, req.body);
+    res.send(omit(updatedUser, "password", "isAdmin", "isDeleted"));
+  } catch (err: any) {
+    res.status(400).json({ msg: err.message });
+  }
+};
+
+export const deleteUserHandler = async (req: Request, res: Response) => {
+  // get user id from the body
+  const userId = req.user?.id;
+
+  // log("from delete", userId);
+
+  if (!userId) return res.status(401).send({ msg: "user not found." });
+
+  try {
+    const deleted = await deleteUser(userId);
+
+    if (!deleted) return res.status(404).json({ msg: "User not exists." });
+
+    redisClient.del(`shortUrls:${userId}`);
+    res.clearCookie("accessToken");
+    res.clearCookie("refreshToken");
+
+    return res.status(201).json({ msg: "user deleted." });
+  } catch (e) {
+    res.status(400).json({ msg: "account deletion unsuccessfull." });
+  }
+
+  // match password and allow write an update
+};
+
 export const refreshTokenHandler = async (req: Request, res: Response) => {
   const { refreshToken } = req.cookies;
-  console.log("refreshToken", refreshToken);
+  // console.log("refreshToken", refreshToken);
   // console.log("access:", accessToken);
   if (!refreshToken)
     return res.status(401).json({ msg: "Session expired, login again!" });
 
   try {
     const verified = verifyJwtCode(refreshToken, "refresh");
-    console.log("from refresh route: ", verified);
+    // console.log("from refresh route: ", verified);
 
     if (!verified) return res.status(400).send("User was not verified!");
 
     const token = generateJwtCode(verified as User);
 
-    console.log("access token from refresh route: ", token.accessToken);
-    console.log("refresh token from refresh route: ", token.refreshToken);
+    // console.log("access token from refresh route: ", token.accessToken);
+    // console.log("refresh token from refresh route: ", token.refreshToken);
 
     res.cookie("refreshToken", token.refreshToken, {
       httpOnly: true,
@@ -156,14 +232,10 @@ export const refreshTokenHandler = async (req: Request, res: Response) => {
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
       sameSite: "strict",
-      maxAge: 1 * 16 * 1000, // 5 min
+      maxAge: 15 * 60 * 1000, // 15 mins
     });
 
-    res.status(200).json({
-      msg: "Token refreshed",
-      refresh: token.refreshToken,
-      access: token.accessToken,
-    });
+    res.send(token);
   } catch (e) {
     res.clearCookie("refreshToken");
     res.clearCookie("accessToken");

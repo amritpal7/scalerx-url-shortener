@@ -116,9 +116,11 @@ Prisma.NullTypes = {
 exports.Prisma.ShortUrlScalarFieldEnum = {
   id: 'id',
   shortCode: 'shortCode',
+  shortUrl: 'shortUrl',
   longUrl: 'longUrl',
   clicks: 'clicks',
   userId: 'userId',
+  isDeleted: 'isDeleted',
   createdAt: 'createdAt'
 };
 
@@ -128,7 +130,8 @@ exports.Prisma.UserScalarFieldEnum = {
   email: 'email',
   image: 'image',
   isAdmin: 'isAdmin',
-  password: 'password'
+  password: 'password',
+  isDeleted: 'isDeleted'
 };
 
 exports.Prisma.SortOrder = {

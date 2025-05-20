@@ -1,9 +1,12 @@
+import { redisClient } from "../lib/redis";
 import { PrismaClient } from "../generated";
+import { clickQueue } from "../lib/queues/clickQueue";
 
 const prisma = new PrismaClient();
 
 export const createShortUrl = async (
   userId: string,
+  shortUrl: string,
   longUrl: string,
   shortCode: string
 ) => {
@@ -11,6 +14,7 @@ export const createShortUrl = async (
     return await prisma.shortUrl.create({
       data: {
         shortCode,
+        shortUrl,
         longUrl,
         userId,
       },
@@ -20,22 +24,20 @@ export const createShortUrl = async (
   }
 };
 
-export const findShortUrl = async (code: string) => {
+export const findAndUpdateClicks = async (code: string) => {
   try {
-    return await prisma.shortUrl.findUnique({
+    const found = await prisma.shortUrl.findUnique({
       where: { shortCode: code },
     });
-  } catch (err: any) {
-    throw new Error(err);
-  }
-};
 
-export const updateClicks = async (code: string, clicks: number) => {
-  try {
-    return await prisma.shortUrl.update({
-      where: { shortCode: code },
-      data: { clicks: clicks + 1 },
+    if (!found) throw new Error("Short url not found!");
+
+    await clickQueue.add("updateClicksInUrl", {
+      shortUrlId: found.id,
+      userId: found.userId,
     });
+
+    return found;
   } catch (err: any) {
     throw new Error(err);
   }
@@ -43,7 +45,30 @@ export const updateClicks = async (code: string, clicks: number) => {
 
 export const getAllUrls = async (userId: string) => {
   try {
-    return await prisma.shortUrl.findMany({ where: { userId } });
+    const redisKey = `shortUrls:${userId}`;
+    const cachedData = await redisClient.get(redisKey);
+    if (cachedData) {
+      console.log("Getting data from redis cached.");
+      return JSON.parse(cachedData);
+    }
+
+    const allUrls = await prisma.shortUrl.findMany({
+      where: { userId },
+    });
+    const totalClicks = allUrls.reduce((sum, link) => sum + link.clicks, 0);
+    await redisClient.set(
+      redisKey,
+      JSON.stringify({
+        length: allUrls.length,
+        totalClicks: totalClicks,
+        urls: allUrls,
+      }),
+      { EX: 60 }
+    );
+
+    console.log("Getting data from mongodb.");
+
+    return { length: allUrls.length, totalClicks: totalClicks, urls: allUrls };
   } catch (err: any) {
     throw new Error(err);
   }

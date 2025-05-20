@@ -967,27 +967,33 @@ export namespace Prisma {
   export type ShortUrlMinAggregateOutputType = {
     id: string | null
     shortCode: string | null
+    shortUrl: string | null
     longUrl: string | null
     clicks: number | null
     userId: string | null
+    isDeleted: boolean | null
     createdAt: Date | null
   }
 
   export type ShortUrlMaxAggregateOutputType = {
     id: string | null
     shortCode: string | null
+    shortUrl: string | null
     longUrl: string | null
     clicks: number | null
     userId: string | null
+    isDeleted: boolean | null
     createdAt: Date | null
   }
 
   export type ShortUrlCountAggregateOutputType = {
     id: number
     shortCode: number
+    shortUrl: number
     longUrl: number
     clicks: number
     userId: number
+    isDeleted: number
     createdAt: number
     _all: number
   }
@@ -1004,27 +1010,33 @@ export namespace Prisma {
   export type ShortUrlMinAggregateInputType = {
     id?: true
     shortCode?: true
+    shortUrl?: true
     longUrl?: true
     clicks?: true
     userId?: true
+    isDeleted?: true
     createdAt?: true
   }
 
   export type ShortUrlMaxAggregateInputType = {
     id?: true
     shortCode?: true
+    shortUrl?: true
     longUrl?: true
     clicks?: true
     userId?: true
+    isDeleted?: true
     createdAt?: true
   }
 
   export type ShortUrlCountAggregateInputType = {
     id?: true
     shortCode?: true
+    shortUrl?: true
     longUrl?: true
     clicks?: true
     userId?: true
+    isDeleted?: true
     createdAt?: true
     _all?: true
   }
@@ -1118,9 +1130,11 @@ export namespace Prisma {
   export type ShortUrlGroupByOutputType = {
     id: string
     shortCode: string
+    shortUrl: string
     longUrl: string
     clicks: number
     userId: string
+    isDeleted: boolean
     createdAt: Date
     _count: ShortUrlCountAggregateOutputType | null
     _avg: ShortUrlAvgAggregateOutputType | null
@@ -1146,9 +1160,11 @@ export namespace Prisma {
   export type ShortUrlSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     shortCode?: boolean
+    shortUrl?: boolean
     longUrl?: boolean
     clicks?: boolean
     userId?: boolean
+    isDeleted?: boolean
     createdAt?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["shortUrl"]>
@@ -1158,13 +1174,15 @@ export namespace Prisma {
   export type ShortUrlSelectScalar = {
     id?: boolean
     shortCode?: boolean
+    shortUrl?: boolean
     longUrl?: boolean
     clicks?: boolean
     userId?: boolean
+    isDeleted?: boolean
     createdAt?: boolean
   }
 
-  export type ShortUrlOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "shortCode" | "longUrl" | "clicks" | "userId" | "createdAt", ExtArgs["result"]["shortUrl"]>
+  export type ShortUrlOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "shortCode" | "shortUrl" | "longUrl" | "clicks" | "userId" | "isDeleted" | "createdAt", ExtArgs["result"]["shortUrl"]>
   export type ShortUrlInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | UserDefaultArgs<ExtArgs>
   }
@@ -1177,9 +1195,11 @@ export namespace Prisma {
     scalars: $Extensions.GetPayloadResult<{
       id: string
       shortCode: string
+      shortUrl: string
       longUrl: string
       clicks: number
       userId: string
+      isDeleted: boolean
       createdAt: Date
     }, ExtArgs["result"]["shortUrl"]>
     composites: {}
@@ -1576,9 +1596,11 @@ export namespace Prisma {
   interface ShortUrlFieldRefs {
     readonly id: FieldRef<"ShortUrl", 'String'>
     readonly shortCode: FieldRef<"ShortUrl", 'String'>
+    readonly shortUrl: FieldRef<"ShortUrl", 'String'>
     readonly longUrl: FieldRef<"ShortUrl", 'String'>
     readonly clicks: FieldRef<"ShortUrl", 'Int'>
     readonly userId: FieldRef<"ShortUrl", 'String'>
+    readonly isDeleted: FieldRef<"ShortUrl", 'Boolean'>
     readonly createdAt: FieldRef<"ShortUrl", 'DateTime'>
   }
     
@@ -1985,6 +2007,7 @@ export namespace Prisma {
     image: string | null
     isAdmin: boolean | null
     password: string | null
+    isDeleted: boolean | null
   }
 
   export type UserMaxAggregateOutputType = {
@@ -1994,6 +2017,7 @@ export namespace Prisma {
     image: string | null
     isAdmin: boolean | null
     password: string | null
+    isDeleted: boolean | null
   }
 
   export type UserCountAggregateOutputType = {
@@ -2003,6 +2027,7 @@ export namespace Prisma {
     image: number
     isAdmin: number
     password: number
+    isDeleted: number
     _all: number
   }
 
@@ -2014,6 +2039,7 @@ export namespace Prisma {
     image?: true
     isAdmin?: true
     password?: true
+    isDeleted?: true
   }
 
   export type UserMaxAggregateInputType = {
@@ -2023,6 +2049,7 @@ export namespace Prisma {
     image?: true
     isAdmin?: true
     password?: true
+    isDeleted?: true
   }
 
   export type UserCountAggregateInputType = {
@@ -2032,6 +2059,7 @@ export namespace Prisma {
     image?: true
     isAdmin?: true
     password?: true
+    isDeleted?: true
     _all?: true
   }
 
@@ -2114,6 +2142,7 @@ export namespace Prisma {
     image: string | null
     isAdmin: boolean
     password: string
+    isDeleted: boolean
     _count: UserCountAggregateOutputType | null
     _min: UserMinAggregateOutputType | null
     _max: UserMaxAggregateOutputType | null
@@ -2140,6 +2169,7 @@ export namespace Prisma {
     image?: boolean
     isAdmin?: boolean
     password?: boolean
+    isDeleted?: boolean
     urls?: boolean | User$urlsArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
@@ -2153,9 +2183,10 @@ export namespace Prisma {
     image?: boolean
     isAdmin?: boolean
     password?: boolean
+    isDeleted?: boolean
   }
 
-  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "username" | "email" | "image" | "isAdmin" | "password", ExtArgs["result"]["user"]>
+  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "username" | "email" | "image" | "isAdmin" | "password" | "isDeleted", ExtArgs["result"]["user"]>
   export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     urls?: boolean | User$urlsArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
@@ -2173,6 +2204,7 @@ export namespace Prisma {
       image: string | null
       isAdmin: boolean
       password: string
+      isDeleted: boolean
     }, ExtArgs["result"]["user"]>
     composites: {}
   }
@@ -2572,6 +2604,7 @@ export namespace Prisma {
     readonly image: FieldRef<"User", 'String'>
     readonly isAdmin: FieldRef<"User", 'Boolean'>
     readonly password: FieldRef<"User", 'String'>
+    readonly isDeleted: FieldRef<"User", 'Boolean'>
   }
     
 
@@ -2991,9 +3024,11 @@ export namespace Prisma {
   export const ShortUrlScalarFieldEnum: {
     id: 'id',
     shortCode: 'shortCode',
+    shortUrl: 'shortUrl',
     longUrl: 'longUrl',
     clicks: 'clicks',
     userId: 'userId',
+    isDeleted: 'isDeleted',
     createdAt: 'createdAt'
   };
 
@@ -3006,7 +3041,8 @@ export namespace Prisma {
     email: 'email',
     image: 'image',
     isAdmin: 'isAdmin',
-    password: 'password'
+    password: 'password',
+    isDeleted: 'isDeleted'
   };
 
   export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
@@ -3062,6 +3098,13 @@ export namespace Prisma {
 
 
   /**
+   * Reference to a field of type 'Boolean'
+   */
+  export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
+    
+
+
+  /**
    * Reference to a field of type 'DateTime'
    */
   export type DateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime'>
@@ -3072,13 +3115,6 @@ export namespace Prisma {
    * Reference to a field of type 'DateTime[]'
    */
   export type ListDateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime[]'>
-    
-
-
-  /**
-   * Reference to a field of type 'Boolean'
-   */
-  export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
     
 
 
@@ -3105,9 +3141,11 @@ export namespace Prisma {
     NOT?: ShortUrlWhereInput | ShortUrlWhereInput[]
     id?: StringFilter<"ShortUrl"> | string
     shortCode?: StringFilter<"ShortUrl"> | string
+    shortUrl?: StringFilter<"ShortUrl"> | string
     longUrl?: StringFilter<"ShortUrl"> | string
     clicks?: IntFilter<"ShortUrl"> | number
     userId?: StringFilter<"ShortUrl"> | string
+    isDeleted?: BoolFilter<"ShortUrl"> | boolean
     createdAt?: DateTimeFilter<"ShortUrl"> | Date | string
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
   }
@@ -3115,9 +3153,11 @@ export namespace Prisma {
   export type ShortUrlOrderByWithRelationInput = {
     id?: SortOrder
     shortCode?: SortOrder
+    shortUrl?: SortOrder
     longUrl?: SortOrder
     clicks?: SortOrder
     userId?: SortOrder
+    isDeleted?: SortOrder
     createdAt?: SortOrder
     user?: UserOrderByWithRelationInput
   }
@@ -3125,22 +3165,26 @@ export namespace Prisma {
   export type ShortUrlWhereUniqueInput = Prisma.AtLeast<{
     id?: string
     shortCode?: string
+    shortUrl?: string
     AND?: ShortUrlWhereInput | ShortUrlWhereInput[]
     OR?: ShortUrlWhereInput[]
     NOT?: ShortUrlWhereInput | ShortUrlWhereInput[]
     longUrl?: StringFilter<"ShortUrl"> | string
     clicks?: IntFilter<"ShortUrl"> | number
     userId?: StringFilter<"ShortUrl"> | string
+    isDeleted?: BoolFilter<"ShortUrl"> | boolean
     createdAt?: DateTimeFilter<"ShortUrl"> | Date | string
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
-  }, "id" | "shortCode">
+  }, "id" | "shortCode" | "shortUrl">
 
   export type ShortUrlOrderByWithAggregationInput = {
     id?: SortOrder
     shortCode?: SortOrder
+    shortUrl?: SortOrder
     longUrl?: SortOrder
     clicks?: SortOrder
     userId?: SortOrder
+    isDeleted?: SortOrder
     createdAt?: SortOrder
     _count?: ShortUrlCountOrderByAggregateInput
     _avg?: ShortUrlAvgOrderByAggregateInput
@@ -3155,9 +3199,11 @@ export namespace Prisma {
     NOT?: ShortUrlScalarWhereWithAggregatesInput | ShortUrlScalarWhereWithAggregatesInput[]
     id?: StringWithAggregatesFilter<"ShortUrl"> | string
     shortCode?: StringWithAggregatesFilter<"ShortUrl"> | string
+    shortUrl?: StringWithAggregatesFilter<"ShortUrl"> | string
     longUrl?: StringWithAggregatesFilter<"ShortUrl"> | string
     clicks?: IntWithAggregatesFilter<"ShortUrl"> | number
     userId?: StringWithAggregatesFilter<"ShortUrl"> | string
+    isDeleted?: BoolWithAggregatesFilter<"ShortUrl"> | boolean
     createdAt?: DateTimeWithAggregatesFilter<"ShortUrl"> | Date | string
   }
 
@@ -3171,6 +3217,7 @@ export namespace Prisma {
     image?: StringNullableFilter<"User"> | string | null
     isAdmin?: BoolFilter<"User"> | boolean
     password?: StringFilter<"User"> | string
+    isDeleted?: BoolFilter<"User"> | boolean
     urls?: ShortUrlListRelationFilter
   }
 
@@ -3181,6 +3228,7 @@ export namespace Prisma {
     image?: SortOrder
     isAdmin?: SortOrder
     password?: SortOrder
+    isDeleted?: SortOrder
     urls?: ShortUrlOrderByRelationAggregateInput
   }
 
@@ -3194,6 +3242,7 @@ export namespace Prisma {
     image?: StringNullableFilter<"User"> | string | null
     isAdmin?: BoolFilter<"User"> | boolean
     password?: StringFilter<"User"> | string
+    isDeleted?: BoolFilter<"User"> | boolean
     urls?: ShortUrlListRelationFilter
   }, "id" | "username" | "email">
 
@@ -3204,6 +3253,7 @@ export namespace Prisma {
     image?: SortOrder
     isAdmin?: SortOrder
     password?: SortOrder
+    isDeleted?: SortOrder
     _count?: UserCountOrderByAggregateInput
     _max?: UserMaxOrderByAggregateInput
     _min?: UserMinOrderByAggregateInput
@@ -3219,13 +3269,16 @@ export namespace Prisma {
     image?: StringNullableWithAggregatesFilter<"User"> | string | null
     isAdmin?: BoolWithAggregatesFilter<"User"> | boolean
     password?: StringWithAggregatesFilter<"User"> | string
+    isDeleted?: BoolWithAggregatesFilter<"User"> | boolean
   }
 
   export type ShortUrlCreateInput = {
     id?: string
     shortCode: string
+    shortUrl: string
     longUrl: string
     clicks?: number
+    isDeleted?: boolean
     createdAt?: Date | string
     user: UserCreateNestedOneWithoutUrlsInput
   }
@@ -3233,49 +3286,61 @@ export namespace Prisma {
   export type ShortUrlUncheckedCreateInput = {
     id?: string
     shortCode: string
+    shortUrl: string
     longUrl: string
     clicks?: number
     userId: string
+    isDeleted?: boolean
     createdAt?: Date | string
   }
 
   export type ShortUrlUpdateInput = {
     shortCode?: StringFieldUpdateOperationsInput | string
+    shortUrl?: StringFieldUpdateOperationsInput | string
     longUrl?: StringFieldUpdateOperationsInput | string
     clicks?: IntFieldUpdateOperationsInput | number
+    isDeleted?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutUrlsNestedInput
   }
 
   export type ShortUrlUncheckedUpdateInput = {
     shortCode?: StringFieldUpdateOperationsInput | string
+    shortUrl?: StringFieldUpdateOperationsInput | string
     longUrl?: StringFieldUpdateOperationsInput | string
     clicks?: IntFieldUpdateOperationsInput | number
     userId?: StringFieldUpdateOperationsInput | string
+    isDeleted?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type ShortUrlCreateManyInput = {
     id?: string
     shortCode: string
+    shortUrl: string
     longUrl: string
     clicks?: number
     userId: string
+    isDeleted?: boolean
     createdAt?: Date | string
   }
 
   export type ShortUrlUpdateManyMutationInput = {
     shortCode?: StringFieldUpdateOperationsInput | string
+    shortUrl?: StringFieldUpdateOperationsInput | string
     longUrl?: StringFieldUpdateOperationsInput | string
     clicks?: IntFieldUpdateOperationsInput | number
+    isDeleted?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type ShortUrlUncheckedUpdateManyInput = {
     shortCode?: StringFieldUpdateOperationsInput | string
+    shortUrl?: StringFieldUpdateOperationsInput | string
     longUrl?: StringFieldUpdateOperationsInput | string
     clicks?: IntFieldUpdateOperationsInput | number
     userId?: StringFieldUpdateOperationsInput | string
+    isDeleted?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -3286,6 +3351,7 @@ export namespace Prisma {
     image?: string | null
     isAdmin?: boolean
     password: string
+    isDeleted?: boolean
     urls?: ShortUrlCreateNestedManyWithoutUserInput
   }
 
@@ -3296,6 +3362,7 @@ export namespace Prisma {
     image?: string | null
     isAdmin?: boolean
     password: string
+    isDeleted?: boolean
     urls?: ShortUrlUncheckedCreateNestedManyWithoutUserInput
   }
 
@@ -3305,6 +3372,7 @@ export namespace Prisma {
     image?: NullableStringFieldUpdateOperationsInput | string | null
     isAdmin?: BoolFieldUpdateOperationsInput | boolean
     password?: StringFieldUpdateOperationsInput | string
+    isDeleted?: BoolFieldUpdateOperationsInput | boolean
     urls?: ShortUrlUpdateManyWithoutUserNestedInput
   }
 
@@ -3314,6 +3382,7 @@ export namespace Prisma {
     image?: NullableStringFieldUpdateOperationsInput | string | null
     isAdmin?: BoolFieldUpdateOperationsInput | boolean
     password?: StringFieldUpdateOperationsInput | string
+    isDeleted?: BoolFieldUpdateOperationsInput | boolean
     urls?: ShortUrlUncheckedUpdateManyWithoutUserNestedInput
   }
 
@@ -3324,6 +3393,7 @@ export namespace Prisma {
     image?: string | null
     isAdmin?: boolean
     password: string
+    isDeleted?: boolean
   }
 
   export type UserUpdateManyMutationInput = {
@@ -3332,6 +3402,7 @@ export namespace Prisma {
     image?: NullableStringFieldUpdateOperationsInput | string | null
     isAdmin?: BoolFieldUpdateOperationsInput | boolean
     password?: StringFieldUpdateOperationsInput | string
+    isDeleted?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type UserUncheckedUpdateManyInput = {
@@ -3340,6 +3411,7 @@ export namespace Prisma {
     image?: NullableStringFieldUpdateOperationsInput | string | null
     isAdmin?: BoolFieldUpdateOperationsInput | boolean
     password?: StringFieldUpdateOperationsInput | string
+    isDeleted?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type StringFilter<$PrismaModel = never> = {
@@ -3368,6 +3440,11 @@ export namespace Prisma {
     not?: NestedIntFilter<$PrismaModel> | number
   }
 
+  export type BoolFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolFilter<$PrismaModel> | boolean
+  }
+
   export type DateTimeFilter<$PrismaModel = never> = {
     equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
@@ -3387,9 +3464,11 @@ export namespace Prisma {
   export type ShortUrlCountOrderByAggregateInput = {
     id?: SortOrder
     shortCode?: SortOrder
+    shortUrl?: SortOrder
     longUrl?: SortOrder
     clicks?: SortOrder
     userId?: SortOrder
+    isDeleted?: SortOrder
     createdAt?: SortOrder
   }
 
@@ -3400,18 +3479,22 @@ export namespace Prisma {
   export type ShortUrlMaxOrderByAggregateInput = {
     id?: SortOrder
     shortCode?: SortOrder
+    shortUrl?: SortOrder
     longUrl?: SortOrder
     clicks?: SortOrder
     userId?: SortOrder
+    isDeleted?: SortOrder
     createdAt?: SortOrder
   }
 
   export type ShortUrlMinOrderByAggregateInput = {
     id?: SortOrder
     shortCode?: SortOrder
+    shortUrl?: SortOrder
     longUrl?: SortOrder
     clicks?: SortOrder
     userId?: SortOrder
+    isDeleted?: SortOrder
     createdAt?: SortOrder
   }
 
@@ -3453,6 +3536,14 @@ export namespace Prisma {
     _max?: NestedIntFilter<$PrismaModel>
   }
 
+  export type BoolWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedBoolFilter<$PrismaModel>
+    _max?: NestedBoolFilter<$PrismaModel>
+  }
+
   export type DateTimeWithAggregatesFilter<$PrismaModel = never> = {
     equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
@@ -3483,11 +3574,6 @@ export namespace Prisma {
     isSet?: boolean
   }
 
-  export type BoolFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
-    not?: NestedBoolFilter<$PrismaModel> | boolean
-  }
-
   export type ShortUrlListRelationFilter = {
     every?: ShortUrlWhereInput
     some?: ShortUrlWhereInput
@@ -3505,6 +3591,7 @@ export namespace Prisma {
     image?: SortOrder
     isAdmin?: SortOrder
     password?: SortOrder
+    isDeleted?: SortOrder
   }
 
   export type UserMaxOrderByAggregateInput = {
@@ -3514,6 +3601,7 @@ export namespace Prisma {
     image?: SortOrder
     isAdmin?: SortOrder
     password?: SortOrder
+    isDeleted?: SortOrder
   }
 
   export type UserMinOrderByAggregateInput = {
@@ -3523,6 +3611,7 @@ export namespace Prisma {
     image?: SortOrder
     isAdmin?: SortOrder
     password?: SortOrder
+    isDeleted?: SortOrder
   }
 
   export type StringNullableWithAggregatesFilter<$PrismaModel = never> = {
@@ -3544,14 +3633,6 @@ export namespace Prisma {
     isSet?: boolean
   }
 
-  export type BoolWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
-    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedBoolFilter<$PrismaModel>
-    _max?: NestedBoolFilter<$PrismaModel>
-  }
-
   export type UserCreateNestedOneWithoutUrlsInput = {
     create?: XOR<UserCreateWithoutUrlsInput, UserUncheckedCreateWithoutUrlsInput>
     connectOrCreate?: UserCreateOrConnectWithoutUrlsInput
@@ -3568,6 +3649,10 @@ export namespace Prisma {
     decrement?: number
     multiply?: number
     divide?: number
+  }
+
+  export type BoolFieldUpdateOperationsInput = {
+    set?: boolean
   }
 
   export type DateTimeFieldUpdateOperationsInput = {
@@ -3599,10 +3684,6 @@ export namespace Prisma {
   export type NullableStringFieldUpdateOperationsInput = {
     set?: string | null
     unset?: boolean
-  }
-
-  export type BoolFieldUpdateOperationsInput = {
-    set?: boolean
   }
 
   export type ShortUrlUpdateManyWithoutUserNestedInput = {
@@ -3656,6 +3737,11 @@ export namespace Prisma {
     gt?: number | IntFieldRefInput<$PrismaModel>
     gte?: number | IntFieldRefInput<$PrismaModel>
     not?: NestedIntFilter<$PrismaModel> | number
+  }
+
+  export type NestedBoolFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolFilter<$PrismaModel> | boolean
   }
 
   export type NestedDateTimeFilter<$PrismaModel = never> = {
@@ -3713,6 +3799,14 @@ export namespace Prisma {
     not?: NestedFloatFilter<$PrismaModel> | number
   }
 
+  export type NestedBoolWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedBoolFilter<$PrismaModel>
+    _max?: NestedBoolFilter<$PrismaModel>
+  }
+
   export type NestedDateTimeWithAggregatesFilter<$PrismaModel = never> = {
     equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
@@ -3740,11 +3834,6 @@ export namespace Prisma {
     endsWith?: string | StringFieldRefInput<$PrismaModel>
     not?: NestedStringNullableFilter<$PrismaModel> | string | null
     isSet?: boolean
-  }
-
-  export type NestedBoolFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
-    not?: NestedBoolFilter<$PrismaModel> | boolean
   }
 
   export type NestedStringNullableWithAggregatesFilter<$PrismaModel = never> = {
@@ -3777,14 +3866,6 @@ export namespace Prisma {
     isSet?: boolean
   }
 
-  export type NestedBoolWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
-    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedBoolFilter<$PrismaModel>
-    _max?: NestedBoolFilter<$PrismaModel>
-  }
-
   export type UserCreateWithoutUrlsInput = {
     id?: string
     username: string
@@ -3792,6 +3873,7 @@ export namespace Prisma {
     image?: string | null
     isAdmin?: boolean
     password: string
+    isDeleted?: boolean
   }
 
   export type UserUncheckedCreateWithoutUrlsInput = {
@@ -3801,6 +3883,7 @@ export namespace Prisma {
     image?: string | null
     isAdmin?: boolean
     password: string
+    isDeleted?: boolean
   }
 
   export type UserCreateOrConnectWithoutUrlsInput = {
@@ -3825,6 +3908,7 @@ export namespace Prisma {
     image?: NullableStringFieldUpdateOperationsInput | string | null
     isAdmin?: BoolFieldUpdateOperationsInput | boolean
     password?: StringFieldUpdateOperationsInput | string
+    isDeleted?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type UserUncheckedUpdateWithoutUrlsInput = {
@@ -3833,21 +3917,26 @@ export namespace Prisma {
     image?: NullableStringFieldUpdateOperationsInput | string | null
     isAdmin?: BoolFieldUpdateOperationsInput | boolean
     password?: StringFieldUpdateOperationsInput | string
+    isDeleted?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type ShortUrlCreateWithoutUserInput = {
     id?: string
     shortCode: string
+    shortUrl: string
     longUrl: string
     clicks?: number
+    isDeleted?: boolean
     createdAt?: Date | string
   }
 
   export type ShortUrlUncheckedCreateWithoutUserInput = {
     id?: string
     shortCode: string
+    shortUrl: string
     longUrl: string
     clicks?: number
+    isDeleted?: boolean
     createdAt?: Date | string
   }
 
@@ -3882,38 +3971,48 @@ export namespace Prisma {
     NOT?: ShortUrlScalarWhereInput | ShortUrlScalarWhereInput[]
     id?: StringFilter<"ShortUrl"> | string
     shortCode?: StringFilter<"ShortUrl"> | string
+    shortUrl?: StringFilter<"ShortUrl"> | string
     longUrl?: StringFilter<"ShortUrl"> | string
     clicks?: IntFilter<"ShortUrl"> | number
     userId?: StringFilter<"ShortUrl"> | string
+    isDeleted?: BoolFilter<"ShortUrl"> | boolean
     createdAt?: DateTimeFilter<"ShortUrl"> | Date | string
   }
 
   export type ShortUrlCreateManyUserInput = {
     id?: string
     shortCode: string
+    shortUrl: string
     longUrl: string
     clicks?: number
+    isDeleted?: boolean
     createdAt?: Date | string
   }
 
   export type ShortUrlUpdateWithoutUserInput = {
     shortCode?: StringFieldUpdateOperationsInput | string
+    shortUrl?: StringFieldUpdateOperationsInput | string
     longUrl?: StringFieldUpdateOperationsInput | string
     clicks?: IntFieldUpdateOperationsInput | number
+    isDeleted?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type ShortUrlUncheckedUpdateWithoutUserInput = {
     shortCode?: StringFieldUpdateOperationsInput | string
+    shortUrl?: StringFieldUpdateOperationsInput | string
     longUrl?: StringFieldUpdateOperationsInput | string
     clicks?: IntFieldUpdateOperationsInput | number
+    isDeleted?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type ShortUrlUncheckedUpdateManyWithoutUserInput = {
     shortCode?: StringFieldUpdateOperationsInput | string
+    shortUrl?: StringFieldUpdateOperationsInput | string
     longUrl?: StringFieldUpdateOperationsInput | string
     clicks?: IntFieldUpdateOperationsInput | number
+    isDeleted?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
