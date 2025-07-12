@@ -3,7 +3,7 @@ import { AuthContextType, User } from "../types/types";
 import { useQuery } from "@tanstack/react-query";
 import { fetchMe } from "../api/authApis";
 import { useNavigate } from "@tanstack/react-router";
-import { AxiosError } from "axios";
+// import { AxiosError } from "axios";
 import { setLoginStatusGetter } from "../lib/api";
 
 type AuthProviderProps = {
@@ -17,7 +17,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
 
   const navigate = useNavigate();
 
-  const { data, isLoading, refetch, error } = useQuery({
+  const { data, isLoading, refetch } = useQuery({
     queryKey: ["me"],
     queryFn: fetchMe,
     retry: false,
@@ -28,24 +28,25 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
   // ✅ Register the login status checker for Axios interceptors
   setLoginStatusGetter(() => !!user); // 👈 this line connects Axios with auth state, knows the state of the user
 
-  // console.log("from cxt-data:", data);
   useEffect(() => {
-    if (data && data.user) {
-      setUser(data.user);
+    if (data) {
+      setUser(data);
+      navigate({ to: "/profile" });
     }
   }, [data]);
 
-  // ✅ Centralized 401 handling
-  useEffect(() => {
-    if (error && !isLoading) {
-      // Optional: Check if it's a 401 specifically
-      const axiosError = error as AxiosError;
-      if (axiosError.response?.status === 401) {
-        setUser(null); // Clear local user state
-        navigate({ to: "/login" }); // Redirect to login
-      }
-    }
-  }, [error, isLoading, navigate]);
+  // console.log("from cxt-data:", data);
+  // // ✅ Centralized 401 handling
+  // useEffect(() => {
+  //   if (error && !isLoading) {
+  //     // Optional: Check if it's a 401 specifically
+  //     const axiosError = error as AxiosError;
+  //     if (axiosError.response?.status === 401) {
+  //       setUser(null); // Clear local user state
+  //       navigate({ to: "/login" }); // Redirect to login
+  //     }
+  //   }
+  // }, [error, isLoading, navigate]);
 
   const login = (userData: any) => setUser(userData);
   const logout = () => setUser(null);

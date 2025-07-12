@@ -48,9 +48,11 @@ export const getAllUrls = async (userId: string) => {
     const redisKey = `shortUrls:${userId}`;
     const cachedData = await redisClient.get(redisKey);
     if (cachedData) {
-      console.log("Getting data from redis cached.");
+      console.log("💪 [Service] Getting data from redis cached.");
       return JSON.parse(cachedData);
     }
+
+    console.log("😿 [Service] No cached data found in redis.");
 
     const allUrls = await prisma.shortUrl.findMany({
       where: { userId },
@@ -66,7 +68,7 @@ export const getAllUrls = async (userId: string) => {
       { EX: 60 }
     );
 
-    console.log("Getting data from mongodb.");
+    console.log("🚀 [Service] Getting data from mongodb.");
 
     return { length: allUrls.length, totalClicks: totalClicks, urls: allUrls };
   } catch (err: any) {

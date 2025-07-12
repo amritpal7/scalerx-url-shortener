@@ -16,11 +16,10 @@ const router = Router();
 
 //@ts-ignore
 router.post("/users", validate(userSchema), registerUserHandler);
-
 //@ts-ignore
 router.post("/login", loginHandler);
 //@ts-ignore
-router.post("/users/update", authenticate, updateUserCredentialsHandler);
+router.put("/users/update", authenticate, updateUserCredentialsHandler);
 //@ts-ignore
 router.get("/me", authenticate, getUserHandler);
 //@ts-ignore

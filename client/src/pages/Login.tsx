@@ -1,18 +1,14 @@
-import { Link, useNavigate } from "@tanstack/react-router";
+import { Link } from "@tanstack/react-router";
 import { useLogin } from "../hooks/useLogin";
 import { useAuth } from "../context/authContext";
 import React, { useState } from "react";
 import Loader from "../components/Loader";
-import toast from "react-hot-toast";
 
 function Login() {
   const [form, setForm] = useState({ email: "", password: "" });
-  // const [loading, setLoading] = useState(true);
 
-  const { mutate, isPending, isError, error } = useLogin();
-  const { isLoading, login } = useAuth();
-
-  const navigate = useNavigate();
+  const { mutate: loginMutation, isPending, isError, error } = useLogin();
+  const { isLoading } = useAuth();
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -21,16 +17,7 @@ function Login() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-
-    mutate(form, {
-      onSuccess: data => {
-        login(data.user);
-        navigate({ to: "/profile" });
-      },
-      onError: () => {
-        toast.error("Login failed!");
-      },
-    });
+    loginMutation(form);
   };
 
   if (isLoading)

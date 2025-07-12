@@ -134,6 +134,14 @@ exports.Prisma.UserScalarFieldEnum = {
   isDeleted: 'isDeleted'
 };
 
+exports.Prisma.SessionScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  userAgent: 'userAgent',
+  valid: 'valid',
+  createdAt: 'createdAt'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -147,7 +155,8 @@ exports.Prisma.QueryMode = {
 
 exports.Prisma.ModelName = {
   ShortUrl: 'ShortUrl',
-  User: 'User'
+  User: 'User',
+  Session: 'Session'
 };
 
 /**

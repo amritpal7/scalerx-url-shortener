@@ -5,7 +5,7 @@ import config from "config";
 // Create a Redis client for caching
 // This client is used for caching data in Redis
 const redisClient = createClient({
-  url: process.env.REDIS_URL || "redis://localhost:6379",
+  url: process.env.REDIS_URL || "redis://redis:6379",
 });
 
 // Create a Redis connection for other operations

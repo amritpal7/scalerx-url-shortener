@@ -3,7 +3,9 @@ import jwt from "jsonwebtoken";
 
 const refresh_secret = process.env.REFRESH_TOKEN;
 const access_secret = process.env.ACCESS_TOKEN;
-export const generateJwtCode = (user: User) => {
+export const generateJwtCode = (
+  user: Pick<User, "id" | "username" | "email" | "image">
+) => {
   const payload = {
     id: user.id,
     email: user.email,

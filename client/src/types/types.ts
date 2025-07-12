@@ -16,6 +16,7 @@ export type AuthContextType = {
 
 export type Urls = {
   shortCode: string;
+  shortUrl: string;
   longUrl: string;
   clicks: number;
   date: string;

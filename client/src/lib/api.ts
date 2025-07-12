@@ -45,6 +45,8 @@ api.interceptors.response.use(
 
       try {
         await api.post("/auth/refresh");
+        console.log("token refreshed.");
+
         processQueue(null);
         return api(originalRequest);
       } catch (err) {

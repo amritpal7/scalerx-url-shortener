@@ -42,13 +42,19 @@ export const redirectShortUrl = async (req: Request, res: Response) => {
 };
 
 export const getShortUrls = async (req: Request, res: Response) => {
-  if (!req.user) return res.status(400).json({ msg: "Please login first!" });
-
-  const { id: userId } = req.user;
-
-  if (!userId) return res.status(401).json({ msg: "User not found" });
-
   try {
+    if (!req.user) {
+      console.warn("Missing req.user – token may be missing or invalid");
+      return res.status(401).json({ msg: "Please login first!" });
+    }
+
+    const { id: userId } = req.user;
+
+    if (!userId) {
+      console.warn("Missing userId in req.user:", req.user);
+      return res.status(401).json({ msg: "User not found" });
+    }
+
     const urlsData = await getAllUrls(userId);
 
     res.send(urlsData);

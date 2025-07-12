@@ -10,6 +10,7 @@ export const fetchUrls = async () => {
     return response.data;
   } catch (err: any) {
     if (err.response.status === 401) throw new Error("Login or register!");
+    throw new Error(err.response.data.msg || "Failed to fetch URLs");
   }
 };
 

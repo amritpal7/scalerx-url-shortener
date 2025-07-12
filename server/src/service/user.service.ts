@@ -1,4 +1,4 @@
-import { object } from "zod";
+import { omit } from "lodash";
 import { PrismaClient, User } from "../generated";
 import bcrypt from "bcryptjs";
 
@@ -17,10 +17,25 @@ export async function comparePassword(
   }
 }
 
+export async function findUserByEmail(email: string) {
+  try {
+    return await prisma.user.findFirst({
+      where: { email, isDeleted: false },
+    });
+  } catch (err: any) {
+    throw new Error(err);
+  }
+}
+
 export async function createUser(input: User) {
   const hashedPassword = await bcrypt.hash(input.password, 10);
   try {
-    return await prisma.user.create({
+    // check if user exists
+    const isExists = await findUserByEmail(input.email);
+
+    if (isExists) throw new Error("User already exists!");
+
+    const newUser = await prisma.user.create({
       data: {
         email: input.email,
         password: hashedPassword,
@@ -30,6 +45,8 @@ export async function createUser(input: User) {
         }`,
       },
     });
+
+    return newUser;
   } catch (e: any) {
     throw new Error(e);
   }
@@ -37,18 +54,19 @@ export async function createUser(input: User) {
 
 export async function getUserById(id: string) {
   try {
-    return await prisma.user.findUnique({ where: { id } });
+    const user = await prisma.user.findUnique({ where: { id } });
+    return user;
   } catch (e: any) {
     throw new Error(e);
   }
 }
-export async function getUserByEmail(email: string) {
+export async function createSession(body: { email: string; password: string }) {
   try {
-    const user = await prisma.user.findFirst({
-      where: { email, isDeleted: false },
-    });
-
-    // console.log("from service", user);
+    const user = await findUserByEmail(body.email);
+    if (!user) throw new Error("User not found!");
+    if (!body.password) throw new Error("Please enter password!");
+    const isMatch = await comparePassword(body.password, user.password);
+    if (!isMatch) throw new Error("Invalid password entered.");
 
     return user;
   } catch (e: any) {
@@ -77,7 +95,8 @@ export async function updateUserCredential(
   }
 ) {
   try {
-    const user = await getUserById(userId as string);
+    if (!userId) throw new Error("User ID is required.");
+    const user = await getUserById(userId);
 
     if (!user) throw new Error("User not found.");
     const updatedData: any = {};
@@ -135,22 +154,28 @@ export async function updateUserCredential(
       data: updatedData,
     });
 
-    return updatedUser;
+    return omit(updatedUser, "password");
   } catch (e: any) {
-    throw new Error(e.message);
+    throw new Error(e);
   }
 }
 
-export async function deleteUser(userId: string) {
+export async function deleteUser(userId: string, currentPassword: string) {
   try {
-    const user = await prisma.user.findUnique({ where: { id: userId } });
+    const user = await getUserById(userId);
     if (!user) return null;
+
+    const isMatched = await comparePassword(currentPassword, user.password);
+    if (!isMatched) throw new Error("Invalid password entered.");
+
+    // Mark user's data as deleted inside DB.
     await prisma.shortUrl.updateMany({
       where: { userId, isDeleted: false },
       data: { isDeleted: true },
     });
     // console.log("urls marked as deleted.");
 
+    // Mark user as deleted inside DB.
     const deletedUser = await prisma.user.update({
       where: { id: userId },
       data: { isDeleted: true },

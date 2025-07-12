@@ -2,7 +2,6 @@ import React, { useState, useEffect, FormEvent } from "react";
 import toast from "react-hot-toast";
 import { motion } from "framer-motion";
 import { IoMdCopy } from "react-icons/io";
-import Button from "../components/Button";
 import { useAuth } from "../context/authContext";
 import { useShortUrlFetcher } from "../hooks/useShortUrlFetcher";
 import { Link } from "@tanstack/react-router";
@@ -70,31 +69,37 @@ function GenerateUrls() {
           <div className="flex justify-start">
             <Link
               to="/profile"
-              className="flex items-center gap-2 hover:underline text-secondary text-sm mt-10"
+              className="flex items-center gap-2 hover:underline text-pretty text-sm mt-10"
             >
               <FaArrowLeft /> Back to profile
             </Link>
           </div>
-          <form
-            className="flex flex-col items-center justify-center mt-2 w-full px-4"
+          <motion.form
+            className="w-full flex flex-col justify-center items-center mt-6"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.4, ease: "easeOut" }}
             onSubmit={handleFormSubmit}
           >
-            <div className="sm:flex items-center gap-4 mt-10 w-full max-w-2xl">
-              <input
-                className="w-full p-4 border-b border-b-primary focus:border-b-2 focus:ring-0 focus-visible:outline-none focus-visible:ring-0 outline-none"
-                type="text"
-                name="url"
-                value={longUrl}
-                onChange={handleInputChange}
-                placeholder="Paste your long URL here"
-              />
-              <div className="w-full sm:w-auto">
-                <button className="btn btn-primary" type="submit">
+            <div className="w-full max-w-2xl">
+              <div className="flex flex-col sm:flex-row gap-4 bg-base-100 p-4 sm:p-0 rounded-xl sm:rounded-none shadow-lg sm:shadow-none transition-all duration-300">
+                <input
+                  className="w-full p-3 sm:p-4 border-b border-b-primary focus:border-b-2 focus:ring-0 focus-visible:outline-none focus-visible:ring-0 outline-none text-sm sm:text-base"
+                  type="text"
+                  name="url"
+                  value={longUrl}
+                  onChange={handleInputChange}
+                  placeholder="Paste your long URL here"
+                />
+                <button
+                  className="btn btn-primary btn-block sm:btn-wide sm:w-auto text-sm sm:text-base"
+                  type="submit"
+                >
                   Generate
                 </button>
               </div>
             </div>
-          </form>
+          </motion.form>
         </div>
       )}
 
