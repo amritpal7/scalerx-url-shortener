@@ -1,4 +1,4 @@
-import { User } from "../generated";
+import { User } from "../../generated";
 import { generateJwtCode, verifyJwtCode } from "../utils/jwt";
 import { Request, Response } from "express";
 import {
