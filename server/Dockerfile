@@ -1,22 +1,27 @@
 FROM node:20-alpine AS base
 WORKDIR /src
 
-# Install dependencoes
-COPY package*.json ./ 
-
+# Install dependencies
+COPY package*.json ./
 RUN npm install
 
-# Copy rest of the files
+# Copy source code
 COPY . .
 
+# Build the project (compiles TypeScript & generates Prisma client)
+RUN npm run build
 
-# run prisma generate 
-RUN npx prisma generate
+# Production image
+FROM node:20-alpine AS production
+WORKDIR /app
 
-FROM base AS production
+# Copy only necessary files from base image
+COPY --from=base /src/package*.json ./
+COPY --from=base /src/build ./build
+COPY --from=base /src/generated ./generated
 
-ENV NODE_PATH=./build
+# Install only production deps
+RUN npm install --only=production
 
-
-RUN npm run start
-
+# Run the app
+CMD ["node", "build/index.js"]
