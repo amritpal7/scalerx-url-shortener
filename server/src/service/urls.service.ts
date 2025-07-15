@@ -1,5 +1,5 @@
 import { redisClient } from "../lib/redis";
-import { PrismaClient } from "../generated";
+import { PrismaClient } from "../../generated";
 import { clickQueue } from "../lib/queues/clickQueue";
 
 const prisma = new PrismaClient();

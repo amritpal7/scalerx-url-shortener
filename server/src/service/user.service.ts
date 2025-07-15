@@ -1,5 +1,5 @@
 import { omit } from "lodash";
-import { PrismaClient, User } from "../generated";
+import { PrismaClient, User } from "../../generated";
 import bcrypt from "bcryptjs";
 
 const prisma = new PrismaClient();

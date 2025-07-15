@@ -1,4 +1,4 @@
-import { User } from "../generated/client";
+import { User } from "../../generated";
 import jwt from "jsonwebtoken";
 
 const refresh_secret = process.env.REFRESH_TOKEN;

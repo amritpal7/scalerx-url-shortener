@@ -1,6 +1,6 @@
 import { Worker } from "bullmq";
 import { QUEUE_NAME } from "../queues/clickQueue";
-import { PrismaClient, ShortUrl } from "../../generated";
+import { PrismaClient, ShortUrl } from "../../../generated";
 import { redisClient, redisConnection, connectRedis } from "../redis";
 
 const prisma = new PrismaClient();
