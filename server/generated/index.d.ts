@@ -14,6 +14,26 @@ export type PrismaPromise<T> = $Public.PrismaPromise<T>
 
 
 /**
+ * Model UserCoordinates
+ * 
+ */
+export type UserCoordinates = $Result.DefaultSelection<Prisma.$UserCoordinatesPayload>
+/**
+ * Model Company
+ * 
+ */
+export type Company = $Result.DefaultSelection<Prisma.$CompanyPayload>
+/**
+ * Model CompanyAddress
+ * 
+ */
+export type CompanyAddress = $Result.DefaultSelection<Prisma.$CompanyAddressPayload>
+/**
+ * Model CompanyCoordinates
+ * 
+ */
+export type CompanyCoordinates = $Result.DefaultSelection<Prisma.$CompanyCoordinatesPayload>
+/**
  * Model ShortUrl
  * 
  */
@@ -23,6 +43,16 @@ export type ShortUrl = $Result.DefaultSelection<Prisma.$ShortUrlPayload>
  * 
  */
 export type User = $Result.DefaultSelection<Prisma.$UserPayload>
+/**
+ * Model Address
+ * 
+ */
+export type Address = $Result.DefaultSelection<Prisma.$AddressPayload>
+/**
+ * Model Bank
+ * 
+ */
+export type Bank = $Result.DefaultSelection<Prisma.$BankPayload>
 /**
  * Model Session
  * 
@@ -140,6 +170,26 @@ export class PrismaClient<
     * ```
     */
   get user(): Prisma.UserDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.address`: Exposes CRUD operations for the **Address** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Addresses
+    * const addresses = await prisma.address.findMany()
+    * ```
+    */
+  get address(): Prisma.AddressDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.bank`: Exposes CRUD operations for the **Bank** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Banks
+    * const banks = await prisma.bank.findMany()
+    * ```
+    */
+  get bank(): Prisma.BankDelegate<ExtArgs, ClientOptions>;
 
   /**
    * `prisma.session`: Exposes CRUD operations for the **Session** model.
@@ -592,6 +642,8 @@ export namespace Prisma {
   export const ModelName: {
     ShortUrl: 'ShortUrl',
     User: 'User',
+    Address: 'Address',
+    Bank: 'Bank',
     Session: 'Session'
   };
 
@@ -611,7 +663,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "shortUrl" | "user" | "session"
+      modelProps: "shortUrl" | "user" | "address" | "bank" | "session"
       txIsolationLevel: never
     }
     model: {
@@ -763,6 +815,154 @@ export namespace Prisma {
           }
         }
       }
+      Address: {
+        payload: Prisma.$AddressPayload<ExtArgs>
+        fields: Prisma.AddressFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.AddressFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AddressPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.AddressFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AddressPayload>
+          }
+          findFirst: {
+            args: Prisma.AddressFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AddressPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.AddressFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AddressPayload>
+          }
+          findMany: {
+            args: Prisma.AddressFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AddressPayload>[]
+          }
+          create: {
+            args: Prisma.AddressCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AddressPayload>
+          }
+          createMany: {
+            args: Prisma.AddressCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          delete: {
+            args: Prisma.AddressDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AddressPayload>
+          }
+          update: {
+            args: Prisma.AddressUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AddressPayload>
+          }
+          deleteMany: {
+            args: Prisma.AddressDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.AddressUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.AddressUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AddressPayload>
+          }
+          aggregate: {
+            args: Prisma.AddressAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateAddress>
+          }
+          groupBy: {
+            args: Prisma.AddressGroupByArgs<ExtArgs>
+            result: $Utils.Optional<AddressGroupByOutputType>[]
+          }
+          findRaw: {
+            args: Prisma.AddressFindRawArgs<ExtArgs>
+            result: JsonObject
+          }
+          aggregateRaw: {
+            args: Prisma.AddressAggregateRawArgs<ExtArgs>
+            result: JsonObject
+          }
+          count: {
+            args: Prisma.AddressCountArgs<ExtArgs>
+            result: $Utils.Optional<AddressCountAggregateOutputType> | number
+          }
+        }
+      }
+      Bank: {
+        payload: Prisma.$BankPayload<ExtArgs>
+        fields: Prisma.BankFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.BankFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BankPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.BankFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BankPayload>
+          }
+          findFirst: {
+            args: Prisma.BankFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BankPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.BankFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BankPayload>
+          }
+          findMany: {
+            args: Prisma.BankFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BankPayload>[]
+          }
+          create: {
+            args: Prisma.BankCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BankPayload>
+          }
+          createMany: {
+            args: Prisma.BankCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          delete: {
+            args: Prisma.BankDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BankPayload>
+          }
+          update: {
+            args: Prisma.BankUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BankPayload>
+          }
+          deleteMany: {
+            args: Prisma.BankDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.BankUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.BankUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BankPayload>
+          }
+          aggregate: {
+            args: Prisma.BankAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateBank>
+          }
+          groupBy: {
+            args: Prisma.BankGroupByArgs<ExtArgs>
+            result: $Utils.Optional<BankGroupByOutputType>[]
+          }
+          findRaw: {
+            args: Prisma.BankFindRawArgs<ExtArgs>
+            result: JsonObject
+          }
+          aggregateRaw: {
+            args: Prisma.BankAggregateRawArgs<ExtArgs>
+            result: JsonObject
+          }
+          count: {
+            args: Prisma.BankCountArgs<ExtArgs>
+            result: $Utils.Optional<BankCountAggregateOutputType> | number
+          }
+        }
+      }
       Session: {
         payload: Prisma.$SessionPayload<ExtArgs>
         fields: Prisma.SessionFieldRefs
@@ -910,6 +1110,8 @@ export namespace Prisma {
   export type GlobalOmitConfig = {
     shortUrl?: ShortUrlOmit
     user?: UserOmit
+    address?: AddressOmit
+    bank?: BankOmit
     session?: SessionOmit
   }
 
@@ -1043,6 +1245,298 @@ export namespace Prisma {
   /**
    * Models
    */
+
+  /**
+   * Model UserCoordinates
+   */
+
+
+
+
+
+  export type UserCoordinatesSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    lat?: boolean
+    lng?: boolean
+  }, ExtArgs["result"]["userCoordinates"]>
+
+
+
+  export type UserCoordinatesSelectScalar = {
+    lat?: boolean
+    lng?: boolean
+  }
+
+  export type UserCoordinatesOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"lat" | "lng", ExtArgs["result"]["userCoordinates"]>
+
+  export type $UserCoordinatesPayload = {
+    name: "UserCoordinates"
+    objects: {}
+    scalars: {
+      lat: number
+      lng: number
+    }
+    composites: {}
+  }
+
+  type UserCoordinatesGetPayload<S extends boolean | null | undefined | UserCoordinatesDefaultArgs> = $Result.GetResult<Prisma.$UserCoordinatesPayload, S>
+
+
+
+
+
+  /**
+   * Fields of the UserCoordinates model
+   */
+  interface UserCoordinatesFieldRefs {
+    readonly lat: FieldRef<"UserCoordinates", 'Float'>
+    readonly lng: FieldRef<"UserCoordinates", 'Float'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * UserCoordinates without action
+   */
+  export type UserCoordinatesDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserCoordinates
+     */
+    select?: UserCoordinatesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserCoordinates
+     */
+    omit?: UserCoordinatesOmit<ExtArgs> | null
+  }
+
+
+  /**
+   * Model Company
+   */
+
+
+
+
+
+  export type CompanySelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    department?: boolean
+    name?: boolean
+    title?: boolean
+    address?: boolean | CompanyAddressDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["company"]>
+
+
+
+  export type CompanySelectScalar = {
+    department?: boolean
+    name?: boolean
+    title?: boolean
+  }
+
+  export type CompanyOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"department" | "name" | "title" | "address", ExtArgs["result"]["company"]>
+  export type CompanyInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+
+  export type $CompanyPayload = {
+    name: "Company"
+    objects: {}
+    scalars: {
+      department: string
+      name: string
+      title: string
+    }
+    composites: {
+      address: Prisma.$CompanyAddressPayload | null
+    }
+  }
+
+  type CompanyGetPayload<S extends boolean | null | undefined | CompanyDefaultArgs> = $Result.GetResult<Prisma.$CompanyPayload, S>
+
+
+
+
+
+  /**
+   * Fields of the Company model
+   */
+  interface CompanyFieldRefs {
+    readonly department: FieldRef<"Company", 'String'>
+    readonly name: FieldRef<"Company", 'String'>
+    readonly title: FieldRef<"Company", 'String'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Company without action
+   */
+  export type CompanyDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Company
+     */
+    select?: CompanySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Company
+     */
+    omit?: CompanyOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CompanyInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model CompanyAddress
+   */
+
+
+
+
+
+  export type CompanyAddressSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    address?: boolean
+    city?: boolean
+    state?: boolean
+    country?: boolean
+    zipcode?: boolean
+    stateCode?: boolean
+    postalCode?: boolean
+    coordinates?: boolean | CompanyCoordinatesDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["companyAddress"]>
+
+
+
+  export type CompanyAddressSelectScalar = {
+    address?: boolean
+    city?: boolean
+    state?: boolean
+    country?: boolean
+    zipcode?: boolean
+    stateCode?: boolean
+    postalCode?: boolean
+  }
+
+  export type CompanyAddressOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"address" | "city" | "state" | "country" | "zipcode" | "stateCode" | "postalCode" | "coordinates", ExtArgs["result"]["companyAddress"]>
+  export type CompanyAddressInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+
+  export type $CompanyAddressPayload = {
+    name: "CompanyAddress"
+    objects: {}
+    scalars: {
+      address: string
+      city: string
+      state: string
+      country: string
+      zipcode: string
+      stateCode: string
+      postalCode: string
+    }
+    composites: {
+      coordinates: Prisma.$CompanyCoordinatesPayload | null
+    }
+  }
+
+  type CompanyAddressGetPayload<S extends boolean | null | undefined | CompanyAddressDefaultArgs> = $Result.GetResult<Prisma.$CompanyAddressPayload, S>
+
+
+
+
+
+  /**
+   * Fields of the CompanyAddress model
+   */
+  interface CompanyAddressFieldRefs {
+    readonly address: FieldRef<"CompanyAddress", 'String'>
+    readonly city: FieldRef<"CompanyAddress", 'String'>
+    readonly state: FieldRef<"CompanyAddress", 'String'>
+    readonly country: FieldRef<"CompanyAddress", 'String'>
+    readonly zipcode: FieldRef<"CompanyAddress", 'String'>
+    readonly stateCode: FieldRef<"CompanyAddress", 'String'>
+    readonly postalCode: FieldRef<"CompanyAddress", 'String'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * CompanyAddress without action
+   */
+  export type CompanyAddressDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CompanyAddress
+     */
+    select?: CompanyAddressSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CompanyAddress
+     */
+    omit?: CompanyAddressOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CompanyAddressInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model CompanyCoordinates
+   */
+
+
+
+
+
+  export type CompanyCoordinatesSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    lat?: boolean
+    lng?: boolean
+  }, ExtArgs["result"]["companyCoordinates"]>
+
+
+
+  export type CompanyCoordinatesSelectScalar = {
+    lat?: boolean
+    lng?: boolean
+  }
+
+  export type CompanyCoordinatesOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"lat" | "lng", ExtArgs["result"]["companyCoordinates"]>
+
+  export type $CompanyCoordinatesPayload = {
+    name: "CompanyCoordinates"
+    objects: {}
+    scalars: {
+      lat: number
+      lng: number
+    }
+    composites: {}
+  }
+
+  type CompanyCoordinatesGetPayload<S extends boolean | null | undefined | CompanyCoordinatesDefaultArgs> = $Result.GetResult<Prisma.$CompanyCoordinatesPayload, S>
+
+
+
+
+
+  /**
+   * Fields of the CompanyCoordinates model
+   */
+  interface CompanyCoordinatesFieldRefs {
+    readonly lat: FieldRef<"CompanyCoordinates", 'Float'>
+    readonly lng: FieldRef<"CompanyCoordinates", 'Float'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * CompanyCoordinates without action
+   */
+  export type CompanyCoordinatesDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CompanyCoordinates
+     */
+    select?: CompanyCoordinatesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CompanyCoordinates
+     */
+    omit?: CompanyCoordinatesOmit<ExtArgs> | null
+  }
+
 
   /**
    * Model ShortUrl
@@ -2096,70 +2590,180 @@ export namespace Prisma {
 
   export type AggregateUser = {
     _count: UserCountAggregateOutputType | null
+    _avg: UserAvgAggregateOutputType | null
+    _sum: UserSumAggregateOutputType | null
     _min: UserMinAggregateOutputType | null
     _max: UserMaxAggregateOutputType | null
+  }
+
+  export type UserAvgAggregateOutputType = {
+    age: number | null
+    height: number | null
+    weight: number | null
+  }
+
+  export type UserSumAggregateOutputType = {
+    age: number | null
+    height: number | null
+    weight: number | null
   }
 
   export type UserMinAggregateOutputType = {
     id: string | null
     username: string | null
+    maidenName: string | null
+    age: number | null
+    gender: string | null
+    phone: string | null
+    birthDate: string | null
+    bloodGroup: string | null
+    height: number | null
+    weight: number | null
+    eyeColor: string | null
+    ip: string | null
+    macAddress: string | null
+    university: string | null
     email: string | null
     image: string | null
     isAdmin: boolean | null
+    isVerified: boolean | null
     password: string | null
     isDeleted: boolean | null
+    createdAt: Date | null
   }
 
   export type UserMaxAggregateOutputType = {
     id: string | null
     username: string | null
+    maidenName: string | null
+    age: number | null
+    gender: string | null
+    phone: string | null
+    birthDate: string | null
+    bloodGroup: string | null
+    height: number | null
+    weight: number | null
+    eyeColor: string | null
+    ip: string | null
+    macAddress: string | null
+    university: string | null
     email: string | null
     image: string | null
     isAdmin: boolean | null
+    isVerified: boolean | null
     password: string | null
     isDeleted: boolean | null
+    createdAt: Date | null
   }
 
   export type UserCountAggregateOutputType = {
     id: number
     username: number
+    maidenName: number
+    age: number
+    gender: number
+    phone: number
+    birthDate: number
+    bloodGroup: number
+    height: number
+    weight: number
+    eyeColor: number
+    ip: number
+    macAddress: number
+    university: number
     email: number
     image: number
     isAdmin: number
+    isVerified: number
     password: number
     isDeleted: number
+    createdAt: number
     _all: number
   }
 
 
+  export type UserAvgAggregateInputType = {
+    age?: true
+    height?: true
+    weight?: true
+  }
+
+  export type UserSumAggregateInputType = {
+    age?: true
+    height?: true
+    weight?: true
+  }
+
   export type UserMinAggregateInputType = {
     id?: true
     username?: true
+    maidenName?: true
+    age?: true
+    gender?: true
+    phone?: true
+    birthDate?: true
+    bloodGroup?: true
+    height?: true
+    weight?: true
+    eyeColor?: true
+    ip?: true
+    macAddress?: true
+    university?: true
     email?: true
     image?: true
     isAdmin?: true
+    isVerified?: true
     password?: true
     isDeleted?: true
+    createdAt?: true
   }
 
   export type UserMaxAggregateInputType = {
     id?: true
     username?: true
+    maidenName?: true
+    age?: true
+    gender?: true
+    phone?: true
+    birthDate?: true
+    bloodGroup?: true
+    height?: true
+    weight?: true
+    eyeColor?: true
+    ip?: true
+    macAddress?: true
+    university?: true
     email?: true
     image?: true
     isAdmin?: true
+    isVerified?: true
     password?: true
     isDeleted?: true
+    createdAt?: true
   }
 
   export type UserCountAggregateInputType = {
     id?: true
     username?: true
+    maidenName?: true
+    age?: true
+    gender?: true
+    phone?: true
+    birthDate?: true
+    bloodGroup?: true
+    height?: true
+    weight?: true
+    eyeColor?: true
+    ip?: true
+    macAddress?: true
+    university?: true
     email?: true
     image?: true
     isAdmin?: true
+    isVerified?: true
     password?: true
     isDeleted?: true
+    createdAt?: true
     _all?: true
   }
 
@@ -2201,6 +2805,18 @@ export namespace Prisma {
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
+     * Select which fields to average
+    **/
+    _avg?: UserAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: UserSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
      * Select which fields to find the minimum value
     **/
     _min?: UserMinAggregateInputType
@@ -2231,6 +2847,8 @@ export namespace Prisma {
     take?: number
     skip?: number
     _count?: UserCountAggregateInputType | true
+    _avg?: UserAvgAggregateInputType
+    _sum?: UserSumAggregateInputType
     _min?: UserMinAggregateInputType
     _max?: UserMaxAggregateInputType
   }
@@ -2238,12 +2856,28 @@ export namespace Prisma {
   export type UserGroupByOutputType = {
     id: string
     username: string
+    maidenName: string | null
+    age: number | null
+    gender: string | null
+    phone: string | null
+    birthDate: string | null
+    bloodGroup: string | null
+    height: number | null
+    weight: number | null
+    eyeColor: string | null
+    ip: string | null
+    macAddress: string | null
+    university: string | null
     email: string
     image: string | null
     isAdmin: boolean
+    isVerified: boolean
     password: string
     isDeleted: boolean
+    createdAt: Date
     _count: UserCountAggregateOutputType | null
+    _avg: UserAvgAggregateOutputType | null
+    _sum: UserSumAggregateOutputType | null
     _min: UserMinAggregateOutputType | null
     _max: UserMaxAggregateOutputType | null
   }
@@ -2265,12 +2899,29 @@ export namespace Prisma {
   export type UserSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     username?: boolean
+    maidenName?: boolean
+    age?: boolean
+    gender?: boolean
+    phone?: boolean
+    birthDate?: boolean
+    bloodGroup?: boolean
+    height?: boolean
+    weight?: boolean
+    eyeColor?: boolean
+    ip?: boolean
+    macAddress?: boolean
+    university?: boolean
+    company?: boolean | CompanyDefaultArgs<ExtArgs>
     email?: boolean
     image?: boolean
     isAdmin?: boolean
+    isVerified?: boolean
     password?: boolean
     isDeleted?: boolean
+    createdAt?: boolean
+    bank?: boolean | User$bankArgs<ExtArgs>
     urls?: boolean | User$urlsArgs<ExtArgs>
+    address?: boolean | User$addressArgs<ExtArgs>
     Session?: boolean | User$SessionArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
@@ -2280,16 +2931,32 @@ export namespace Prisma {
   export type UserSelectScalar = {
     id?: boolean
     username?: boolean
+    maidenName?: boolean
+    age?: boolean
+    gender?: boolean
+    phone?: boolean
+    birthDate?: boolean
+    bloodGroup?: boolean
+    height?: boolean
+    weight?: boolean
+    eyeColor?: boolean
+    ip?: boolean
+    macAddress?: boolean
+    university?: boolean
     email?: boolean
     image?: boolean
     isAdmin?: boolean
+    isVerified?: boolean
     password?: boolean
     isDeleted?: boolean
+    createdAt?: boolean
   }
 
-  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "username" | "email" | "image" | "isAdmin" | "password" | "isDeleted", ExtArgs["result"]["user"]>
+  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "username" | "maidenName" | "age" | "gender" | "phone" | "birthDate" | "bloodGroup" | "height" | "weight" | "eyeColor" | "ip" | "macAddress" | "university" | "company" | "email" | "image" | "isAdmin" | "isVerified" | "password" | "isDeleted" | "createdAt", ExtArgs["result"]["user"]>
   export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    bank?: boolean | User$bankArgs<ExtArgs>
     urls?: boolean | User$urlsArgs<ExtArgs>
+    address?: boolean | User$addressArgs<ExtArgs>
     Session?: boolean | User$SessionArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }
@@ -2297,19 +2964,37 @@ export namespace Prisma {
   export type $UserPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "User"
     objects: {
+      bank: Prisma.$BankPayload<ExtArgs> | null
       urls: Prisma.$ShortUrlPayload<ExtArgs>[]
+      address: Prisma.$AddressPayload<ExtArgs> | null
       Session: Prisma.$SessionPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
       username: string
+      maidenName: string | null
+      age: number | null
+      gender: string | null
+      phone: string | null
+      birthDate: string | null
+      bloodGroup: string | null
+      height: number | null
+      weight: number | null
+      eyeColor: string | null
+      ip: string | null
+      macAddress: string | null
+      university: string | null
       email: string
       image: string | null
       isAdmin: boolean
+      isVerified: boolean
       password: string
       isDeleted: boolean
+      createdAt: Date
     }, ExtArgs["result"]["user"]>
-    composites: {}
+    composites: {
+      company: Prisma.$CompanyPayload | null
+    }
   }
 
   type UserGetPayload<S extends boolean | null | undefined | UserDefaultArgs> = $Result.GetResult<Prisma.$UserPayload, S>
@@ -2671,7 +3356,9 @@ export namespace Prisma {
    */
   export interface Prisma__UserClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
+    bank<T extends User$bankArgs<ExtArgs> = {}>(args?: Subset<T, User$bankArgs<ExtArgs>>): Prisma__BankClient<$Result.GetResult<Prisma.$BankPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     urls<T extends User$urlsArgs<ExtArgs> = {}>(args?: Subset<T, User$urlsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ShortUrlPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    address<T extends User$addressArgs<ExtArgs> = {}>(args?: Subset<T, User$addressArgs<ExtArgs>>): Prisma__AddressClient<$Result.GetResult<Prisma.$AddressPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     Session<T extends User$SessionArgs<ExtArgs> = {}>(args?: Subset<T, User$SessionArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SessionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -2704,11 +3391,25 @@ export namespace Prisma {
   interface UserFieldRefs {
     readonly id: FieldRef<"User", 'String'>
     readonly username: FieldRef<"User", 'String'>
+    readonly maidenName: FieldRef<"User", 'String'>
+    readonly age: FieldRef<"User", 'Int'>
+    readonly gender: FieldRef<"User", 'String'>
+    readonly phone: FieldRef<"User", 'String'>
+    readonly birthDate: FieldRef<"User", 'String'>
+    readonly bloodGroup: FieldRef<"User", 'String'>
+    readonly height: FieldRef<"User", 'Float'>
+    readonly weight: FieldRef<"User", 'Float'>
+    readonly eyeColor: FieldRef<"User", 'String'>
+    readonly ip: FieldRef<"User", 'String'>
+    readonly macAddress: FieldRef<"User", 'String'>
+    readonly university: FieldRef<"User", 'String'>
     readonly email: FieldRef<"User", 'String'>
     readonly image: FieldRef<"User", 'String'>
     readonly isAdmin: FieldRef<"User", 'Boolean'>
+    readonly isVerified: FieldRef<"User", 'Boolean'>
     readonly password: FieldRef<"User", 'String'>
     readonly isDeleted: FieldRef<"User", 'Boolean'>
+    readonly createdAt: FieldRef<"User", 'DateTime'>
   }
     
 
@@ -3079,6 +3780,25 @@ export namespace Prisma {
   }
 
   /**
+   * User.bank
+   */
+  export type User$bankArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Bank
+     */
+    select?: BankSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Bank
+     */
+    omit?: BankOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BankInclude<ExtArgs> | null
+    where?: BankWhereInput
+  }
+
+  /**
    * User.urls
    */
   export type User$urlsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -3100,6 +3820,25 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: ShortUrlScalarFieldEnum | ShortUrlScalarFieldEnum[]
+  }
+
+  /**
+   * User.address
+   */
+  export type User$addressArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Address
+     */
+    select?: AddressSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Address
+     */
+    omit?: AddressOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AddressInclude<ExtArgs> | null
+    where?: AddressWhereInput
   }
 
   /**
@@ -3142,6 +3881,2033 @@ export namespace Prisma {
      * Choose, which related nodes to fetch as well
      */
     include?: UserInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model Address
+   */
+
+  export type AggregateAddress = {
+    _count: AddressCountAggregateOutputType | null
+    _min: AddressMinAggregateOutputType | null
+    _max: AddressMaxAggregateOutputType | null
+  }
+
+  export type AddressMinAggregateOutputType = {
+    id: string | null
+    userId: string | null
+    address: string | null
+    city: string | null
+    state: string | null
+    stateCode: string | null
+    postalCode: string | null
+    country: string | null
+    zipcode: string | null
+  }
+
+  export type AddressMaxAggregateOutputType = {
+    id: string | null
+    userId: string | null
+    address: string | null
+    city: string | null
+    state: string | null
+    stateCode: string | null
+    postalCode: string | null
+    country: string | null
+    zipcode: string | null
+  }
+
+  export type AddressCountAggregateOutputType = {
+    id: number
+    userId: number
+    address: number
+    city: number
+    state: number
+    stateCode: number
+    postalCode: number
+    country: number
+    zipcode: number
+    _all: number
+  }
+
+
+  export type AddressMinAggregateInputType = {
+    id?: true
+    userId?: true
+    address?: true
+    city?: true
+    state?: true
+    stateCode?: true
+    postalCode?: true
+    country?: true
+    zipcode?: true
+  }
+
+  export type AddressMaxAggregateInputType = {
+    id?: true
+    userId?: true
+    address?: true
+    city?: true
+    state?: true
+    stateCode?: true
+    postalCode?: true
+    country?: true
+    zipcode?: true
+  }
+
+  export type AddressCountAggregateInputType = {
+    id?: true
+    userId?: true
+    address?: true
+    city?: true
+    state?: true
+    stateCode?: true
+    postalCode?: true
+    country?: true
+    zipcode?: true
+    _all?: true
+  }
+
+  export type AddressAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Address to aggregate.
+     */
+    where?: AddressWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Addresses to fetch.
+     */
+    orderBy?: AddressOrderByWithRelationInput | AddressOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: AddressWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Addresses from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Addresses.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Addresses
+    **/
+    _count?: true | AddressCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: AddressMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: AddressMaxAggregateInputType
+  }
+
+  export type GetAddressAggregateType<T extends AddressAggregateArgs> = {
+        [P in keyof T & keyof AggregateAddress]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateAddress[P]>
+      : GetScalarType<T[P], AggregateAddress[P]>
+  }
+
+
+
+
+  export type AddressGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: AddressWhereInput
+    orderBy?: AddressOrderByWithAggregationInput | AddressOrderByWithAggregationInput[]
+    by: AddressScalarFieldEnum[] | AddressScalarFieldEnum
+    having?: AddressScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: AddressCountAggregateInputType | true
+    _min?: AddressMinAggregateInputType
+    _max?: AddressMaxAggregateInputType
+  }
+
+  export type AddressGroupByOutputType = {
+    id: string
+    userId: string
+    address: string
+    city: string
+    state: string
+    stateCode: string
+    postalCode: string
+    country: string
+    zipcode: string
+    _count: AddressCountAggregateOutputType | null
+    _min: AddressMinAggregateOutputType | null
+    _max: AddressMaxAggregateOutputType | null
+  }
+
+  type GetAddressGroupByPayload<T extends AddressGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<AddressGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof AddressGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], AddressGroupByOutputType[P]>
+            : GetScalarType<T[P], AddressGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type AddressSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    address?: boolean
+    city?: boolean
+    state?: boolean
+    stateCode?: boolean
+    postalCode?: boolean
+    coordinates?: boolean | UserCoordinatesDefaultArgs<ExtArgs>
+    country?: boolean
+    zipcode?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["address"]>
+
+
+
+  export type AddressSelectScalar = {
+    id?: boolean
+    userId?: boolean
+    address?: boolean
+    city?: boolean
+    state?: boolean
+    stateCode?: boolean
+    postalCode?: boolean
+    country?: boolean
+    zipcode?: boolean
+  }
+
+  export type AddressOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "address" | "city" | "state" | "stateCode" | "postalCode" | "coordinates" | "country" | "zipcode", ExtArgs["result"]["address"]>
+  export type AddressInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+
+  export type $AddressPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Address"
+    objects: {
+      user: Prisma.$UserPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      userId: string
+      address: string
+      city: string
+      state: string
+      stateCode: string
+      postalCode: string
+      country: string
+      zipcode: string
+    }, ExtArgs["result"]["address"]>
+    composites: {
+      coordinates: Prisma.$UserCoordinatesPayload | null
+    }
+  }
+
+  type AddressGetPayload<S extends boolean | null | undefined | AddressDefaultArgs> = $Result.GetResult<Prisma.$AddressPayload, S>
+
+  type AddressCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<AddressFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: AddressCountAggregateInputType | true
+    }
+
+  export interface AddressDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Address'], meta: { name: 'Address' } }
+    /**
+     * Find zero or one Address that matches the filter.
+     * @param {AddressFindUniqueArgs} args - Arguments to find a Address
+     * @example
+     * // Get one Address
+     * const address = await prisma.address.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends AddressFindUniqueArgs>(args: SelectSubset<T, AddressFindUniqueArgs<ExtArgs>>): Prisma__AddressClient<$Result.GetResult<Prisma.$AddressPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Address that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {AddressFindUniqueOrThrowArgs} args - Arguments to find a Address
+     * @example
+     * // Get one Address
+     * const address = await prisma.address.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends AddressFindUniqueOrThrowArgs>(args: SelectSubset<T, AddressFindUniqueOrThrowArgs<ExtArgs>>): Prisma__AddressClient<$Result.GetResult<Prisma.$AddressPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Address that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AddressFindFirstArgs} args - Arguments to find a Address
+     * @example
+     * // Get one Address
+     * const address = await prisma.address.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends AddressFindFirstArgs>(args?: SelectSubset<T, AddressFindFirstArgs<ExtArgs>>): Prisma__AddressClient<$Result.GetResult<Prisma.$AddressPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Address that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AddressFindFirstOrThrowArgs} args - Arguments to find a Address
+     * @example
+     * // Get one Address
+     * const address = await prisma.address.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends AddressFindFirstOrThrowArgs>(args?: SelectSubset<T, AddressFindFirstOrThrowArgs<ExtArgs>>): Prisma__AddressClient<$Result.GetResult<Prisma.$AddressPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Addresses that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AddressFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Addresses
+     * const addresses = await prisma.address.findMany()
+     * 
+     * // Get first 10 Addresses
+     * const addresses = await prisma.address.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const addressWithIdOnly = await prisma.address.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends AddressFindManyArgs>(args?: SelectSubset<T, AddressFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AddressPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Address.
+     * @param {AddressCreateArgs} args - Arguments to create a Address.
+     * @example
+     * // Create one Address
+     * const Address = await prisma.address.create({
+     *   data: {
+     *     // ... data to create a Address
+     *   }
+     * })
+     * 
+     */
+    create<T extends AddressCreateArgs>(args: SelectSubset<T, AddressCreateArgs<ExtArgs>>): Prisma__AddressClient<$Result.GetResult<Prisma.$AddressPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Addresses.
+     * @param {AddressCreateManyArgs} args - Arguments to create many Addresses.
+     * @example
+     * // Create many Addresses
+     * const address = await prisma.address.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends AddressCreateManyArgs>(args?: SelectSubset<T, AddressCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a Address.
+     * @param {AddressDeleteArgs} args - Arguments to delete one Address.
+     * @example
+     * // Delete one Address
+     * const Address = await prisma.address.delete({
+     *   where: {
+     *     // ... filter to delete one Address
+     *   }
+     * })
+     * 
+     */
+    delete<T extends AddressDeleteArgs>(args: SelectSubset<T, AddressDeleteArgs<ExtArgs>>): Prisma__AddressClient<$Result.GetResult<Prisma.$AddressPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Address.
+     * @param {AddressUpdateArgs} args - Arguments to update one Address.
+     * @example
+     * // Update one Address
+     * const address = await prisma.address.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends AddressUpdateArgs>(args: SelectSubset<T, AddressUpdateArgs<ExtArgs>>): Prisma__AddressClient<$Result.GetResult<Prisma.$AddressPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Addresses.
+     * @param {AddressDeleteManyArgs} args - Arguments to filter Addresses to delete.
+     * @example
+     * // Delete a few Addresses
+     * const { count } = await prisma.address.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends AddressDeleteManyArgs>(args?: SelectSubset<T, AddressDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Addresses.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AddressUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Addresses
+     * const address = await prisma.address.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends AddressUpdateManyArgs>(args: SelectSubset<T, AddressUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one Address.
+     * @param {AddressUpsertArgs} args - Arguments to update or create a Address.
+     * @example
+     * // Update or create a Address
+     * const address = await prisma.address.upsert({
+     *   create: {
+     *     // ... data to create a Address
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Address we want to update
+     *   }
+     * })
+     */
+    upsert<T extends AddressUpsertArgs>(args: SelectSubset<T, AddressUpsertArgs<ExtArgs>>): Prisma__AddressClient<$Result.GetResult<Prisma.$AddressPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Addresses that matches the filter.
+     * @param {AddressFindRawArgs} args - Select which filters you would like to apply.
+     * @example
+     * const address = await prisma.address.findRaw({
+     *   filter: { age: { $gt: 25 } }
+     * })
+     */
+    findRaw(args?: AddressFindRawArgs): Prisma.PrismaPromise<JsonObject>
+
+    /**
+     * Perform aggregation operations on a Address.
+     * @param {AddressAggregateRawArgs} args - Select which aggregations you would like to apply.
+     * @example
+     * const address = await prisma.address.aggregateRaw({
+     *   pipeline: [
+     *     { $match: { status: "registered" } },
+     *     { $group: { _id: "$country", total: { $sum: 1 } } }
+     *   ]
+     * })
+     */
+    aggregateRaw(args?: AddressAggregateRawArgs): Prisma.PrismaPromise<JsonObject>
+
+
+    /**
+     * Count the number of Addresses.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AddressCountArgs} args - Arguments to filter Addresses to count.
+     * @example
+     * // Count the number of Addresses
+     * const count = await prisma.address.count({
+     *   where: {
+     *     // ... the filter for the Addresses we want to count
+     *   }
+     * })
+    **/
+    count<T extends AddressCountArgs>(
+      args?: Subset<T, AddressCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], AddressCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Address.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AddressAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends AddressAggregateArgs>(args: Subset<T, AddressAggregateArgs>): Prisma.PrismaPromise<GetAddressAggregateType<T>>
+
+    /**
+     * Group by Address.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AddressGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends AddressGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: AddressGroupByArgs['orderBy'] }
+        : { orderBy?: AddressGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, AddressGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetAddressGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Address model
+   */
+  readonly fields: AddressFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Address.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__AddressClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Address model
+   */
+  interface AddressFieldRefs {
+    readonly id: FieldRef<"Address", 'String'>
+    readonly userId: FieldRef<"Address", 'String'>
+    readonly address: FieldRef<"Address", 'String'>
+    readonly city: FieldRef<"Address", 'String'>
+    readonly state: FieldRef<"Address", 'String'>
+    readonly stateCode: FieldRef<"Address", 'String'>
+    readonly postalCode: FieldRef<"Address", 'String'>
+    readonly country: FieldRef<"Address", 'String'>
+    readonly zipcode: FieldRef<"Address", 'String'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Address findUnique
+   */
+  export type AddressFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Address
+     */
+    select?: AddressSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Address
+     */
+    omit?: AddressOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AddressInclude<ExtArgs> | null
+    /**
+     * Filter, which Address to fetch.
+     */
+    where: AddressWhereUniqueInput
+  }
+
+  /**
+   * Address findUniqueOrThrow
+   */
+  export type AddressFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Address
+     */
+    select?: AddressSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Address
+     */
+    omit?: AddressOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AddressInclude<ExtArgs> | null
+    /**
+     * Filter, which Address to fetch.
+     */
+    where: AddressWhereUniqueInput
+  }
+
+  /**
+   * Address findFirst
+   */
+  export type AddressFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Address
+     */
+    select?: AddressSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Address
+     */
+    omit?: AddressOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AddressInclude<ExtArgs> | null
+    /**
+     * Filter, which Address to fetch.
+     */
+    where?: AddressWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Addresses to fetch.
+     */
+    orderBy?: AddressOrderByWithRelationInput | AddressOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Addresses.
+     */
+    cursor?: AddressWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Addresses from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Addresses.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Addresses.
+     */
+    distinct?: AddressScalarFieldEnum | AddressScalarFieldEnum[]
+  }
+
+  /**
+   * Address findFirstOrThrow
+   */
+  export type AddressFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Address
+     */
+    select?: AddressSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Address
+     */
+    omit?: AddressOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AddressInclude<ExtArgs> | null
+    /**
+     * Filter, which Address to fetch.
+     */
+    where?: AddressWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Addresses to fetch.
+     */
+    orderBy?: AddressOrderByWithRelationInput | AddressOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Addresses.
+     */
+    cursor?: AddressWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Addresses from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Addresses.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Addresses.
+     */
+    distinct?: AddressScalarFieldEnum | AddressScalarFieldEnum[]
+  }
+
+  /**
+   * Address findMany
+   */
+  export type AddressFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Address
+     */
+    select?: AddressSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Address
+     */
+    omit?: AddressOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AddressInclude<ExtArgs> | null
+    /**
+     * Filter, which Addresses to fetch.
+     */
+    where?: AddressWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Addresses to fetch.
+     */
+    orderBy?: AddressOrderByWithRelationInput | AddressOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Addresses.
+     */
+    cursor?: AddressWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Addresses from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Addresses.
+     */
+    skip?: number
+    distinct?: AddressScalarFieldEnum | AddressScalarFieldEnum[]
+  }
+
+  /**
+   * Address create
+   */
+  export type AddressCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Address
+     */
+    select?: AddressSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Address
+     */
+    omit?: AddressOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AddressInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Address.
+     */
+    data: XOR<AddressCreateInput, AddressUncheckedCreateInput>
+  }
+
+  /**
+   * Address createMany
+   */
+  export type AddressCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Addresses.
+     */
+    data: AddressCreateManyInput | AddressCreateManyInput[]
+  }
+
+  /**
+   * Address update
+   */
+  export type AddressUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Address
+     */
+    select?: AddressSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Address
+     */
+    omit?: AddressOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AddressInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Address.
+     */
+    data: XOR<AddressUpdateInput, AddressUncheckedUpdateInput>
+    /**
+     * Choose, which Address to update.
+     */
+    where: AddressWhereUniqueInput
+  }
+
+  /**
+   * Address updateMany
+   */
+  export type AddressUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Addresses.
+     */
+    data: XOR<AddressUpdateManyMutationInput, AddressUncheckedUpdateManyInput>
+    /**
+     * Filter which Addresses to update
+     */
+    where?: AddressWhereInput
+    /**
+     * Limit how many Addresses to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Address upsert
+   */
+  export type AddressUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Address
+     */
+    select?: AddressSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Address
+     */
+    omit?: AddressOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AddressInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Address to update in case it exists.
+     */
+    where: AddressWhereUniqueInput
+    /**
+     * In case the Address found by the `where` argument doesn't exist, create a new Address with this data.
+     */
+    create: XOR<AddressCreateInput, AddressUncheckedCreateInput>
+    /**
+     * In case the Address was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<AddressUpdateInput, AddressUncheckedUpdateInput>
+  }
+
+  /**
+   * Address delete
+   */
+  export type AddressDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Address
+     */
+    select?: AddressSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Address
+     */
+    omit?: AddressOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AddressInclude<ExtArgs> | null
+    /**
+     * Filter which Address to delete.
+     */
+    where: AddressWhereUniqueInput
+  }
+
+  /**
+   * Address deleteMany
+   */
+  export type AddressDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Addresses to delete
+     */
+    where?: AddressWhereInput
+    /**
+     * Limit how many Addresses to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * Address findRaw
+   */
+  export type AddressFindRawArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The query predicate filter. If unspecified, then all documents in the collection will match the predicate. ${@link https://docs.mongodb.com/manual/reference/operator/query MongoDB Docs}.
+     */
+    filter?: InputJsonValue
+    /**
+     * Additional options to pass to the `find` command ${@link https://docs.mongodb.com/manual/reference/command/find/#command-fields MongoDB Docs}.
+     */
+    options?: InputJsonValue
+  }
+
+  /**
+   * Address aggregateRaw
+   */
+  export type AddressAggregateRawArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * An array of aggregation stages to process and transform the document stream via the aggregation pipeline. ${@link https://docs.mongodb.com/manual/reference/operator/aggregation-pipeline MongoDB Docs}.
+     */
+    pipeline?: InputJsonValue[]
+    /**
+     * Additional options to pass to the `aggregate` command ${@link https://docs.mongodb.com/manual/reference/command/aggregate/#command-fields MongoDB Docs}.
+     */
+    options?: InputJsonValue
+  }
+
+  /**
+   * Address without action
+   */
+  export type AddressDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Address
+     */
+    select?: AddressSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Address
+     */
+    omit?: AddressOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AddressInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model Bank
+   */
+
+  export type AggregateBank = {
+    _count: BankCountAggregateOutputType | null
+    _min: BankMinAggregateOutputType | null
+    _max: BankMaxAggregateOutputType | null
+  }
+
+  export type BankMinAggregateOutputType = {
+    id: string | null
+    userId: string | null
+    cardExpire: string | null
+    cardNumber: string | null
+    cardType: string | null
+    currency: string | null
+    iban: string | null
+  }
+
+  export type BankMaxAggregateOutputType = {
+    id: string | null
+    userId: string | null
+    cardExpire: string | null
+    cardNumber: string | null
+    cardType: string | null
+    currency: string | null
+    iban: string | null
+  }
+
+  export type BankCountAggregateOutputType = {
+    id: number
+    userId: number
+    cardExpire: number
+    cardNumber: number
+    cardType: number
+    currency: number
+    iban: number
+    _all: number
+  }
+
+
+  export type BankMinAggregateInputType = {
+    id?: true
+    userId?: true
+    cardExpire?: true
+    cardNumber?: true
+    cardType?: true
+    currency?: true
+    iban?: true
+  }
+
+  export type BankMaxAggregateInputType = {
+    id?: true
+    userId?: true
+    cardExpire?: true
+    cardNumber?: true
+    cardType?: true
+    currency?: true
+    iban?: true
+  }
+
+  export type BankCountAggregateInputType = {
+    id?: true
+    userId?: true
+    cardExpire?: true
+    cardNumber?: true
+    cardType?: true
+    currency?: true
+    iban?: true
+    _all?: true
+  }
+
+  export type BankAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Bank to aggregate.
+     */
+    where?: BankWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Banks to fetch.
+     */
+    orderBy?: BankOrderByWithRelationInput | BankOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: BankWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Banks from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Banks.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Banks
+    **/
+    _count?: true | BankCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: BankMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: BankMaxAggregateInputType
+  }
+
+  export type GetBankAggregateType<T extends BankAggregateArgs> = {
+        [P in keyof T & keyof AggregateBank]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateBank[P]>
+      : GetScalarType<T[P], AggregateBank[P]>
+  }
+
+
+
+
+  export type BankGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: BankWhereInput
+    orderBy?: BankOrderByWithAggregationInput | BankOrderByWithAggregationInput[]
+    by: BankScalarFieldEnum[] | BankScalarFieldEnum
+    having?: BankScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: BankCountAggregateInputType | true
+    _min?: BankMinAggregateInputType
+    _max?: BankMaxAggregateInputType
+  }
+
+  export type BankGroupByOutputType = {
+    id: string
+    userId: string
+    cardExpire: string
+    cardNumber: string
+    cardType: string
+    currency: string
+    iban: string
+    _count: BankCountAggregateOutputType | null
+    _min: BankMinAggregateOutputType | null
+    _max: BankMaxAggregateOutputType | null
+  }
+
+  type GetBankGroupByPayload<T extends BankGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<BankGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof BankGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], BankGroupByOutputType[P]>
+            : GetScalarType<T[P], BankGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type BankSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    cardExpire?: boolean
+    cardNumber?: boolean
+    cardType?: boolean
+    currency?: boolean
+    iban?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["bank"]>
+
+
+
+  export type BankSelectScalar = {
+    id?: boolean
+    userId?: boolean
+    cardExpire?: boolean
+    cardNumber?: boolean
+    cardType?: boolean
+    currency?: boolean
+    iban?: boolean
+  }
+
+  export type BankOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "cardExpire" | "cardNumber" | "cardType" | "currency" | "iban", ExtArgs["result"]["bank"]>
+  export type BankInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+
+  export type $BankPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Bank"
+    objects: {
+      user: Prisma.$UserPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      userId: string
+      cardExpire: string
+      cardNumber: string
+      cardType: string
+      currency: string
+      iban: string
+    }, ExtArgs["result"]["bank"]>
+    composites: {}
+  }
+
+  type BankGetPayload<S extends boolean | null | undefined | BankDefaultArgs> = $Result.GetResult<Prisma.$BankPayload, S>
+
+  type BankCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<BankFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: BankCountAggregateInputType | true
+    }
+
+  export interface BankDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Bank'], meta: { name: 'Bank' } }
+    /**
+     * Find zero or one Bank that matches the filter.
+     * @param {BankFindUniqueArgs} args - Arguments to find a Bank
+     * @example
+     * // Get one Bank
+     * const bank = await prisma.bank.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends BankFindUniqueArgs>(args: SelectSubset<T, BankFindUniqueArgs<ExtArgs>>): Prisma__BankClient<$Result.GetResult<Prisma.$BankPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Bank that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {BankFindUniqueOrThrowArgs} args - Arguments to find a Bank
+     * @example
+     * // Get one Bank
+     * const bank = await prisma.bank.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends BankFindUniqueOrThrowArgs>(args: SelectSubset<T, BankFindUniqueOrThrowArgs<ExtArgs>>): Prisma__BankClient<$Result.GetResult<Prisma.$BankPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Bank that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BankFindFirstArgs} args - Arguments to find a Bank
+     * @example
+     * // Get one Bank
+     * const bank = await prisma.bank.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends BankFindFirstArgs>(args?: SelectSubset<T, BankFindFirstArgs<ExtArgs>>): Prisma__BankClient<$Result.GetResult<Prisma.$BankPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Bank that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BankFindFirstOrThrowArgs} args - Arguments to find a Bank
+     * @example
+     * // Get one Bank
+     * const bank = await prisma.bank.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends BankFindFirstOrThrowArgs>(args?: SelectSubset<T, BankFindFirstOrThrowArgs<ExtArgs>>): Prisma__BankClient<$Result.GetResult<Prisma.$BankPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Banks that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BankFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Banks
+     * const banks = await prisma.bank.findMany()
+     * 
+     * // Get first 10 Banks
+     * const banks = await prisma.bank.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const bankWithIdOnly = await prisma.bank.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends BankFindManyArgs>(args?: SelectSubset<T, BankFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BankPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Bank.
+     * @param {BankCreateArgs} args - Arguments to create a Bank.
+     * @example
+     * // Create one Bank
+     * const Bank = await prisma.bank.create({
+     *   data: {
+     *     // ... data to create a Bank
+     *   }
+     * })
+     * 
+     */
+    create<T extends BankCreateArgs>(args: SelectSubset<T, BankCreateArgs<ExtArgs>>): Prisma__BankClient<$Result.GetResult<Prisma.$BankPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Banks.
+     * @param {BankCreateManyArgs} args - Arguments to create many Banks.
+     * @example
+     * // Create many Banks
+     * const bank = await prisma.bank.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends BankCreateManyArgs>(args?: SelectSubset<T, BankCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a Bank.
+     * @param {BankDeleteArgs} args - Arguments to delete one Bank.
+     * @example
+     * // Delete one Bank
+     * const Bank = await prisma.bank.delete({
+     *   where: {
+     *     // ... filter to delete one Bank
+     *   }
+     * })
+     * 
+     */
+    delete<T extends BankDeleteArgs>(args: SelectSubset<T, BankDeleteArgs<ExtArgs>>): Prisma__BankClient<$Result.GetResult<Prisma.$BankPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Bank.
+     * @param {BankUpdateArgs} args - Arguments to update one Bank.
+     * @example
+     * // Update one Bank
+     * const bank = await prisma.bank.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends BankUpdateArgs>(args: SelectSubset<T, BankUpdateArgs<ExtArgs>>): Prisma__BankClient<$Result.GetResult<Prisma.$BankPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Banks.
+     * @param {BankDeleteManyArgs} args - Arguments to filter Banks to delete.
+     * @example
+     * // Delete a few Banks
+     * const { count } = await prisma.bank.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends BankDeleteManyArgs>(args?: SelectSubset<T, BankDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Banks.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BankUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Banks
+     * const bank = await prisma.bank.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends BankUpdateManyArgs>(args: SelectSubset<T, BankUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one Bank.
+     * @param {BankUpsertArgs} args - Arguments to update or create a Bank.
+     * @example
+     * // Update or create a Bank
+     * const bank = await prisma.bank.upsert({
+     *   create: {
+     *     // ... data to create a Bank
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Bank we want to update
+     *   }
+     * })
+     */
+    upsert<T extends BankUpsertArgs>(args: SelectSubset<T, BankUpsertArgs<ExtArgs>>): Prisma__BankClient<$Result.GetResult<Prisma.$BankPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Banks that matches the filter.
+     * @param {BankFindRawArgs} args - Select which filters you would like to apply.
+     * @example
+     * const bank = await prisma.bank.findRaw({
+     *   filter: { age: { $gt: 25 } }
+     * })
+     */
+    findRaw(args?: BankFindRawArgs): Prisma.PrismaPromise<JsonObject>
+
+    /**
+     * Perform aggregation operations on a Bank.
+     * @param {BankAggregateRawArgs} args - Select which aggregations you would like to apply.
+     * @example
+     * const bank = await prisma.bank.aggregateRaw({
+     *   pipeline: [
+     *     { $match: { status: "registered" } },
+     *     { $group: { _id: "$country", total: { $sum: 1 } } }
+     *   ]
+     * })
+     */
+    aggregateRaw(args?: BankAggregateRawArgs): Prisma.PrismaPromise<JsonObject>
+
+
+    /**
+     * Count the number of Banks.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BankCountArgs} args - Arguments to filter Banks to count.
+     * @example
+     * // Count the number of Banks
+     * const count = await prisma.bank.count({
+     *   where: {
+     *     // ... the filter for the Banks we want to count
+     *   }
+     * })
+    **/
+    count<T extends BankCountArgs>(
+      args?: Subset<T, BankCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], BankCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Bank.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BankAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends BankAggregateArgs>(args: Subset<T, BankAggregateArgs>): Prisma.PrismaPromise<GetBankAggregateType<T>>
+
+    /**
+     * Group by Bank.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BankGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends BankGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: BankGroupByArgs['orderBy'] }
+        : { orderBy?: BankGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, BankGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetBankGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Bank model
+   */
+  readonly fields: BankFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Bank.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__BankClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Bank model
+   */
+  interface BankFieldRefs {
+    readonly id: FieldRef<"Bank", 'String'>
+    readonly userId: FieldRef<"Bank", 'String'>
+    readonly cardExpire: FieldRef<"Bank", 'String'>
+    readonly cardNumber: FieldRef<"Bank", 'String'>
+    readonly cardType: FieldRef<"Bank", 'String'>
+    readonly currency: FieldRef<"Bank", 'String'>
+    readonly iban: FieldRef<"Bank", 'String'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Bank findUnique
+   */
+  export type BankFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Bank
+     */
+    select?: BankSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Bank
+     */
+    omit?: BankOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BankInclude<ExtArgs> | null
+    /**
+     * Filter, which Bank to fetch.
+     */
+    where: BankWhereUniqueInput
+  }
+
+  /**
+   * Bank findUniqueOrThrow
+   */
+  export type BankFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Bank
+     */
+    select?: BankSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Bank
+     */
+    omit?: BankOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BankInclude<ExtArgs> | null
+    /**
+     * Filter, which Bank to fetch.
+     */
+    where: BankWhereUniqueInput
+  }
+
+  /**
+   * Bank findFirst
+   */
+  export type BankFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Bank
+     */
+    select?: BankSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Bank
+     */
+    omit?: BankOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BankInclude<ExtArgs> | null
+    /**
+     * Filter, which Bank to fetch.
+     */
+    where?: BankWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Banks to fetch.
+     */
+    orderBy?: BankOrderByWithRelationInput | BankOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Banks.
+     */
+    cursor?: BankWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Banks from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Banks.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Banks.
+     */
+    distinct?: BankScalarFieldEnum | BankScalarFieldEnum[]
+  }
+
+  /**
+   * Bank findFirstOrThrow
+   */
+  export type BankFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Bank
+     */
+    select?: BankSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Bank
+     */
+    omit?: BankOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BankInclude<ExtArgs> | null
+    /**
+     * Filter, which Bank to fetch.
+     */
+    where?: BankWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Banks to fetch.
+     */
+    orderBy?: BankOrderByWithRelationInput | BankOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Banks.
+     */
+    cursor?: BankWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Banks from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Banks.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Banks.
+     */
+    distinct?: BankScalarFieldEnum | BankScalarFieldEnum[]
+  }
+
+  /**
+   * Bank findMany
+   */
+  export type BankFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Bank
+     */
+    select?: BankSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Bank
+     */
+    omit?: BankOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BankInclude<ExtArgs> | null
+    /**
+     * Filter, which Banks to fetch.
+     */
+    where?: BankWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Banks to fetch.
+     */
+    orderBy?: BankOrderByWithRelationInput | BankOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Banks.
+     */
+    cursor?: BankWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Banks from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Banks.
+     */
+    skip?: number
+    distinct?: BankScalarFieldEnum | BankScalarFieldEnum[]
+  }
+
+  /**
+   * Bank create
+   */
+  export type BankCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Bank
+     */
+    select?: BankSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Bank
+     */
+    omit?: BankOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BankInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Bank.
+     */
+    data: XOR<BankCreateInput, BankUncheckedCreateInput>
+  }
+
+  /**
+   * Bank createMany
+   */
+  export type BankCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Banks.
+     */
+    data: BankCreateManyInput | BankCreateManyInput[]
+  }
+
+  /**
+   * Bank update
+   */
+  export type BankUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Bank
+     */
+    select?: BankSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Bank
+     */
+    omit?: BankOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BankInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Bank.
+     */
+    data: XOR<BankUpdateInput, BankUncheckedUpdateInput>
+    /**
+     * Choose, which Bank to update.
+     */
+    where: BankWhereUniqueInput
+  }
+
+  /**
+   * Bank updateMany
+   */
+  export type BankUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Banks.
+     */
+    data: XOR<BankUpdateManyMutationInput, BankUncheckedUpdateManyInput>
+    /**
+     * Filter which Banks to update
+     */
+    where?: BankWhereInput
+    /**
+     * Limit how many Banks to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Bank upsert
+   */
+  export type BankUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Bank
+     */
+    select?: BankSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Bank
+     */
+    omit?: BankOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BankInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Bank to update in case it exists.
+     */
+    where: BankWhereUniqueInput
+    /**
+     * In case the Bank found by the `where` argument doesn't exist, create a new Bank with this data.
+     */
+    create: XOR<BankCreateInput, BankUncheckedCreateInput>
+    /**
+     * In case the Bank was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<BankUpdateInput, BankUncheckedUpdateInput>
+  }
+
+  /**
+   * Bank delete
+   */
+  export type BankDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Bank
+     */
+    select?: BankSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Bank
+     */
+    omit?: BankOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BankInclude<ExtArgs> | null
+    /**
+     * Filter which Bank to delete.
+     */
+    where: BankWhereUniqueInput
+  }
+
+  /**
+   * Bank deleteMany
+   */
+  export type BankDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Banks to delete
+     */
+    where?: BankWhereInput
+    /**
+     * Limit how many Banks to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * Bank findRaw
+   */
+  export type BankFindRawArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The query predicate filter. If unspecified, then all documents in the collection will match the predicate. ${@link https://docs.mongodb.com/manual/reference/operator/query MongoDB Docs}.
+     */
+    filter?: InputJsonValue
+    /**
+     * Additional options to pass to the `find` command ${@link https://docs.mongodb.com/manual/reference/command/find/#command-fields MongoDB Docs}.
+     */
+    options?: InputJsonValue
+  }
+
+  /**
+   * Bank aggregateRaw
+   */
+  export type BankAggregateRawArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * An array of aggregation stages to process and transform the document stream via the aggregation pipeline. ${@link https://docs.mongodb.com/manual/reference/operator/aggregation-pipeline MongoDB Docs}.
+     */
+    pipeline?: InputJsonValue[]
+    /**
+     * Additional options to pass to the `aggregate` command ${@link https://docs.mongodb.com/manual/reference/command/aggregate/#command-fields MongoDB Docs}.
+     */
+    options?: InputJsonValue
+  }
+
+  /**
+   * Bank without action
+   */
+  export type BankDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Bank
+     */
+    select?: BankSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Bank
+     */
+    omit?: BankOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BankInclude<ExtArgs> | null
   }
 
 
@@ -4145,14 +6911,56 @@ export namespace Prisma {
   export const UserScalarFieldEnum: {
     id: 'id',
     username: 'username',
+    maidenName: 'maidenName',
+    age: 'age',
+    gender: 'gender',
+    phone: 'phone',
+    birthDate: 'birthDate',
+    bloodGroup: 'bloodGroup',
+    height: 'height',
+    weight: 'weight',
+    eyeColor: 'eyeColor',
+    ip: 'ip',
+    macAddress: 'macAddress',
+    university: 'university',
     email: 'email',
     image: 'image',
     isAdmin: 'isAdmin',
+    isVerified: 'isVerified',
     password: 'password',
-    isDeleted: 'isDeleted'
+    isDeleted: 'isDeleted',
+    createdAt: 'createdAt'
   };
 
   export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
+
+
+  export const AddressScalarFieldEnum: {
+    id: 'id',
+    userId: 'userId',
+    address: 'address',
+    city: 'city',
+    state: 'state',
+    stateCode: 'stateCode',
+    postalCode: 'postalCode',
+    country: 'country',
+    zipcode: 'zipcode'
+  };
+
+  export type AddressScalarFieldEnum = (typeof AddressScalarFieldEnum)[keyof typeof AddressScalarFieldEnum]
+
+
+  export const BankScalarFieldEnum: {
+    id: 'id',
+    userId: 'userId',
+    cardExpire: 'cardExpire',
+    cardNumber: 'cardNumber',
+    cardType: 'cardType',
+    currency: 'currency',
+    iban: 'iban'
+  };
+
+  export type BankScalarFieldEnum = (typeof BankScalarFieldEnum)[keyof typeof BankScalarFieldEnum]
 
 
   export const SessionScalarFieldEnum: {
@@ -4331,24 +7139,58 @@ export namespace Prisma {
     NOT?: UserWhereInput | UserWhereInput[]
     id?: StringFilter<"User"> | string
     username?: StringFilter<"User"> | string
+    maidenName?: StringNullableFilter<"User"> | string | null
+    age?: IntNullableFilter<"User"> | number | null
+    gender?: StringNullableFilter<"User"> | string | null
+    phone?: StringNullableFilter<"User"> | string | null
+    birthDate?: StringNullableFilter<"User"> | string | null
+    bloodGroup?: StringNullableFilter<"User"> | string | null
+    height?: FloatNullableFilter<"User"> | number | null
+    weight?: FloatNullableFilter<"User"> | number | null
+    eyeColor?: StringNullableFilter<"User"> | string | null
+    ip?: StringNullableFilter<"User"> | string | null
+    macAddress?: StringNullableFilter<"User"> | string | null
+    university?: StringNullableFilter<"User"> | string | null
+    company?: XOR<CompanyNullableCompositeFilter, CompanyObjectEqualityInput> | null
     email?: StringFilter<"User"> | string
     image?: StringNullableFilter<"User"> | string | null
     isAdmin?: BoolFilter<"User"> | boolean
+    isVerified?: BoolFilter<"User"> | boolean
     password?: StringFilter<"User"> | string
     isDeleted?: BoolFilter<"User"> | boolean
+    createdAt?: DateTimeFilter<"User"> | Date | string
+    bank?: XOR<BankNullableScalarRelationFilter, BankWhereInput> | null
     urls?: ShortUrlListRelationFilter
+    address?: XOR<AddressNullableScalarRelationFilter, AddressWhereInput> | null
     Session?: SessionListRelationFilter
   }
 
   export type UserOrderByWithRelationInput = {
     id?: SortOrder
     username?: SortOrder
+    maidenName?: SortOrder
+    age?: SortOrder
+    gender?: SortOrder
+    phone?: SortOrder
+    birthDate?: SortOrder
+    bloodGroup?: SortOrder
+    height?: SortOrder
+    weight?: SortOrder
+    eyeColor?: SortOrder
+    ip?: SortOrder
+    macAddress?: SortOrder
+    university?: SortOrder
+    company?: CompanyOrderByInput
     email?: SortOrder
     image?: SortOrder
     isAdmin?: SortOrder
+    isVerified?: SortOrder
     password?: SortOrder
     isDeleted?: SortOrder
+    createdAt?: SortOrder
+    bank?: BankOrderByWithRelationInput
     urls?: ShortUrlOrderByRelationAggregateInput
+    address?: AddressOrderByWithRelationInput
     Session?: SessionOrderByRelationAggregateInput
   }
 
@@ -4359,25 +7201,58 @@ export namespace Prisma {
     AND?: UserWhereInput | UserWhereInput[]
     OR?: UserWhereInput[]
     NOT?: UserWhereInput | UserWhereInput[]
+    maidenName?: StringNullableFilter<"User"> | string | null
+    age?: IntNullableFilter<"User"> | number | null
+    gender?: StringNullableFilter<"User"> | string | null
+    phone?: StringNullableFilter<"User"> | string | null
+    birthDate?: StringNullableFilter<"User"> | string | null
+    bloodGroup?: StringNullableFilter<"User"> | string | null
+    height?: FloatNullableFilter<"User"> | number | null
+    weight?: FloatNullableFilter<"User"> | number | null
+    eyeColor?: StringNullableFilter<"User"> | string | null
+    ip?: StringNullableFilter<"User"> | string | null
+    macAddress?: StringNullableFilter<"User"> | string | null
+    university?: StringNullableFilter<"User"> | string | null
+    company?: XOR<CompanyNullableCompositeFilter, CompanyObjectEqualityInput> | null
     image?: StringNullableFilter<"User"> | string | null
     isAdmin?: BoolFilter<"User"> | boolean
+    isVerified?: BoolFilter<"User"> | boolean
     password?: StringFilter<"User"> | string
     isDeleted?: BoolFilter<"User"> | boolean
+    createdAt?: DateTimeFilter<"User"> | Date | string
+    bank?: XOR<BankNullableScalarRelationFilter, BankWhereInput> | null
     urls?: ShortUrlListRelationFilter
+    address?: XOR<AddressNullableScalarRelationFilter, AddressWhereInput> | null
     Session?: SessionListRelationFilter
   }, "id" | "username" | "email">
 
   export type UserOrderByWithAggregationInput = {
     id?: SortOrder
     username?: SortOrder
+    maidenName?: SortOrder
+    age?: SortOrder
+    gender?: SortOrder
+    phone?: SortOrder
+    birthDate?: SortOrder
+    bloodGroup?: SortOrder
+    height?: SortOrder
+    weight?: SortOrder
+    eyeColor?: SortOrder
+    ip?: SortOrder
+    macAddress?: SortOrder
+    university?: SortOrder
     email?: SortOrder
     image?: SortOrder
     isAdmin?: SortOrder
+    isVerified?: SortOrder
     password?: SortOrder
     isDeleted?: SortOrder
+    createdAt?: SortOrder
     _count?: UserCountOrderByAggregateInput
+    _avg?: UserAvgOrderByAggregateInput
     _max?: UserMaxOrderByAggregateInput
     _min?: UserMinOrderByAggregateInput
+    _sum?: UserSumOrderByAggregateInput
   }
 
   export type UserScalarWhereWithAggregatesInput = {
@@ -4386,11 +7261,168 @@ export namespace Prisma {
     NOT?: UserScalarWhereWithAggregatesInput | UserScalarWhereWithAggregatesInput[]
     id?: StringWithAggregatesFilter<"User"> | string
     username?: StringWithAggregatesFilter<"User"> | string
+    maidenName?: StringNullableWithAggregatesFilter<"User"> | string | null
+    age?: IntNullableWithAggregatesFilter<"User"> | number | null
+    gender?: StringNullableWithAggregatesFilter<"User"> | string | null
+    phone?: StringNullableWithAggregatesFilter<"User"> | string | null
+    birthDate?: StringNullableWithAggregatesFilter<"User"> | string | null
+    bloodGroup?: StringNullableWithAggregatesFilter<"User"> | string | null
+    height?: FloatNullableWithAggregatesFilter<"User"> | number | null
+    weight?: FloatNullableWithAggregatesFilter<"User"> | number | null
+    eyeColor?: StringNullableWithAggregatesFilter<"User"> | string | null
+    ip?: StringNullableWithAggregatesFilter<"User"> | string | null
+    macAddress?: StringNullableWithAggregatesFilter<"User"> | string | null
+    university?: StringNullableWithAggregatesFilter<"User"> | string | null
     email?: StringWithAggregatesFilter<"User"> | string
     image?: StringNullableWithAggregatesFilter<"User"> | string | null
     isAdmin?: BoolWithAggregatesFilter<"User"> | boolean
+    isVerified?: BoolWithAggregatesFilter<"User"> | boolean
     password?: StringWithAggregatesFilter<"User"> | string
     isDeleted?: BoolWithAggregatesFilter<"User"> | boolean
+    createdAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
+  }
+
+  export type AddressWhereInput = {
+    AND?: AddressWhereInput | AddressWhereInput[]
+    OR?: AddressWhereInput[]
+    NOT?: AddressWhereInput | AddressWhereInput[]
+    id?: StringFilter<"Address"> | string
+    userId?: StringFilter<"Address"> | string
+    address?: StringFilter<"Address"> | string
+    city?: StringFilter<"Address"> | string
+    state?: StringFilter<"Address"> | string
+    stateCode?: StringFilter<"Address"> | string
+    postalCode?: StringFilter<"Address"> | string
+    coordinates?: XOR<UserCoordinatesNullableCompositeFilter, UserCoordinatesObjectEqualityInput> | null
+    country?: StringFilter<"Address"> | string
+    zipcode?: StringFilter<"Address"> | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }
+
+  export type AddressOrderByWithRelationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    address?: SortOrder
+    city?: SortOrder
+    state?: SortOrder
+    stateCode?: SortOrder
+    postalCode?: SortOrder
+    coordinates?: UserCoordinatesOrderByInput
+    country?: SortOrder
+    zipcode?: SortOrder
+    user?: UserOrderByWithRelationInput
+  }
+
+  export type AddressWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    userId?: string
+    address?: string
+    AND?: AddressWhereInput | AddressWhereInput[]
+    OR?: AddressWhereInput[]
+    NOT?: AddressWhereInput | AddressWhereInput[]
+    city?: StringFilter<"Address"> | string
+    state?: StringFilter<"Address"> | string
+    stateCode?: StringFilter<"Address"> | string
+    postalCode?: StringFilter<"Address"> | string
+    coordinates?: XOR<UserCoordinatesNullableCompositeFilter, UserCoordinatesObjectEqualityInput> | null
+    country?: StringFilter<"Address"> | string
+    zipcode?: StringFilter<"Address"> | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }, "id" | "userId" | "address">
+
+  export type AddressOrderByWithAggregationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    address?: SortOrder
+    city?: SortOrder
+    state?: SortOrder
+    stateCode?: SortOrder
+    postalCode?: SortOrder
+    country?: SortOrder
+    zipcode?: SortOrder
+    _count?: AddressCountOrderByAggregateInput
+    _max?: AddressMaxOrderByAggregateInput
+    _min?: AddressMinOrderByAggregateInput
+  }
+
+  export type AddressScalarWhereWithAggregatesInput = {
+    AND?: AddressScalarWhereWithAggregatesInput | AddressScalarWhereWithAggregatesInput[]
+    OR?: AddressScalarWhereWithAggregatesInput[]
+    NOT?: AddressScalarWhereWithAggregatesInput | AddressScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"Address"> | string
+    userId?: StringWithAggregatesFilter<"Address"> | string
+    address?: StringWithAggregatesFilter<"Address"> | string
+    city?: StringWithAggregatesFilter<"Address"> | string
+    state?: StringWithAggregatesFilter<"Address"> | string
+    stateCode?: StringWithAggregatesFilter<"Address"> | string
+    postalCode?: StringWithAggregatesFilter<"Address"> | string
+    country?: StringWithAggregatesFilter<"Address"> | string
+    zipcode?: StringWithAggregatesFilter<"Address"> | string
+  }
+
+  export type BankWhereInput = {
+    AND?: BankWhereInput | BankWhereInput[]
+    OR?: BankWhereInput[]
+    NOT?: BankWhereInput | BankWhereInput[]
+    id?: StringFilter<"Bank"> | string
+    userId?: StringFilter<"Bank"> | string
+    cardExpire?: StringFilter<"Bank"> | string
+    cardNumber?: StringFilter<"Bank"> | string
+    cardType?: StringFilter<"Bank"> | string
+    currency?: StringFilter<"Bank"> | string
+    iban?: StringFilter<"Bank"> | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }
+
+  export type BankOrderByWithRelationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    cardExpire?: SortOrder
+    cardNumber?: SortOrder
+    cardType?: SortOrder
+    currency?: SortOrder
+    iban?: SortOrder
+    user?: UserOrderByWithRelationInput
+  }
+
+  export type BankWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    userId?: string
+    AND?: BankWhereInput | BankWhereInput[]
+    OR?: BankWhereInput[]
+    NOT?: BankWhereInput | BankWhereInput[]
+    cardExpire?: StringFilter<"Bank"> | string
+    cardNumber?: StringFilter<"Bank"> | string
+    cardType?: StringFilter<"Bank"> | string
+    currency?: StringFilter<"Bank"> | string
+    iban?: StringFilter<"Bank"> | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }, "id" | "userId">
+
+  export type BankOrderByWithAggregationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    cardExpire?: SortOrder
+    cardNumber?: SortOrder
+    cardType?: SortOrder
+    currency?: SortOrder
+    iban?: SortOrder
+    _count?: BankCountOrderByAggregateInput
+    _max?: BankMaxOrderByAggregateInput
+    _min?: BankMinOrderByAggregateInput
+  }
+
+  export type BankScalarWhereWithAggregatesInput = {
+    AND?: BankScalarWhereWithAggregatesInput | BankScalarWhereWithAggregatesInput[]
+    OR?: BankScalarWhereWithAggregatesInput[]
+    NOT?: BankScalarWhereWithAggregatesInput | BankScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"Bank"> | string
+    userId?: StringWithAggregatesFilter<"Bank"> | string
+    cardExpire?: StringWithAggregatesFilter<"Bank"> | string
+    cardNumber?: StringWithAggregatesFilter<"Bank"> | string
+    cardType?: StringWithAggregatesFilter<"Bank"> | string
+    currency?: StringWithAggregatesFilter<"Bank"> | string
+    iban?: StringWithAggregatesFilter<"Bank"> | string
   }
 
   export type SessionWhereInput = {
@@ -4523,75 +7555,339 @@ export namespace Prisma {
   export type UserCreateInput = {
     id?: string
     username: string
+    maidenName?: string | null
+    age?: number | null
+    gender?: string | null
+    phone?: string | null
+    birthDate?: string | null
+    bloodGroup?: string | null
+    height?: number | null
+    weight?: number | null
+    eyeColor?: string | null
+    ip?: string | null
+    macAddress?: string | null
+    university?: string | null
+    company?: XOR<CompanyNullableCreateEnvelopeInput, CompanyCreateInput> | null
     email: string
     image?: string | null
     isAdmin?: boolean
+    isVerified?: boolean
     password: string
     isDeleted?: boolean
+    createdAt?: Date | string
+    bank?: BankCreateNestedOneWithoutUserInput
     urls?: ShortUrlCreateNestedManyWithoutUserInput
+    address?: AddressCreateNestedOneWithoutUserInput
     Session?: SessionCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateInput = {
     id?: string
     username: string
+    maidenName?: string | null
+    age?: number | null
+    gender?: string | null
+    phone?: string | null
+    birthDate?: string | null
+    bloodGroup?: string | null
+    height?: number | null
+    weight?: number | null
+    eyeColor?: string | null
+    ip?: string | null
+    macAddress?: string | null
+    university?: string | null
+    company?: XOR<CompanyNullableCreateEnvelopeInput, CompanyCreateInput> | null
     email: string
     image?: string | null
     isAdmin?: boolean
+    isVerified?: boolean
     password: string
     isDeleted?: boolean
+    createdAt?: Date | string
+    bank?: BankUncheckedCreateNestedOneWithoutUserInput
     urls?: ShortUrlUncheckedCreateNestedManyWithoutUserInput
+    address?: AddressUncheckedCreateNestedOneWithoutUserInput
     Session?: SessionUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserUpdateInput = {
     username?: StringFieldUpdateOperationsInput | string
+    maidenName?: NullableStringFieldUpdateOperationsInput | string | null
+    age?: NullableIntFieldUpdateOperationsInput | number | null
+    gender?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    birthDate?: NullableStringFieldUpdateOperationsInput | string | null
+    bloodGroup?: NullableStringFieldUpdateOperationsInput | string | null
+    height?: NullableFloatFieldUpdateOperationsInput | number | null
+    weight?: NullableFloatFieldUpdateOperationsInput | number | null
+    eyeColor?: NullableStringFieldUpdateOperationsInput | string | null
+    ip?: NullableStringFieldUpdateOperationsInput | string | null
+    macAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    university?: NullableStringFieldUpdateOperationsInput | string | null
+    company?: XOR<CompanyNullableUpdateEnvelopeInput, CompanyCreateInput> | null
     email?: StringFieldUpdateOperationsInput | string
     image?: NullableStringFieldUpdateOperationsInput | string | null
     isAdmin?: BoolFieldUpdateOperationsInput | boolean
+    isVerified?: BoolFieldUpdateOperationsInput | boolean
     password?: StringFieldUpdateOperationsInput | string
     isDeleted?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    bank?: BankUpdateOneWithoutUserNestedInput
     urls?: ShortUrlUpdateManyWithoutUserNestedInput
+    address?: AddressUpdateOneWithoutUserNestedInput
     Session?: SessionUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateInput = {
     username?: StringFieldUpdateOperationsInput | string
+    maidenName?: NullableStringFieldUpdateOperationsInput | string | null
+    age?: NullableIntFieldUpdateOperationsInput | number | null
+    gender?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    birthDate?: NullableStringFieldUpdateOperationsInput | string | null
+    bloodGroup?: NullableStringFieldUpdateOperationsInput | string | null
+    height?: NullableFloatFieldUpdateOperationsInput | number | null
+    weight?: NullableFloatFieldUpdateOperationsInput | number | null
+    eyeColor?: NullableStringFieldUpdateOperationsInput | string | null
+    ip?: NullableStringFieldUpdateOperationsInput | string | null
+    macAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    university?: NullableStringFieldUpdateOperationsInput | string | null
+    company?: XOR<CompanyNullableUpdateEnvelopeInput, CompanyCreateInput> | null
     email?: StringFieldUpdateOperationsInput | string
     image?: NullableStringFieldUpdateOperationsInput | string | null
     isAdmin?: BoolFieldUpdateOperationsInput | boolean
+    isVerified?: BoolFieldUpdateOperationsInput | boolean
     password?: StringFieldUpdateOperationsInput | string
     isDeleted?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    bank?: BankUncheckedUpdateOneWithoutUserNestedInput
     urls?: ShortUrlUncheckedUpdateManyWithoutUserNestedInput
+    address?: AddressUncheckedUpdateOneWithoutUserNestedInput
     Session?: SessionUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateManyInput = {
     id?: string
     username: string
+    maidenName?: string | null
+    age?: number | null
+    gender?: string | null
+    phone?: string | null
+    birthDate?: string | null
+    bloodGroup?: string | null
+    height?: number | null
+    weight?: number | null
+    eyeColor?: string | null
+    ip?: string | null
+    macAddress?: string | null
+    university?: string | null
+    company?: XOR<CompanyNullableCreateEnvelopeInput, CompanyCreateInput> | null
     email: string
     image?: string | null
     isAdmin?: boolean
+    isVerified?: boolean
     password: string
     isDeleted?: boolean
+    createdAt?: Date | string
   }
 
   export type UserUpdateManyMutationInput = {
     username?: StringFieldUpdateOperationsInput | string
+    maidenName?: NullableStringFieldUpdateOperationsInput | string | null
+    age?: NullableIntFieldUpdateOperationsInput | number | null
+    gender?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    birthDate?: NullableStringFieldUpdateOperationsInput | string | null
+    bloodGroup?: NullableStringFieldUpdateOperationsInput | string | null
+    height?: NullableFloatFieldUpdateOperationsInput | number | null
+    weight?: NullableFloatFieldUpdateOperationsInput | number | null
+    eyeColor?: NullableStringFieldUpdateOperationsInput | string | null
+    ip?: NullableStringFieldUpdateOperationsInput | string | null
+    macAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    university?: NullableStringFieldUpdateOperationsInput | string | null
+    company?: XOR<CompanyNullableUpdateEnvelopeInput, CompanyCreateInput> | null
     email?: StringFieldUpdateOperationsInput | string
     image?: NullableStringFieldUpdateOperationsInput | string | null
     isAdmin?: BoolFieldUpdateOperationsInput | boolean
+    isVerified?: BoolFieldUpdateOperationsInput | boolean
     password?: StringFieldUpdateOperationsInput | string
     isDeleted?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type UserUncheckedUpdateManyInput = {
     username?: StringFieldUpdateOperationsInput | string
+    maidenName?: NullableStringFieldUpdateOperationsInput | string | null
+    age?: NullableIntFieldUpdateOperationsInput | number | null
+    gender?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    birthDate?: NullableStringFieldUpdateOperationsInput | string | null
+    bloodGroup?: NullableStringFieldUpdateOperationsInput | string | null
+    height?: NullableFloatFieldUpdateOperationsInput | number | null
+    weight?: NullableFloatFieldUpdateOperationsInput | number | null
+    eyeColor?: NullableStringFieldUpdateOperationsInput | string | null
+    ip?: NullableStringFieldUpdateOperationsInput | string | null
+    macAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    university?: NullableStringFieldUpdateOperationsInput | string | null
+    company?: XOR<CompanyNullableUpdateEnvelopeInput, CompanyCreateInput> | null
     email?: StringFieldUpdateOperationsInput | string
     image?: NullableStringFieldUpdateOperationsInput | string | null
     isAdmin?: BoolFieldUpdateOperationsInput | boolean
+    isVerified?: BoolFieldUpdateOperationsInput | boolean
     password?: StringFieldUpdateOperationsInput | string
     isDeleted?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AddressCreateInput = {
+    id?: string
+    address: string
+    city: string
+    state: string
+    stateCode: string
+    postalCode: string
+    coordinates?: XOR<UserCoordinatesNullableCreateEnvelopeInput, UserCoordinatesCreateInput> | null
+    country: string
+    zipcode: string
+    user: UserCreateNestedOneWithoutAddressInput
+  }
+
+  export type AddressUncheckedCreateInput = {
+    id?: string
+    userId: string
+    address: string
+    city: string
+    state: string
+    stateCode: string
+    postalCode: string
+    coordinates?: XOR<UserCoordinatesNullableCreateEnvelopeInput, UserCoordinatesCreateInput> | null
+    country: string
+    zipcode: string
+  }
+
+  export type AddressUpdateInput = {
+    address?: StringFieldUpdateOperationsInput | string
+    city?: StringFieldUpdateOperationsInput | string
+    state?: StringFieldUpdateOperationsInput | string
+    stateCode?: StringFieldUpdateOperationsInput | string
+    postalCode?: StringFieldUpdateOperationsInput | string
+    coordinates?: XOR<UserCoordinatesNullableUpdateEnvelopeInput, UserCoordinatesCreateInput> | null
+    country?: StringFieldUpdateOperationsInput | string
+    zipcode?: StringFieldUpdateOperationsInput | string
+    user?: UserUpdateOneRequiredWithoutAddressNestedInput
+  }
+
+  export type AddressUncheckedUpdateInput = {
+    userId?: StringFieldUpdateOperationsInput | string
+    address?: StringFieldUpdateOperationsInput | string
+    city?: StringFieldUpdateOperationsInput | string
+    state?: StringFieldUpdateOperationsInput | string
+    stateCode?: StringFieldUpdateOperationsInput | string
+    postalCode?: StringFieldUpdateOperationsInput | string
+    coordinates?: XOR<UserCoordinatesNullableUpdateEnvelopeInput, UserCoordinatesCreateInput> | null
+    country?: StringFieldUpdateOperationsInput | string
+    zipcode?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type AddressCreateManyInput = {
+    id?: string
+    userId: string
+    address: string
+    city: string
+    state: string
+    stateCode: string
+    postalCode: string
+    coordinates?: XOR<UserCoordinatesNullableCreateEnvelopeInput, UserCoordinatesCreateInput> | null
+    country: string
+    zipcode: string
+  }
+
+  export type AddressUpdateManyMutationInput = {
+    address?: StringFieldUpdateOperationsInput | string
+    city?: StringFieldUpdateOperationsInput | string
+    state?: StringFieldUpdateOperationsInput | string
+    stateCode?: StringFieldUpdateOperationsInput | string
+    postalCode?: StringFieldUpdateOperationsInput | string
+    coordinates?: XOR<UserCoordinatesNullableUpdateEnvelopeInput, UserCoordinatesCreateInput> | null
+    country?: StringFieldUpdateOperationsInput | string
+    zipcode?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type AddressUncheckedUpdateManyInput = {
+    userId?: StringFieldUpdateOperationsInput | string
+    address?: StringFieldUpdateOperationsInput | string
+    city?: StringFieldUpdateOperationsInput | string
+    state?: StringFieldUpdateOperationsInput | string
+    stateCode?: StringFieldUpdateOperationsInput | string
+    postalCode?: StringFieldUpdateOperationsInput | string
+    coordinates?: XOR<UserCoordinatesNullableUpdateEnvelopeInput, UserCoordinatesCreateInput> | null
+    country?: StringFieldUpdateOperationsInput | string
+    zipcode?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type BankCreateInput = {
+    id?: string
+    cardExpire: string
+    cardNumber: string
+    cardType: string
+    currency: string
+    iban: string
+    user: UserCreateNestedOneWithoutBankInput
+  }
+
+  export type BankUncheckedCreateInput = {
+    id?: string
+    userId: string
+    cardExpire: string
+    cardNumber: string
+    cardType: string
+    currency: string
+    iban: string
+  }
+
+  export type BankUpdateInput = {
+    cardExpire?: StringFieldUpdateOperationsInput | string
+    cardNumber?: StringFieldUpdateOperationsInput | string
+    cardType?: StringFieldUpdateOperationsInput | string
+    currency?: StringFieldUpdateOperationsInput | string
+    iban?: StringFieldUpdateOperationsInput | string
+    user?: UserUpdateOneRequiredWithoutBankNestedInput
+  }
+
+  export type BankUncheckedUpdateInput = {
+    userId?: StringFieldUpdateOperationsInput | string
+    cardExpire?: StringFieldUpdateOperationsInput | string
+    cardNumber?: StringFieldUpdateOperationsInput | string
+    cardType?: StringFieldUpdateOperationsInput | string
+    currency?: StringFieldUpdateOperationsInput | string
+    iban?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type BankCreateManyInput = {
+    id?: string
+    userId: string
+    cardExpire: string
+    cardNumber: string
+    cardType: string
+    currency: string
+    iban: string
+  }
+
+  export type BankUpdateManyMutationInput = {
+    cardExpire?: StringFieldUpdateOperationsInput | string
+    cardNumber?: StringFieldUpdateOperationsInput | string
+    cardType?: StringFieldUpdateOperationsInput | string
+    currency?: StringFieldUpdateOperationsInput | string
+    iban?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type BankUncheckedUpdateManyInput = {
+    userId?: StringFieldUpdateOperationsInput | string
+    cardExpire?: StringFieldUpdateOperationsInput | string
+    cardNumber?: StringFieldUpdateOperationsInput | string
+    cardType?: StringFieldUpdateOperationsInput | string
+    currency?: StringFieldUpdateOperationsInput | string
+    iban?: StringFieldUpdateOperationsInput | string
   }
 
   export type SessionCreateInput = {
@@ -4805,16 +8101,71 @@ export namespace Prisma {
     isSet?: boolean
   }
 
+  export type IntNullableFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableFilter<$PrismaModel> | number | null
+    isSet?: boolean
+  }
+
+  export type FloatNullableFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatNullableFilter<$PrismaModel> | number | null
+    isSet?: boolean
+  }
+
+  export type CompanyNullableCompositeFilter = {
+    equals?: CompanyObjectEqualityInput | null
+    is?: CompanyWhereInput | null
+    isNot?: CompanyWhereInput | null
+    isSet?: boolean
+  }
+
+  export type CompanyObjectEqualityInput = {
+    department: string
+    name: string
+    title: string
+    address?: CompanyAddressObjectEqualityInput | null
+  }
+
+  export type BankNullableScalarRelationFilter = {
+    is?: BankWhereInput | null
+    isNot?: BankWhereInput | null
+  }
+
   export type ShortUrlListRelationFilter = {
     every?: ShortUrlWhereInput
     some?: ShortUrlWhereInput
     none?: ShortUrlWhereInput
   }
 
+  export type AddressNullableScalarRelationFilter = {
+    is?: AddressWhereInput | null
+    isNot?: AddressWhereInput | null
+  }
+
   export type SessionListRelationFilter = {
     every?: SessionWhereInput
     some?: SessionWhereInput
     none?: SessionWhereInput
+  }
+
+  export type CompanyOrderByInput = {
+    department?: SortOrder
+    name?: SortOrder
+    title?: SortOrder
+    address?: CompanyAddressOrderByInput
   }
 
   export type ShortUrlOrderByRelationAggregateInput = {
@@ -4828,31 +8179,85 @@ export namespace Prisma {
   export type UserCountOrderByAggregateInput = {
     id?: SortOrder
     username?: SortOrder
+    maidenName?: SortOrder
+    age?: SortOrder
+    gender?: SortOrder
+    phone?: SortOrder
+    birthDate?: SortOrder
+    bloodGroup?: SortOrder
+    height?: SortOrder
+    weight?: SortOrder
+    eyeColor?: SortOrder
+    ip?: SortOrder
+    macAddress?: SortOrder
+    university?: SortOrder
     email?: SortOrder
     image?: SortOrder
     isAdmin?: SortOrder
+    isVerified?: SortOrder
     password?: SortOrder
     isDeleted?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type UserAvgOrderByAggregateInput = {
+    age?: SortOrder
+    height?: SortOrder
+    weight?: SortOrder
   }
 
   export type UserMaxOrderByAggregateInput = {
     id?: SortOrder
     username?: SortOrder
+    maidenName?: SortOrder
+    age?: SortOrder
+    gender?: SortOrder
+    phone?: SortOrder
+    birthDate?: SortOrder
+    bloodGroup?: SortOrder
+    height?: SortOrder
+    weight?: SortOrder
+    eyeColor?: SortOrder
+    ip?: SortOrder
+    macAddress?: SortOrder
+    university?: SortOrder
     email?: SortOrder
     image?: SortOrder
     isAdmin?: SortOrder
+    isVerified?: SortOrder
     password?: SortOrder
     isDeleted?: SortOrder
+    createdAt?: SortOrder
   }
 
   export type UserMinOrderByAggregateInput = {
     id?: SortOrder
     username?: SortOrder
+    maidenName?: SortOrder
+    age?: SortOrder
+    gender?: SortOrder
+    phone?: SortOrder
+    birthDate?: SortOrder
+    bloodGroup?: SortOrder
+    height?: SortOrder
+    weight?: SortOrder
+    eyeColor?: SortOrder
+    ip?: SortOrder
+    macAddress?: SortOrder
+    university?: SortOrder
     email?: SortOrder
     image?: SortOrder
     isAdmin?: SortOrder
+    isVerified?: SortOrder
     password?: SortOrder
     isDeleted?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type UserSumOrderByAggregateInput = {
+    age?: SortOrder
+    height?: SortOrder
+    weight?: SortOrder
   }
 
   export type StringNullableWithAggregatesFilter<$PrismaModel = never> = {
@@ -4872,6 +8277,123 @@ export namespace Prisma {
     _min?: NestedStringNullableFilter<$PrismaModel>
     _max?: NestedStringNullableFilter<$PrismaModel>
     isSet?: boolean
+  }
+
+  export type IntNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableWithAggregatesFilter<$PrismaModel> | number | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _avg?: NestedFloatNullableFilter<$PrismaModel>
+    _sum?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedIntNullableFilter<$PrismaModel>
+    _max?: NestedIntNullableFilter<$PrismaModel>
+    isSet?: boolean
+  }
+
+  export type FloatNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatNullableWithAggregatesFilter<$PrismaModel> | number | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _avg?: NestedFloatNullableFilter<$PrismaModel>
+    _sum?: NestedFloatNullableFilter<$PrismaModel>
+    _min?: NestedFloatNullableFilter<$PrismaModel>
+    _max?: NestedFloatNullableFilter<$PrismaModel>
+    isSet?: boolean
+  }
+
+  export type UserCoordinatesNullableCompositeFilter = {
+    equals?: UserCoordinatesObjectEqualityInput | null
+    is?: UserCoordinatesWhereInput | null
+    isNot?: UserCoordinatesWhereInput | null
+    isSet?: boolean
+  }
+
+  export type UserCoordinatesObjectEqualityInput = {
+    lat: number
+    lng: number
+  }
+
+  export type UserCoordinatesOrderByInput = {
+    lat?: SortOrder
+    lng?: SortOrder
+  }
+
+  export type AddressCountOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    address?: SortOrder
+    city?: SortOrder
+    state?: SortOrder
+    stateCode?: SortOrder
+    postalCode?: SortOrder
+    country?: SortOrder
+    zipcode?: SortOrder
+  }
+
+  export type AddressMaxOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    address?: SortOrder
+    city?: SortOrder
+    state?: SortOrder
+    stateCode?: SortOrder
+    postalCode?: SortOrder
+    country?: SortOrder
+    zipcode?: SortOrder
+  }
+
+  export type AddressMinOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    address?: SortOrder
+    city?: SortOrder
+    state?: SortOrder
+    stateCode?: SortOrder
+    postalCode?: SortOrder
+    country?: SortOrder
+    zipcode?: SortOrder
+  }
+
+  export type BankCountOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    cardExpire?: SortOrder
+    cardNumber?: SortOrder
+    cardType?: SortOrder
+    currency?: SortOrder
+    iban?: SortOrder
+  }
+
+  export type BankMaxOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    cardExpire?: SortOrder
+    cardNumber?: SortOrder
+    cardType?: SortOrder
+    currency?: SortOrder
+    iban?: SortOrder
+  }
+
+  export type BankMinOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    cardExpire?: SortOrder
+    cardNumber?: SortOrder
+    cardType?: SortOrder
+    currency?: SortOrder
+    iban?: SortOrder
   }
 
   export type SessionCountOrderByAggregateInput = {
@@ -4932,11 +8454,34 @@ export namespace Prisma {
     update?: XOR<XOR<UserUpdateToOneWithWhereWithoutUrlsInput, UserUpdateWithoutUrlsInput>, UserUncheckedUpdateWithoutUrlsInput>
   }
 
+  export type CompanyNullableCreateEnvelopeInput = {
+    set?: CompanyCreateInput | null
+  }
+
+  export type CompanyCreateInput = {
+    department: string
+    name: string
+    title: string
+    address?: CompanyAddressCreateInput | null
+  }
+
+  export type BankCreateNestedOneWithoutUserInput = {
+    create?: XOR<BankCreateWithoutUserInput, BankUncheckedCreateWithoutUserInput>
+    connectOrCreate?: BankCreateOrConnectWithoutUserInput
+    connect?: BankWhereUniqueInput
+  }
+
   export type ShortUrlCreateNestedManyWithoutUserInput = {
     create?: XOR<ShortUrlCreateWithoutUserInput, ShortUrlUncheckedCreateWithoutUserInput> | ShortUrlCreateWithoutUserInput[] | ShortUrlUncheckedCreateWithoutUserInput[]
     connectOrCreate?: ShortUrlCreateOrConnectWithoutUserInput | ShortUrlCreateOrConnectWithoutUserInput[]
     createMany?: ShortUrlCreateManyUserInputEnvelope
     connect?: ShortUrlWhereUniqueInput | ShortUrlWhereUniqueInput[]
+  }
+
+  export type AddressCreateNestedOneWithoutUserInput = {
+    create?: XOR<AddressCreateWithoutUserInput, AddressUncheckedCreateWithoutUserInput>
+    connectOrCreate?: AddressCreateOrConnectWithoutUserInput
+    connect?: AddressWhereUniqueInput
   }
 
   export type SessionCreateNestedManyWithoutUserInput = {
@@ -4946,11 +8491,23 @@ export namespace Prisma {
     connect?: SessionWhereUniqueInput | SessionWhereUniqueInput[]
   }
 
+  export type BankUncheckedCreateNestedOneWithoutUserInput = {
+    create?: XOR<BankCreateWithoutUserInput, BankUncheckedCreateWithoutUserInput>
+    connectOrCreate?: BankCreateOrConnectWithoutUserInput
+    connect?: BankWhereUniqueInput
+  }
+
   export type ShortUrlUncheckedCreateNestedManyWithoutUserInput = {
     create?: XOR<ShortUrlCreateWithoutUserInput, ShortUrlUncheckedCreateWithoutUserInput> | ShortUrlCreateWithoutUserInput[] | ShortUrlUncheckedCreateWithoutUserInput[]
     connectOrCreate?: ShortUrlCreateOrConnectWithoutUserInput | ShortUrlCreateOrConnectWithoutUserInput[]
     createMany?: ShortUrlCreateManyUserInputEnvelope
     connect?: ShortUrlWhereUniqueInput | ShortUrlWhereUniqueInput[]
+  }
+
+  export type AddressUncheckedCreateNestedOneWithoutUserInput = {
+    create?: XOR<AddressCreateWithoutUserInput, AddressUncheckedCreateWithoutUserInput>
+    connectOrCreate?: AddressCreateOrConnectWithoutUserInput
+    connect?: AddressWhereUniqueInput
   }
 
   export type SessionUncheckedCreateNestedManyWithoutUserInput = {
@@ -4963,6 +8520,40 @@ export namespace Prisma {
   export type NullableStringFieldUpdateOperationsInput = {
     set?: string | null
     unset?: boolean
+  }
+
+  export type NullableIntFieldUpdateOperationsInput = {
+    set?: number | null
+    increment?: number
+    decrement?: number
+    multiply?: number
+    divide?: number
+    unset?: boolean
+  }
+
+  export type NullableFloatFieldUpdateOperationsInput = {
+    set?: number | null
+    increment?: number
+    decrement?: number
+    multiply?: number
+    divide?: number
+    unset?: boolean
+  }
+
+  export type CompanyNullableUpdateEnvelopeInput = {
+    set?: CompanyCreateInput | null
+    upsert?: CompanyUpsertInput
+    unset?: boolean
+  }
+
+  export type BankUpdateOneWithoutUserNestedInput = {
+    create?: XOR<BankCreateWithoutUserInput, BankUncheckedCreateWithoutUserInput>
+    connectOrCreate?: BankCreateOrConnectWithoutUserInput
+    upsert?: BankUpsertWithoutUserInput
+    disconnect?: BankWhereInput | boolean
+    delete?: BankWhereInput | boolean
+    connect?: BankWhereUniqueInput
+    update?: XOR<XOR<BankUpdateToOneWithWhereWithoutUserInput, BankUpdateWithoutUserInput>, BankUncheckedUpdateWithoutUserInput>
   }
 
   export type ShortUrlUpdateManyWithoutUserNestedInput = {
@@ -4979,6 +8570,16 @@ export namespace Prisma {
     deleteMany?: ShortUrlScalarWhereInput | ShortUrlScalarWhereInput[]
   }
 
+  export type AddressUpdateOneWithoutUserNestedInput = {
+    create?: XOR<AddressCreateWithoutUserInput, AddressUncheckedCreateWithoutUserInput>
+    connectOrCreate?: AddressCreateOrConnectWithoutUserInput
+    upsert?: AddressUpsertWithoutUserInput
+    disconnect?: AddressWhereInput | boolean
+    delete?: AddressWhereInput | boolean
+    connect?: AddressWhereUniqueInput
+    update?: XOR<XOR<AddressUpdateToOneWithWhereWithoutUserInput, AddressUpdateWithoutUserInput>, AddressUncheckedUpdateWithoutUserInput>
+  }
+
   export type SessionUpdateManyWithoutUserNestedInput = {
     create?: XOR<SessionCreateWithoutUserInput, SessionUncheckedCreateWithoutUserInput> | SessionCreateWithoutUserInput[] | SessionUncheckedCreateWithoutUserInput[]
     connectOrCreate?: SessionCreateOrConnectWithoutUserInput | SessionCreateOrConnectWithoutUserInput[]
@@ -4991,6 +8592,16 @@ export namespace Prisma {
     update?: SessionUpdateWithWhereUniqueWithoutUserInput | SessionUpdateWithWhereUniqueWithoutUserInput[]
     updateMany?: SessionUpdateManyWithWhereWithoutUserInput | SessionUpdateManyWithWhereWithoutUserInput[]
     deleteMany?: SessionScalarWhereInput | SessionScalarWhereInput[]
+  }
+
+  export type BankUncheckedUpdateOneWithoutUserNestedInput = {
+    create?: XOR<BankCreateWithoutUserInput, BankUncheckedCreateWithoutUserInput>
+    connectOrCreate?: BankCreateOrConnectWithoutUserInput
+    upsert?: BankUpsertWithoutUserInput
+    disconnect?: BankWhereInput | boolean
+    delete?: BankWhereInput | boolean
+    connect?: BankWhereUniqueInput
+    update?: XOR<XOR<BankUpdateToOneWithWhereWithoutUserInput, BankUpdateWithoutUserInput>, BankUncheckedUpdateWithoutUserInput>
   }
 
   export type ShortUrlUncheckedUpdateManyWithoutUserNestedInput = {
@@ -5007,6 +8618,16 @@ export namespace Prisma {
     deleteMany?: ShortUrlScalarWhereInput | ShortUrlScalarWhereInput[]
   }
 
+  export type AddressUncheckedUpdateOneWithoutUserNestedInput = {
+    create?: XOR<AddressCreateWithoutUserInput, AddressUncheckedCreateWithoutUserInput>
+    connectOrCreate?: AddressCreateOrConnectWithoutUserInput
+    upsert?: AddressUpsertWithoutUserInput
+    disconnect?: AddressWhereInput | boolean
+    delete?: AddressWhereInput | boolean
+    connect?: AddressWhereUniqueInput
+    update?: XOR<XOR<AddressUpdateToOneWithWhereWithoutUserInput, AddressUpdateWithoutUserInput>, AddressUncheckedUpdateWithoutUserInput>
+  }
+
   export type SessionUncheckedUpdateManyWithoutUserNestedInput = {
     create?: XOR<SessionCreateWithoutUserInput, SessionUncheckedCreateWithoutUserInput> | SessionCreateWithoutUserInput[] | SessionUncheckedCreateWithoutUserInput[]
     connectOrCreate?: SessionCreateOrConnectWithoutUserInput | SessionCreateOrConnectWithoutUserInput[]
@@ -5019,6 +8640,49 @@ export namespace Prisma {
     update?: SessionUpdateWithWhereUniqueWithoutUserInput | SessionUpdateWithWhereUniqueWithoutUserInput[]
     updateMany?: SessionUpdateManyWithWhereWithoutUserInput | SessionUpdateManyWithWhereWithoutUserInput[]
     deleteMany?: SessionScalarWhereInput | SessionScalarWhereInput[]
+  }
+
+  export type UserCoordinatesNullableCreateEnvelopeInput = {
+    set?: UserCoordinatesCreateInput | null
+  }
+
+  export type UserCoordinatesCreateInput = {
+    lat: number
+    lng: number
+  }
+
+  export type UserCreateNestedOneWithoutAddressInput = {
+    create?: XOR<UserCreateWithoutAddressInput, UserUncheckedCreateWithoutAddressInput>
+    connectOrCreate?: UserCreateOrConnectWithoutAddressInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type UserCoordinatesNullableUpdateEnvelopeInput = {
+    set?: UserCoordinatesCreateInput | null
+    upsert?: UserCoordinatesUpsertInput
+    unset?: boolean
+  }
+
+  export type UserUpdateOneRequiredWithoutAddressNestedInput = {
+    create?: XOR<UserCreateWithoutAddressInput, UserUncheckedCreateWithoutAddressInput>
+    connectOrCreate?: UserCreateOrConnectWithoutAddressInput
+    upsert?: UserUpsertWithoutAddressInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutAddressInput, UserUpdateWithoutAddressInput>, UserUncheckedUpdateWithoutAddressInput>
+  }
+
+  export type UserCreateNestedOneWithoutBankInput = {
+    create?: XOR<UserCreateWithoutBankInput, UserUncheckedCreateWithoutBankInput>
+    connectOrCreate?: UserCreateOrConnectWithoutBankInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type UserUpdateOneRequiredWithoutBankNestedInput = {
+    create?: XOR<UserCreateWithoutBankInput, UserUncheckedCreateWithoutBankInput>
+    connectOrCreate?: UserCreateOrConnectWithoutBankInput
+    upsert?: UserUpsertWithoutBankInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutBankInput, UserUpdateWithoutBankInput>, UserUncheckedUpdateWithoutBankInput>
   }
 
   export type UserCreateNestedOneWithoutSessionInput = {
@@ -5157,6 +8821,62 @@ export namespace Prisma {
     isSet?: boolean
   }
 
+  export type NestedIntNullableFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableFilter<$PrismaModel> | number | null
+    isSet?: boolean
+  }
+
+  export type NestedFloatNullableFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatNullableFilter<$PrismaModel> | number | null
+    isSet?: boolean
+  }
+
+  export type CompanyWhereInput = {
+    AND?: CompanyWhereInput | CompanyWhereInput[]
+    OR?: CompanyWhereInput[]
+    NOT?: CompanyWhereInput | CompanyWhereInput[]
+    department?: StringFilter<"Company"> | string
+    name?: StringFilter<"Company"> | string
+    title?: StringFilter<"Company"> | string
+    address?: XOR<CompanyAddressNullableCompositeFilter, CompanyAddressObjectEqualityInput> | null
+  }
+
+  export type CompanyAddressObjectEqualityInput = {
+    address: string
+    city: string
+    state: string
+    country: string
+    zipcode: string
+    stateCode: string
+    postalCode: string
+    coordinates?: CompanyCoordinatesObjectEqualityInput | null
+  }
+
+  export type CompanyAddressOrderByInput = {
+    address?: SortOrder
+    city?: SortOrder
+    state?: SortOrder
+    country?: SortOrder
+    zipcode?: SortOrder
+    stateCode?: SortOrder
+    postalCode?: SortOrder
+    coordinates?: CompanyCoordinatesOrderByInput
+  }
+
   export type NestedStringNullableWithAggregatesFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel> | null
     in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
@@ -5175,7 +8895,7 @@ export namespace Prisma {
     isSet?: boolean
   }
 
-  export type NestedIntNullableFilter<$PrismaModel = never> = {
+  export type NestedIntNullableWithAggregatesFilter<$PrismaModel = never> = {
     equals?: number | IntFieldRefInput<$PrismaModel> | null
     in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
     notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
@@ -5183,29 +8903,93 @@ export namespace Prisma {
     lte?: number | IntFieldRefInput<$PrismaModel>
     gt?: number | IntFieldRefInput<$PrismaModel>
     gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntNullableFilter<$PrismaModel> | number | null
+    not?: NestedIntNullableWithAggregatesFilter<$PrismaModel> | number | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _avg?: NestedFloatNullableFilter<$PrismaModel>
+    _sum?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedIntNullableFilter<$PrismaModel>
+    _max?: NestedIntNullableFilter<$PrismaModel>
     isSet?: boolean
+  }
+
+  export type NestedFloatNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatNullableWithAggregatesFilter<$PrismaModel> | number | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _avg?: NestedFloatNullableFilter<$PrismaModel>
+    _sum?: NestedFloatNullableFilter<$PrismaModel>
+    _min?: NestedFloatNullableFilter<$PrismaModel>
+    _max?: NestedFloatNullableFilter<$PrismaModel>
+    isSet?: boolean
+  }
+
+  export type UserCoordinatesWhereInput = {
+    AND?: UserCoordinatesWhereInput | UserCoordinatesWhereInput[]
+    OR?: UserCoordinatesWhereInput[]
+    NOT?: UserCoordinatesWhereInput | UserCoordinatesWhereInput[]
+    lat?: FloatFilter<"UserCoordinates"> | number
+    lng?: FloatFilter<"UserCoordinates"> | number
   }
 
   export type UserCreateWithoutUrlsInput = {
     id?: string
     username: string
+    maidenName?: string | null
+    age?: number | null
+    gender?: string | null
+    phone?: string | null
+    birthDate?: string | null
+    bloodGroup?: string | null
+    height?: number | null
+    weight?: number | null
+    eyeColor?: string | null
+    ip?: string | null
+    macAddress?: string | null
+    university?: string | null
+    company?: XOR<CompanyNullableCreateEnvelopeInput, CompanyCreateInput> | null
     email: string
     image?: string | null
     isAdmin?: boolean
+    isVerified?: boolean
     password: string
     isDeleted?: boolean
+    createdAt?: Date | string
+    bank?: BankCreateNestedOneWithoutUserInput
+    address?: AddressCreateNestedOneWithoutUserInput
     Session?: SessionCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutUrlsInput = {
     id?: string
     username: string
+    maidenName?: string | null
+    age?: number | null
+    gender?: string | null
+    phone?: string | null
+    birthDate?: string | null
+    bloodGroup?: string | null
+    height?: number | null
+    weight?: number | null
+    eyeColor?: string | null
+    ip?: string | null
+    macAddress?: string | null
+    university?: string | null
+    company?: XOR<CompanyNullableCreateEnvelopeInput, CompanyCreateInput> | null
     email: string
     image?: string | null
     isAdmin?: boolean
+    isVerified?: boolean
     password: string
     isDeleted?: boolean
+    createdAt?: Date | string
+    bank?: BankUncheckedCreateNestedOneWithoutUserInput
+    address?: AddressUncheckedCreateNestedOneWithoutUserInput
     Session?: SessionUncheckedCreateNestedManyWithoutUserInput
   }
 
@@ -5227,22 +9011,90 @@ export namespace Prisma {
 
   export type UserUpdateWithoutUrlsInput = {
     username?: StringFieldUpdateOperationsInput | string
+    maidenName?: NullableStringFieldUpdateOperationsInput | string | null
+    age?: NullableIntFieldUpdateOperationsInput | number | null
+    gender?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    birthDate?: NullableStringFieldUpdateOperationsInput | string | null
+    bloodGroup?: NullableStringFieldUpdateOperationsInput | string | null
+    height?: NullableFloatFieldUpdateOperationsInput | number | null
+    weight?: NullableFloatFieldUpdateOperationsInput | number | null
+    eyeColor?: NullableStringFieldUpdateOperationsInput | string | null
+    ip?: NullableStringFieldUpdateOperationsInput | string | null
+    macAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    university?: NullableStringFieldUpdateOperationsInput | string | null
+    company?: XOR<CompanyNullableUpdateEnvelopeInput, CompanyCreateInput> | null
     email?: StringFieldUpdateOperationsInput | string
     image?: NullableStringFieldUpdateOperationsInput | string | null
     isAdmin?: BoolFieldUpdateOperationsInput | boolean
+    isVerified?: BoolFieldUpdateOperationsInput | boolean
     password?: StringFieldUpdateOperationsInput | string
     isDeleted?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    bank?: BankUpdateOneWithoutUserNestedInput
+    address?: AddressUpdateOneWithoutUserNestedInput
     Session?: SessionUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutUrlsInput = {
     username?: StringFieldUpdateOperationsInput | string
+    maidenName?: NullableStringFieldUpdateOperationsInput | string | null
+    age?: NullableIntFieldUpdateOperationsInput | number | null
+    gender?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    birthDate?: NullableStringFieldUpdateOperationsInput | string | null
+    bloodGroup?: NullableStringFieldUpdateOperationsInput | string | null
+    height?: NullableFloatFieldUpdateOperationsInput | number | null
+    weight?: NullableFloatFieldUpdateOperationsInput | number | null
+    eyeColor?: NullableStringFieldUpdateOperationsInput | string | null
+    ip?: NullableStringFieldUpdateOperationsInput | string | null
+    macAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    university?: NullableStringFieldUpdateOperationsInput | string | null
+    company?: XOR<CompanyNullableUpdateEnvelopeInput, CompanyCreateInput> | null
     email?: StringFieldUpdateOperationsInput | string
     image?: NullableStringFieldUpdateOperationsInput | string | null
     isAdmin?: BoolFieldUpdateOperationsInput | boolean
+    isVerified?: BoolFieldUpdateOperationsInput | boolean
     password?: StringFieldUpdateOperationsInput | string
     isDeleted?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    bank?: BankUncheckedUpdateOneWithoutUserNestedInput
+    address?: AddressUncheckedUpdateOneWithoutUserNestedInput
     Session?: SessionUncheckedUpdateManyWithoutUserNestedInput
+  }
+
+  export type CompanyAddressCreateInput = {
+    address: string
+    city: string
+    state: string
+    country: string
+    zipcode: string
+    stateCode: string
+    postalCode: string
+    coordinates?: CompanyCoordinatesCreateInput | null
+  }
+
+  export type BankCreateWithoutUserInput = {
+    id?: string
+    cardExpire: string
+    cardNumber: string
+    cardType: string
+    currency: string
+    iban: string
+  }
+
+  export type BankUncheckedCreateWithoutUserInput = {
+    id?: string
+    cardExpire: string
+    cardNumber: string
+    cardType: string
+    currency: string
+    iban: string
+  }
+
+  export type BankCreateOrConnectWithoutUserInput = {
+    where: BankWhereUniqueInput
+    create: XOR<BankCreateWithoutUserInput, BankUncheckedCreateWithoutUserInput>
   }
 
   export type ShortUrlCreateWithoutUserInput = {
@@ -5274,6 +9126,35 @@ export namespace Prisma {
     data: ShortUrlCreateManyUserInput | ShortUrlCreateManyUserInput[]
   }
 
+  export type AddressCreateWithoutUserInput = {
+    id?: string
+    address: string
+    city: string
+    state: string
+    stateCode: string
+    postalCode: string
+    coordinates?: XOR<UserCoordinatesNullableCreateEnvelopeInput, UserCoordinatesCreateInput> | null
+    country: string
+    zipcode: string
+  }
+
+  export type AddressUncheckedCreateWithoutUserInput = {
+    id?: string
+    address: string
+    city: string
+    state: string
+    stateCode: string
+    postalCode: string
+    coordinates?: XOR<UserCoordinatesNullableCreateEnvelopeInput, UserCoordinatesCreateInput> | null
+    country: string
+    zipcode: string
+  }
+
+  export type AddressCreateOrConnectWithoutUserInput = {
+    where: AddressWhereUniqueInput
+    create: XOR<AddressCreateWithoutUserInput, AddressUncheckedCreateWithoutUserInput>
+  }
+
   export type SessionCreateWithoutUserInput = {
     id?: string
     userAgent: string
@@ -5295,6 +9176,38 @@ export namespace Prisma {
 
   export type SessionCreateManyUserInputEnvelope = {
     data: SessionCreateManyUserInput | SessionCreateManyUserInput[]
+  }
+
+  export type CompanyUpsertInput = {
+    set: CompanyCreateInput | null
+    update: CompanyUpdateInput
+  }
+
+  export type BankUpsertWithoutUserInput = {
+    update: XOR<BankUpdateWithoutUserInput, BankUncheckedUpdateWithoutUserInput>
+    create: XOR<BankCreateWithoutUserInput, BankUncheckedCreateWithoutUserInput>
+    where?: BankWhereInput
+  }
+
+  export type BankUpdateToOneWithWhereWithoutUserInput = {
+    where?: BankWhereInput
+    data: XOR<BankUpdateWithoutUserInput, BankUncheckedUpdateWithoutUserInput>
+  }
+
+  export type BankUpdateWithoutUserInput = {
+    cardExpire?: StringFieldUpdateOperationsInput | string
+    cardNumber?: StringFieldUpdateOperationsInput | string
+    cardType?: StringFieldUpdateOperationsInput | string
+    currency?: StringFieldUpdateOperationsInput | string
+    iban?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type BankUncheckedUpdateWithoutUserInput = {
+    cardExpire?: StringFieldUpdateOperationsInput | string
+    cardNumber?: StringFieldUpdateOperationsInput | string
+    cardType?: StringFieldUpdateOperationsInput | string
+    currency?: StringFieldUpdateOperationsInput | string
+    iban?: StringFieldUpdateOperationsInput | string
   }
 
   export type ShortUrlUpsertWithWhereUniqueWithoutUserInput = {
@@ -5327,6 +9240,39 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"ShortUrl"> | Date | string
   }
 
+  export type AddressUpsertWithoutUserInput = {
+    update: XOR<AddressUpdateWithoutUserInput, AddressUncheckedUpdateWithoutUserInput>
+    create: XOR<AddressCreateWithoutUserInput, AddressUncheckedCreateWithoutUserInput>
+    where?: AddressWhereInput
+  }
+
+  export type AddressUpdateToOneWithWhereWithoutUserInput = {
+    where?: AddressWhereInput
+    data: XOR<AddressUpdateWithoutUserInput, AddressUncheckedUpdateWithoutUserInput>
+  }
+
+  export type AddressUpdateWithoutUserInput = {
+    address?: StringFieldUpdateOperationsInput | string
+    city?: StringFieldUpdateOperationsInput | string
+    state?: StringFieldUpdateOperationsInput | string
+    stateCode?: StringFieldUpdateOperationsInput | string
+    postalCode?: StringFieldUpdateOperationsInput | string
+    coordinates?: XOR<UserCoordinatesNullableUpdateEnvelopeInput, UserCoordinatesCreateInput> | null
+    country?: StringFieldUpdateOperationsInput | string
+    zipcode?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type AddressUncheckedUpdateWithoutUserInput = {
+    address?: StringFieldUpdateOperationsInput | string
+    city?: StringFieldUpdateOperationsInput | string
+    state?: StringFieldUpdateOperationsInput | string
+    stateCode?: StringFieldUpdateOperationsInput | string
+    postalCode?: StringFieldUpdateOperationsInput | string
+    coordinates?: XOR<UserCoordinatesNullableUpdateEnvelopeInput, UserCoordinatesCreateInput> | null
+    country?: StringFieldUpdateOperationsInput | string
+    zipcode?: StringFieldUpdateOperationsInput | string
+  }
+
   export type SessionUpsertWithWhereUniqueWithoutUserInput = {
     where: SessionWhereUniqueInput
     update: XOR<SessionUpdateWithoutUserInput, SessionUncheckedUpdateWithoutUserInput>
@@ -5354,26 +9300,317 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"Session"> | Date | string
   }
 
-  export type UserCreateWithoutSessionInput = {
+  export type UserCreateWithoutAddressInput = {
     id?: string
     username: string
+    maidenName?: string | null
+    age?: number | null
+    gender?: string | null
+    phone?: string | null
+    birthDate?: string | null
+    bloodGroup?: string | null
+    height?: number | null
+    weight?: number | null
+    eyeColor?: string | null
+    ip?: string | null
+    macAddress?: string | null
+    university?: string | null
+    company?: XOR<CompanyNullableCreateEnvelopeInput, CompanyCreateInput> | null
     email: string
     image?: string | null
     isAdmin?: boolean
+    isVerified?: boolean
     password: string
     isDeleted?: boolean
+    createdAt?: Date | string
+    bank?: BankCreateNestedOneWithoutUserInput
     urls?: ShortUrlCreateNestedManyWithoutUserInput
+    Session?: SessionCreateNestedManyWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutAddressInput = {
+    id?: string
+    username: string
+    maidenName?: string | null
+    age?: number | null
+    gender?: string | null
+    phone?: string | null
+    birthDate?: string | null
+    bloodGroup?: string | null
+    height?: number | null
+    weight?: number | null
+    eyeColor?: string | null
+    ip?: string | null
+    macAddress?: string | null
+    university?: string | null
+    company?: XOR<CompanyNullableCreateEnvelopeInput, CompanyCreateInput> | null
+    email: string
+    image?: string | null
+    isAdmin?: boolean
+    isVerified?: boolean
+    password: string
+    isDeleted?: boolean
+    createdAt?: Date | string
+    bank?: BankUncheckedCreateNestedOneWithoutUserInput
+    urls?: ShortUrlUncheckedCreateNestedManyWithoutUserInput
+    Session?: SessionUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutAddressInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutAddressInput, UserUncheckedCreateWithoutAddressInput>
+  }
+
+  export type UserCoordinatesUpsertInput = {
+    set: UserCoordinatesCreateInput | null
+    update: UserCoordinatesUpdateInput
+  }
+
+  export type UserUpsertWithoutAddressInput = {
+    update: XOR<UserUpdateWithoutAddressInput, UserUncheckedUpdateWithoutAddressInput>
+    create: XOR<UserCreateWithoutAddressInput, UserUncheckedCreateWithoutAddressInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutAddressInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutAddressInput, UserUncheckedUpdateWithoutAddressInput>
+  }
+
+  export type UserUpdateWithoutAddressInput = {
+    username?: StringFieldUpdateOperationsInput | string
+    maidenName?: NullableStringFieldUpdateOperationsInput | string | null
+    age?: NullableIntFieldUpdateOperationsInput | number | null
+    gender?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    birthDate?: NullableStringFieldUpdateOperationsInput | string | null
+    bloodGroup?: NullableStringFieldUpdateOperationsInput | string | null
+    height?: NullableFloatFieldUpdateOperationsInput | number | null
+    weight?: NullableFloatFieldUpdateOperationsInput | number | null
+    eyeColor?: NullableStringFieldUpdateOperationsInput | string | null
+    ip?: NullableStringFieldUpdateOperationsInput | string | null
+    macAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    university?: NullableStringFieldUpdateOperationsInput | string | null
+    company?: XOR<CompanyNullableUpdateEnvelopeInput, CompanyCreateInput> | null
+    email?: StringFieldUpdateOperationsInput | string
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    isAdmin?: BoolFieldUpdateOperationsInput | boolean
+    isVerified?: BoolFieldUpdateOperationsInput | boolean
+    password?: StringFieldUpdateOperationsInput | string
+    isDeleted?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    bank?: BankUpdateOneWithoutUserNestedInput
+    urls?: ShortUrlUpdateManyWithoutUserNestedInput
+    Session?: SessionUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutAddressInput = {
+    username?: StringFieldUpdateOperationsInput | string
+    maidenName?: NullableStringFieldUpdateOperationsInput | string | null
+    age?: NullableIntFieldUpdateOperationsInput | number | null
+    gender?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    birthDate?: NullableStringFieldUpdateOperationsInput | string | null
+    bloodGroup?: NullableStringFieldUpdateOperationsInput | string | null
+    height?: NullableFloatFieldUpdateOperationsInput | number | null
+    weight?: NullableFloatFieldUpdateOperationsInput | number | null
+    eyeColor?: NullableStringFieldUpdateOperationsInput | string | null
+    ip?: NullableStringFieldUpdateOperationsInput | string | null
+    macAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    university?: NullableStringFieldUpdateOperationsInput | string | null
+    company?: XOR<CompanyNullableUpdateEnvelopeInput, CompanyCreateInput> | null
+    email?: StringFieldUpdateOperationsInput | string
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    isAdmin?: BoolFieldUpdateOperationsInput | boolean
+    isVerified?: BoolFieldUpdateOperationsInput | boolean
+    password?: StringFieldUpdateOperationsInput | string
+    isDeleted?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    bank?: BankUncheckedUpdateOneWithoutUserNestedInput
+    urls?: ShortUrlUncheckedUpdateManyWithoutUserNestedInput
+    Session?: SessionUncheckedUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserCreateWithoutBankInput = {
+    id?: string
+    username: string
+    maidenName?: string | null
+    age?: number | null
+    gender?: string | null
+    phone?: string | null
+    birthDate?: string | null
+    bloodGroup?: string | null
+    height?: number | null
+    weight?: number | null
+    eyeColor?: string | null
+    ip?: string | null
+    macAddress?: string | null
+    university?: string | null
+    company?: XOR<CompanyNullableCreateEnvelopeInput, CompanyCreateInput> | null
+    email: string
+    image?: string | null
+    isAdmin?: boolean
+    isVerified?: boolean
+    password: string
+    isDeleted?: boolean
+    createdAt?: Date | string
+    urls?: ShortUrlCreateNestedManyWithoutUserInput
+    address?: AddressCreateNestedOneWithoutUserInput
+    Session?: SessionCreateNestedManyWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutBankInput = {
+    id?: string
+    username: string
+    maidenName?: string | null
+    age?: number | null
+    gender?: string | null
+    phone?: string | null
+    birthDate?: string | null
+    bloodGroup?: string | null
+    height?: number | null
+    weight?: number | null
+    eyeColor?: string | null
+    ip?: string | null
+    macAddress?: string | null
+    university?: string | null
+    company?: XOR<CompanyNullableCreateEnvelopeInput, CompanyCreateInput> | null
+    email: string
+    image?: string | null
+    isAdmin?: boolean
+    isVerified?: boolean
+    password: string
+    isDeleted?: boolean
+    createdAt?: Date | string
+    urls?: ShortUrlUncheckedCreateNestedManyWithoutUserInput
+    address?: AddressUncheckedCreateNestedOneWithoutUserInput
+    Session?: SessionUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutBankInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutBankInput, UserUncheckedCreateWithoutBankInput>
+  }
+
+  export type UserUpsertWithoutBankInput = {
+    update: XOR<UserUpdateWithoutBankInput, UserUncheckedUpdateWithoutBankInput>
+    create: XOR<UserCreateWithoutBankInput, UserUncheckedCreateWithoutBankInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutBankInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutBankInput, UserUncheckedUpdateWithoutBankInput>
+  }
+
+  export type UserUpdateWithoutBankInput = {
+    username?: StringFieldUpdateOperationsInput | string
+    maidenName?: NullableStringFieldUpdateOperationsInput | string | null
+    age?: NullableIntFieldUpdateOperationsInput | number | null
+    gender?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    birthDate?: NullableStringFieldUpdateOperationsInput | string | null
+    bloodGroup?: NullableStringFieldUpdateOperationsInput | string | null
+    height?: NullableFloatFieldUpdateOperationsInput | number | null
+    weight?: NullableFloatFieldUpdateOperationsInput | number | null
+    eyeColor?: NullableStringFieldUpdateOperationsInput | string | null
+    ip?: NullableStringFieldUpdateOperationsInput | string | null
+    macAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    university?: NullableStringFieldUpdateOperationsInput | string | null
+    company?: XOR<CompanyNullableUpdateEnvelopeInput, CompanyCreateInput> | null
+    email?: StringFieldUpdateOperationsInput | string
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    isAdmin?: BoolFieldUpdateOperationsInput | boolean
+    isVerified?: BoolFieldUpdateOperationsInput | boolean
+    password?: StringFieldUpdateOperationsInput | string
+    isDeleted?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    urls?: ShortUrlUpdateManyWithoutUserNestedInput
+    address?: AddressUpdateOneWithoutUserNestedInput
+    Session?: SessionUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutBankInput = {
+    username?: StringFieldUpdateOperationsInput | string
+    maidenName?: NullableStringFieldUpdateOperationsInput | string | null
+    age?: NullableIntFieldUpdateOperationsInput | number | null
+    gender?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    birthDate?: NullableStringFieldUpdateOperationsInput | string | null
+    bloodGroup?: NullableStringFieldUpdateOperationsInput | string | null
+    height?: NullableFloatFieldUpdateOperationsInput | number | null
+    weight?: NullableFloatFieldUpdateOperationsInput | number | null
+    eyeColor?: NullableStringFieldUpdateOperationsInput | string | null
+    ip?: NullableStringFieldUpdateOperationsInput | string | null
+    macAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    university?: NullableStringFieldUpdateOperationsInput | string | null
+    company?: XOR<CompanyNullableUpdateEnvelopeInput, CompanyCreateInput> | null
+    email?: StringFieldUpdateOperationsInput | string
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    isAdmin?: BoolFieldUpdateOperationsInput | boolean
+    isVerified?: BoolFieldUpdateOperationsInput | boolean
+    password?: StringFieldUpdateOperationsInput | string
+    isDeleted?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    urls?: ShortUrlUncheckedUpdateManyWithoutUserNestedInput
+    address?: AddressUncheckedUpdateOneWithoutUserNestedInput
+    Session?: SessionUncheckedUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserCreateWithoutSessionInput = {
+    id?: string
+    username: string
+    maidenName?: string | null
+    age?: number | null
+    gender?: string | null
+    phone?: string | null
+    birthDate?: string | null
+    bloodGroup?: string | null
+    height?: number | null
+    weight?: number | null
+    eyeColor?: string | null
+    ip?: string | null
+    macAddress?: string | null
+    university?: string | null
+    company?: XOR<CompanyNullableCreateEnvelopeInput, CompanyCreateInput> | null
+    email: string
+    image?: string | null
+    isAdmin?: boolean
+    isVerified?: boolean
+    password: string
+    isDeleted?: boolean
+    createdAt?: Date | string
+    bank?: BankCreateNestedOneWithoutUserInput
+    urls?: ShortUrlCreateNestedManyWithoutUserInput
+    address?: AddressCreateNestedOneWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutSessionInput = {
     id?: string
     username: string
+    maidenName?: string | null
+    age?: number | null
+    gender?: string | null
+    phone?: string | null
+    birthDate?: string | null
+    bloodGroup?: string | null
+    height?: number | null
+    weight?: number | null
+    eyeColor?: string | null
+    ip?: string | null
+    macAddress?: string | null
+    university?: string | null
+    company?: XOR<CompanyNullableCreateEnvelopeInput, CompanyCreateInput> | null
     email: string
     image?: string | null
     isAdmin?: boolean
+    isVerified?: boolean
     password: string
     isDeleted?: boolean
+    createdAt?: Date | string
+    bank?: BankUncheckedCreateNestedOneWithoutUserInput
     urls?: ShortUrlUncheckedCreateNestedManyWithoutUserInput
+    address?: AddressUncheckedCreateNestedOneWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutSessionInput = {
@@ -5394,22 +9631,89 @@ export namespace Prisma {
 
   export type UserUpdateWithoutSessionInput = {
     username?: StringFieldUpdateOperationsInput | string
+    maidenName?: NullableStringFieldUpdateOperationsInput | string | null
+    age?: NullableIntFieldUpdateOperationsInput | number | null
+    gender?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    birthDate?: NullableStringFieldUpdateOperationsInput | string | null
+    bloodGroup?: NullableStringFieldUpdateOperationsInput | string | null
+    height?: NullableFloatFieldUpdateOperationsInput | number | null
+    weight?: NullableFloatFieldUpdateOperationsInput | number | null
+    eyeColor?: NullableStringFieldUpdateOperationsInput | string | null
+    ip?: NullableStringFieldUpdateOperationsInput | string | null
+    macAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    university?: NullableStringFieldUpdateOperationsInput | string | null
+    company?: XOR<CompanyNullableUpdateEnvelopeInput, CompanyCreateInput> | null
     email?: StringFieldUpdateOperationsInput | string
     image?: NullableStringFieldUpdateOperationsInput | string | null
     isAdmin?: BoolFieldUpdateOperationsInput | boolean
+    isVerified?: BoolFieldUpdateOperationsInput | boolean
     password?: StringFieldUpdateOperationsInput | string
     isDeleted?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    bank?: BankUpdateOneWithoutUserNestedInput
     urls?: ShortUrlUpdateManyWithoutUserNestedInput
+    address?: AddressUpdateOneWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutSessionInput = {
     username?: StringFieldUpdateOperationsInput | string
+    maidenName?: NullableStringFieldUpdateOperationsInput | string | null
+    age?: NullableIntFieldUpdateOperationsInput | number | null
+    gender?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    birthDate?: NullableStringFieldUpdateOperationsInput | string | null
+    bloodGroup?: NullableStringFieldUpdateOperationsInput | string | null
+    height?: NullableFloatFieldUpdateOperationsInput | number | null
+    weight?: NullableFloatFieldUpdateOperationsInput | number | null
+    eyeColor?: NullableStringFieldUpdateOperationsInput | string | null
+    ip?: NullableStringFieldUpdateOperationsInput | string | null
+    macAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    university?: NullableStringFieldUpdateOperationsInput | string | null
+    company?: XOR<CompanyNullableUpdateEnvelopeInput, CompanyCreateInput> | null
     email?: StringFieldUpdateOperationsInput | string
     image?: NullableStringFieldUpdateOperationsInput | string | null
     isAdmin?: BoolFieldUpdateOperationsInput | boolean
+    isVerified?: BoolFieldUpdateOperationsInput | boolean
     password?: StringFieldUpdateOperationsInput | string
     isDeleted?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    bank?: BankUncheckedUpdateOneWithoutUserNestedInput
     urls?: ShortUrlUncheckedUpdateManyWithoutUserNestedInput
+    address?: AddressUncheckedUpdateOneWithoutUserNestedInput
+  }
+
+  export type CompanyAddressNullableCompositeFilter = {
+    equals?: CompanyAddressObjectEqualityInput | null
+    is?: CompanyAddressWhereInput | null
+    isNot?: CompanyAddressWhereInput | null
+    isSet?: boolean
+  }
+
+  export type CompanyCoordinatesObjectEqualityInput = {
+    lat: number
+    lng: number
+  }
+
+  export type CompanyCoordinatesOrderByInput = {
+    lat?: SortOrder
+    lng?: SortOrder
+  }
+
+  export type FloatFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel>
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatFilter<$PrismaModel> | number
+  }
+
+  export type CompanyCoordinatesCreateInput = {
+    lat: number
+    lng: number
   }
 
   export type ShortUrlCreateManyUserInput = {
@@ -5427,6 +9731,13 @@ export namespace Prisma {
     userAgent: string
     valid?: boolean
     createdAt?: Date | string
+  }
+
+  export type CompanyUpdateInput = {
+    department?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    address?: XOR<CompanyAddressNullableUpdateEnvelopeInput, CompanyAddressCreateInput> | null
   }
 
   export type ShortUrlUpdateWithoutUserInput = {
@@ -5472,6 +9783,86 @@ export namespace Prisma {
     userAgent?: StringFieldUpdateOperationsInput | string
     valid?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type UserCoordinatesUpdateInput = {
+    lat?: FloatFieldUpdateOperationsInput | number
+    lng?: FloatFieldUpdateOperationsInput | number
+  }
+
+  export type CompanyAddressWhereInput = {
+    AND?: CompanyAddressWhereInput | CompanyAddressWhereInput[]
+    OR?: CompanyAddressWhereInput[]
+    NOT?: CompanyAddressWhereInput | CompanyAddressWhereInput[]
+    address?: StringFilter<"CompanyAddress"> | string
+    city?: StringFilter<"CompanyAddress"> | string
+    state?: StringFilter<"CompanyAddress"> | string
+    country?: StringFilter<"CompanyAddress"> | string
+    zipcode?: StringFilter<"CompanyAddress"> | string
+    stateCode?: StringFilter<"CompanyAddress"> | string
+    postalCode?: StringFilter<"CompanyAddress"> | string
+    coordinates?: XOR<CompanyCoordinatesNullableCompositeFilter, CompanyCoordinatesObjectEqualityInput> | null
+  }
+
+  export type CompanyAddressNullableUpdateEnvelopeInput = {
+    set?: CompanyAddressCreateInput | null
+    upsert?: CompanyAddressUpsertInput
+    unset?: boolean
+  }
+
+  export type FloatFieldUpdateOperationsInput = {
+    set?: number
+    increment?: number
+    decrement?: number
+    multiply?: number
+    divide?: number
+  }
+
+  export type CompanyCoordinatesNullableCompositeFilter = {
+    equals?: CompanyCoordinatesObjectEqualityInput | null
+    is?: CompanyCoordinatesWhereInput | null
+    isNot?: CompanyCoordinatesWhereInput | null
+    isSet?: boolean
+  }
+
+  export type CompanyAddressUpsertInput = {
+    set: CompanyAddressCreateInput | null
+    update: CompanyAddressUpdateInput
+  }
+
+  export type CompanyCoordinatesWhereInput = {
+    AND?: CompanyCoordinatesWhereInput | CompanyCoordinatesWhereInput[]
+    OR?: CompanyCoordinatesWhereInput[]
+    NOT?: CompanyCoordinatesWhereInput | CompanyCoordinatesWhereInput[]
+    lat?: FloatFilter<"CompanyCoordinates"> | number
+    lng?: FloatFilter<"CompanyCoordinates"> | number
+  }
+
+  export type CompanyAddressUpdateInput = {
+    address?: StringFieldUpdateOperationsInput | string
+    city?: StringFieldUpdateOperationsInput | string
+    state?: StringFieldUpdateOperationsInput | string
+    country?: StringFieldUpdateOperationsInput | string
+    zipcode?: StringFieldUpdateOperationsInput | string
+    stateCode?: StringFieldUpdateOperationsInput | string
+    postalCode?: StringFieldUpdateOperationsInput | string
+    coordinates?: XOR<CompanyCoordinatesNullableUpdateEnvelopeInput, CompanyCoordinatesCreateInput> | null
+  }
+
+  export type CompanyCoordinatesNullableUpdateEnvelopeInput = {
+    set?: CompanyCoordinatesCreateInput | null
+    upsert?: CompanyCoordinatesUpsertInput
+    unset?: boolean
+  }
+
+  export type CompanyCoordinatesUpsertInput = {
+    set: CompanyCoordinatesCreateInput | null
+    update: CompanyCoordinatesUpdateInput
+  }
+
+  export type CompanyCoordinatesUpdateInput = {
+    lat?: FloatFieldUpdateOperationsInput | number
+    lng?: FloatFieldUpdateOperationsInput | number
   }
 
 

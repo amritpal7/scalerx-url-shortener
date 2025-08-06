@@ -127,11 +127,47 @@ exports.Prisma.ShortUrlScalarFieldEnum = {
 exports.Prisma.UserScalarFieldEnum = {
   id: 'id',
   username: 'username',
+  maidenName: 'maidenName',
+  age: 'age',
+  gender: 'gender',
+  phone: 'phone',
+  birthDate: 'birthDate',
+  bloodGroup: 'bloodGroup',
+  height: 'height',
+  weight: 'weight',
+  eyeColor: 'eyeColor',
+  ip: 'ip',
+  macAddress: 'macAddress',
+  university: 'university',
   email: 'email',
   image: 'image',
   isAdmin: 'isAdmin',
+  isVerified: 'isVerified',
   password: 'password',
-  isDeleted: 'isDeleted'
+  isDeleted: 'isDeleted',
+  createdAt: 'createdAt'
+};
+
+exports.Prisma.AddressScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  address: 'address',
+  city: 'city',
+  state: 'state',
+  stateCode: 'stateCode',
+  postalCode: 'postalCode',
+  country: 'country',
+  zipcode: 'zipcode'
+};
+
+exports.Prisma.BankScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  cardExpire: 'cardExpire',
+  cardNumber: 'cardNumber',
+  cardType: 'cardType',
+  currency: 'currency',
+  iban: 'iban'
 };
 
 exports.Prisma.SessionScalarFieldEnum = {
@@ -156,6 +192,8 @@ exports.Prisma.QueryMode = {
 exports.Prisma.ModelName = {
   ShortUrl: 'ShortUrl',
   User: 'User',
+  Address: 'Address',
+  Bank: 'Bank',
   Session: 'Session'
 };
 
