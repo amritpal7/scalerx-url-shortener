@@ -1,12 +1,8 @@
-import api from "../lib/api";
-
-const API_URL = import.meta.env.VITE_API_URL;
+import API from "../lib/api";
 
 export const fetchUrls = async () => {
-  const myUrls = `${API_URL}/url/my-urls`;
-
   try {
-    const response = await api.get(myUrls, { withCredentials: true });
+    const response = await API.get("/url/my-urls", { withCredentials: true });
     return response.data;
   } catch (err: any) {
     if (err.response.status === 401) throw new Error("Login or register!");
@@ -15,6 +11,6 @@ export const fetchUrls = async () => {
 };
 
 export const generateShortUrl = async (longUrl: string) => {
-  const response = await api.post("/url/shorten", { longUrl });
+  const response = await API.post("/url/shorten", { longUrl });
   return response.data;
 };

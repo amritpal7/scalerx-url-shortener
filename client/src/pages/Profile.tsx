@@ -1,5 +1,5 @@
 import { ChangeEvent, FormEvent, useEffect, useState } from "react";
-import { motion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import { useAuth } from "../context/authContext";
 import { Link, useNavigate } from "@tanstack/react-router";
 import Loader from "../components/Loader";
@@ -21,14 +21,23 @@ import { IoMdSettings } from "react-icons/io";
 import { IoCreateOutline } from "react-icons/io5";
 import { Urls } from "../types/types";
 import { uselogout } from "../hooks/useLogout";
+import {
+  emailUpdate,
+  usernameUpdate,
+  passwordUpdate,
+} from "../hooks/userUpdate";
 
 function Profile() {
-  const { user, isLoading: isUserLoading } = useAuth();
+  const { currentUser, isLoading: isUserLoading } = useAuth();
   const { mutate: deleteAccount } = useAccDelete();
   const { mutate: logoutMutation } = uselogout();
+  const { mutate: updateEmail } = emailUpdate();
+  const { mutate: updateUsername } = usernameUpdate();
+  const { mutate: updatePassword } = passwordUpdate();
   const [updateType, setUpdateType] = useState<
-    "email" | "username" | "password" | null
+    "email" | "username" | "password" | "delete" | null
   >(null);
+  const [isOpen, setIsOpen] = useState(false);
   const [newEmail, setNewEmail] = useState("");
   const [newUsername, setNewUsername] = useState("");
   const [currentPassword, setCurrentPassword] = useState("");
@@ -40,10 +49,10 @@ function Profile() {
 
   const navigate = useNavigate();
   useEffect(() => {
-    if (!user) {
+    if (!currentUser) {
       navigate({ to: "/login" });
     }
-  }, [user, navigate, isUserLoading]);
+  }, [currentUser, navigate, isUserLoading]);
 
   const { data: urlsData = [], isLoading: urlsLoading } = useQuery({
     queryKey: ["urls"],
@@ -51,7 +60,7 @@ function Profile() {
     retry: false,
   });
 
-  if (isUserLoading || !user || urlsLoading) {
+  if (isUserLoading || !currentUser || urlsLoading) {
     return (
       <div className="flex items-center justify-center min-h-screen">
         <Loader />
@@ -59,35 +68,77 @@ function Profile() {
     );
   }
 
-  const handleSubmit = (e: FormEvent) => {
-    e.preventDefault();
-    if (updateType === "email") {
-      console.log(updateType);
-      console.log(newEmail);
-      setNewEmail("");
-    }
-    if (updateType === "username") {
-      console.log(updateType);
-      console.log(newUsername);
-      setNewUsername("");
-    }
+  const handleModal = (type: "email" | "username" | "password" | "delete") => {
+    setUpdateType(type);
+    setIsOpen(true);
+    // console.log(type);
   };
 
-  const handlePasswordVerification = (e: ChangeEvent<HTMLInputElement>) => {
-    const currentPassword = e.target.value;
-    setCurrentPassword(currentPassword);
+  const closeModal = () => {
+    setIsOpen(false);
+    setUpdateType(null);
+    setNewEmail("");
+    setNewUsername("");
+    setCurrentPassword("");
+    setNewCredentials({ newPassword: "", confirmNewPassword: "" });
   };
+
   const handleEmailChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const newEmail = e.target.value;
-    setNewEmail(newEmail);
+    const { name, value } = e.target;
+    if (name === "newEmail") setNewEmail(value);
+    else setCurrentPassword(value);
   };
   const handleUsernameChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const newUsername = e.target.value;
-    setNewUsername(newUsername);
+    const { name, value } = e.target;
+    if (name === "newUsername") setNewUsername(value);
+    else setCurrentPassword(value);
   };
   const handlePasswordChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    setNewCredentials(prev => ({ ...prev, [name]: value }));
+    if (name === "currentPassword") setCurrentPassword(value);
+    else {
+      setNewCredentials(prev => ({
+        ...prev,
+        [name]: value,
+      }));
+    }
+  };
+
+  const handleAccountDelete = (e: ChangeEvent<HTMLInputElement>) => {
+    const val = e.target.value;
+    // console.log(val);
+
+    if (updateType === "delete") {
+      setCurrentPassword(val);
+    }
+  };
+
+  const handleSubmit = (e: FormEvent) => {
+    e.preventDefault();
+    if (updateType === "email") {
+      updateEmail({ email: newEmail, currentPassword });
+      setNewEmail("");
+    }
+    if (updateType === "username") {
+      updateUsername({ username: newUsername, currentPassword });
+      setNewUsername("");
+    }
+    if (updateType === "password") {
+      updatePassword({
+        currentPassword,
+        newPassword: newCredentials.newPassword,
+        confirmNewPassword: newCredentials.confirmNewPassword,
+      });
+      setNewCredentials({ newPassword: "", confirmNewPassword: "" });
+    }
+    if (updateType === "delete") {
+      console.log(updateType, currentPassword);
+
+      deleteAccount(currentPassword);
+    }
+
+    setCurrentPassword("");
+    setUpdateType(null);
   };
 
   return (
@@ -162,15 +213,17 @@ function Profile() {
               >
                 <img
                   src={
-                    user.image ||
+                    currentUser.image ||
                     "https://api.dicebear.com/9.x/pixel-art/svg?seed=default"
                   }
                   alt="User"
                   className="mb-4 h-32 w-32 rounded-full border-4 border-black shadow-md"
                 />
-                <h2 className="mb-1 text-3xl font-bold">{user.username}</h2>
+                <h2 className="mb-1 text-3xl font-bold">
+                  {currentUser.username}
+                </h2>
                 <p className="text-sm text-gray-700 bg-gray-100 px-3 py-1 rounded-full border border-black">
-                  {user.email}
+                  {currentUser.email}
                 </p>
                 <div className="mb-4 flex space-x-6">
                   <div className="text-center">
@@ -237,7 +290,7 @@ function Profile() {
                   Analytics
                 </h2>
                 <p className="text-sm text-gray-700 bg-gray-100 px-3 py-1 rounded-full border border-black">
-                  {user.email}
+                  {currentUser.email}
                 </p>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4 w-full mt-4">
@@ -275,7 +328,7 @@ function Profile() {
                     Settings <FaEdit className="ml-2" />
                   </h2>
                   <p className="text-sm text-gray-700 bg-gray-100 px-3 py-1 rounded-full border border-black">
-                    {user.email}
+                    {currentUser.email}
                   </p>
 
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-6 w-full">
@@ -283,6 +336,7 @@ function Profile() {
                     <label
                       htmlFor="modal_email"
                       className="btn w-full bg-yellow-300 text-black border-2 border-black shadow-[3px_3px_0_0_rgba(0,0,0,1)] hover:bg-yellow-400"
+                      onClick={() => handleModal("email")}
                     >
                       Change Email
                     </label>
@@ -291,6 +345,7 @@ function Profile() {
                     <label
                       htmlFor="modal_username"
                       className="btn w-full bg-pink-300 text-black border-2 border-black shadow-[3px_3px_0_0_rgba(0,0,0,1)] hover:bg-pink-400"
+                      onClick={() => handleModal("username")}
                     >
                       Change Username
                     </label>
@@ -299,6 +354,7 @@ function Profile() {
                     <label
                       htmlFor="modal_password"
                       className="btn w-full bg-cyan-300 text-black border-2 border-black shadow-[3px_3px_0_0_rgba(0,0,0,1)] hover:bg-cyan-400"
+                      onClick={() => handleModal("password")}
                     >
                       Change Password
                     </label>
@@ -307,6 +363,7 @@ function Profile() {
                     <label
                       htmlFor="modal_delete"
                       className="btn w-full bg-red-500 text-white border-2 border-black shadow-[3px_3px_0_0_rgba(0,0,0,1)] hover:bg-red-600"
+                      onClick={() => handleModal("delete")}
                     >
                       Delete Account <FaTrash className="ml-2" />
                     </label>
@@ -315,177 +372,274 @@ function Profile() {
               </div>
               {/* EMAIL MODAL */}
 
-              <input
-                type="checkbox"
-                id="modal_email"
-                className="modal-toggle"
-              />
-              <div className="modal">
-                <div className="modal-box border-4 border-black bg-white shadow-[6px_6px_0_rgba(0,0,0,1)]">
-                  {updateType === "email" && (
-                    <form className="space-y-3" onSubmit={handleSubmit}>
-                      <h3 className="font-bold text-xl mb-2">Change Email</h3>
-                      <p className="text-sm">
-                        Enter new email and your current password to update your
-                        email.
-                      </p>
-                      <input
-                        type="email"
-                        placeholder="Enter new email"
-                        value={newEmail}
-                        onChange={handleEmailChange}
-                        className="input input-bordered w-full border-2 border-black focus:outline-none"
-                      />
-                      <input
-                        type="password"
-                        placeholder="Enter current password"
-                        value={currentPassword}
-                        onChange={handlePasswordVerification}
-                        className="input input-bordered w-full border-2 border-black focus:outline-none"
-                      />
-                    </form>
-                  )}
-                  <div className="modal-action">
-                    <label
-                      htmlFor="modal_email"
-                      className="btn border-2 border-black"
+              <AnimatePresence>
+                {isOpen && updateType === "email" && (
+                  <motion.div
+                    className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 px-4 py-6 overflow-y-auto"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    onClick={closeModal}
+                  >
+                    <motion.div
+                      className="modal-box w-full max-w-md border-4 border-black bg-white shadow-[6px_6px_0_rgba(0,0,0,1)] p-6 rounded-lg relative"
+                      initial={{ scale: 0.8, opacity: 0 }}
+                      animate={{ scale: 1, opacity: 1 }}
+                      exit={{ scale: 0.8, opacity: 0 }}
+                      transition={{
+                        type: "spring",
+                        stiffness: 300,
+                        damping: 25,
+                      }}
+                      onClick={e => e.stopPropagation()} // prevent modal close on content click
                     >
-                      Cancel
-                    </label>
-                    <button
-                      className="btn bg-yellow-300 border-2 border-black text-black"
-                      type="submit"
-                    >
-                      Submit
-                    </button>
-                  </div>
-                </div>
-                <label className="modal-backdrop" htmlFor="modal_email">
-                  Close
-                </label>
-              </div>
+                      <form className="space-y-3" onSubmit={handleSubmit}>
+                        <h3 className="font-bold text-xl mb-2">Change Email</h3>
+                        <p className="text-sm">
+                          Enter new email and your current password to update
+                          your email.
+                        </p>
+                        <input
+                          type="email"
+                          name="newEmail"
+                          placeholder="Enter new email"
+                          value={newEmail}
+                          onChange={handleEmailChange}
+                          className="input input-bordered w-full border-2 border-black focus:outline-none"
+                        />
+                        <input
+                          type="password"
+                          name="currentPassword"
+                          placeholder="Enter current password"
+                          value={currentPassword}
+                          onChange={handleEmailChange}
+                          className="input input-bordered w-full border-2 border-black focus:outline-none"
+                        />
+                        <div className="modal-action">
+                          <label
+                            htmlFor="modal_email"
+                            className="btn border-2 border-black"
+                            onClick={closeModal}
+                          >
+                            Cancel
+                          </label>
+                          <button className="btn bg-yellow-300 border-2 border-black text-black">
+                            Submit
+                          </button>
+                        </div>
+                      </form>
+
+                      <label className="modal-backdrop" onClick={closeModal}>
+                        Close
+                      </label>
+                    </motion.div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
 
               {/* USERNAME MODAL */}
-              <input
-                type="checkbox"
-                id="modal_username"
-                className="modal-toggle"
-              />
-              <div className="modal">
-                <div className="modal-box border-4 border-black bg-white shadow-[6px_6px_0_rgba(0,0,0,1)]">
-                  <form className="space-y-3" onSubmit={handleSubmit}>
-                    <h3 className="font-bold text-xl mb-2">Change Username</h3>
-                    <p className="text-sm">
-                      Enter new username and current password to update your
-                      username.
-                    </p>
-                    <input
-                      type="text"
-                      placeholder="Enter new username"
-                      className="input input-bordered w-full border-2 border-black focus:outline-none"
-                    />
-                    <input
-                      type="password"
-                      placeholder="Enter current password"
-                      className="input input-bordered w-full border-2 border-black focus:outline-none"
-                    />
-                  </form>
-                  <div className="modal-action">
-                    <label
-                      htmlFor="modal_username"
-                      className="btn border-2 border-black"
+              <AnimatePresence>
+                {isOpen && updateType === "username" && (
+                  <motion.div
+                    className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 px-4 py-6 overflow-y-auto"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    onClick={closeModal}
+                  >
+                    <motion.div
+                      className="modal-box w-full max-w-md border-4 border-black bg-white shadow-[6px_6px_0_rgba(0,0,0,1)] p-6 rounded-lg relative"
+                      initial={{ scale: 0.8, opacity: 0 }}
+                      animate={{ scale: 1, opacity: 1 }}
+                      exit={{ scale: 0.8, opacity: 0 }}
+                      transition={{
+                        type: "spring",
+                        stiffness: 300,
+                        damping: 25,
+                      }}
+                      onClick={e => e.stopPropagation()} // prevent modal close on content click
                     >
-                      Cancel
-                    </label>
-                    <button className="btn bg-pink-300 border-2 border-black text-black">
-                      Save
-                    </button>
-                  </div>
-                </div>
-                <label className="modal-backdrop" htmlFor="modal_username">
-                  Close
-                </label>
-              </div>
+                      <form className="space-y-3" onSubmit={handleSubmit}>
+                        <h3 className="font-bold text-xl mb-2">
+                          Change Username
+                        </h3>
+                        <p className="text-sm">
+                          Enter your password to update your username.
+                        </p>
+                        <input
+                          type="text"
+                          name="newUsername"
+                          placeholder="Enter new username"
+                          className="input input-bordered w-full border-2 border-black focus:outline-none"
+                          onChange={handleUsernameChange}
+                          value={newUsername}
+                        />
+                        <input
+                          type="password"
+                          name="currentPassword"
+                          placeholder="Enter current password"
+                          className="input input-bordered w-full border-2 border-black focus:outline-none"
+                          onChange={handleUsernameChange}
+                          value={currentPassword}
+                        />
+                        <div className="modal-action">
+                          <label
+                            htmlFor="modal_username"
+                            className="btn border-2 border-black"
+                            onClick={closeModal}
+                          >
+                            Cancel
+                          </label>
+                          <button className="btn bg-pink-300 border-2 border-black text-black">
+                            Save
+                          </button>
+                        </div>
+                      </form>
+
+                      <label className="modal-backdrop" onClick={closeModal}>
+                        Close
+                      </label>
+                    </motion.div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
 
               {/* PASSWORD MODAL */}
-              <input
-                type="checkbox"
-                id="modal_password"
-                className="modal-toggle"
-              />
-              <div className="modal">
-                <div className="modal-box border-4 border-black bg-white shadow-[6px_6px_0_rgba(0,0,0,1)]">
-                  <form className="space-y-3">
-                    <h3 className="font-bold text-xl mb-2">Change Password</h3>
-                    <p className="text-sm">
-                      Enter your existing password to update your new password.
-                    </p>
-                    <input
-                      type="password"
-                      placeholder="Enter existing password"
-                      className="input input-bordered w-full border-2 border-black focus:outline-none"
-                    />
-                    <input
-                      type="password"
-                      placeholder="Enter new password"
-                      className="input input-bordered w-full border-2 border-black focus:outline-none"
-                    />
-                    <input
-                      type="password"
-                      placeholder="Confirm new password"
-                      className="input input-bordered w-full border-2 border-black focus:outline-none"
-                    />
-                  </form>
-                  <div className="modal-action">
-                    <label
-                      htmlFor="modal_password"
-                      className="btn border-2 border-black"
+              <AnimatePresence>
+                {isOpen && updateType === "password" && (
+                  <motion.div
+                    className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 px-4 py-6 overflow-y-auto"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    onClick={closeModal}
+                  >
+                    <motion.div
+                      className="modal-box w-full max-w-md border-4 border-black bg-white shadow-[6px_6px_0_rgba(0,0,0,1)] p-6 rounded-lg relative"
+                      initial={{ scale: 0.8, opacity: 0 }}
+                      animate={{ scale: 1, opacity: 1 }}
+                      exit={{ scale: 0.8, opacity: 0 }}
+                      transition={{
+                        type: "spring",
+                        stiffness: 300,
+                        damping: 25,
+                      }}
+                      onClick={e => e.stopPropagation()} // prevent modal close on content click
                     >
-                      Cancel
-                    </label>
-                    <button className="btn bg-cyan-300 border-2 border-black text-black">
-                      Submit
-                    </button>
-                  </div>
-                </div>
-                <label className="modal-backdrop" htmlFor="modal_password">
-                  Close
-                </label>
-              </div>
+                      <form className="space-y-3" onSubmit={handleSubmit}>
+                        <h3 className="font-bold text-xl mb-2">
+                          Change Password
+                        </h3>
+                        <p className="text-sm">
+                          Existing password is required to update your password.
+                        </p>
+                        <input
+                          type="password"
+                          name="currentPassword"
+                          placeholder="Enter existing password"
+                          className="input input-bordered w-full border-2 border-black focus:outline-none"
+                          onChange={handlePasswordChange}
+                          value={currentPassword}
+                        />
+                        <input
+                          type="password"
+                          name="newPassword"
+                          placeholder="Enter new password"
+                          className="input input-bordered w-full border-2 border-black focus:outline-none"
+                          onChange={handlePasswordChange}
+                          value={newCredentials.newPassword}
+                        />
+                        <input
+                          type="password"
+                          name="confirmNewPassword"
+                          placeholder="Confirm new password"
+                          className="input input-bordered w-full border-2 border-black focus:outline-none"
+                          onChange={handlePasswordChange}
+                          value={newCredentials.confirmNewPassword}
+                        />
+                        <div className="modal-action">
+                          <label
+                            htmlFor="modal_password"
+                            className="btn border-2 border-black"
+                            onClick={closeModal}
+                          >
+                            Cancel
+                          </label>
+                          <button className="btn bg-cyan-300 border-2 border-black text-black">
+                            Submit
+                          </button>
+                        </div>
+                      </form>
+
+                      <label
+                        className="modal-backdrop"
+                        htmlFor="modal_password"
+                        onClick={closeModal}
+                      >
+                        Close
+                      </label>
+                    </motion.div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
 
               {/* DELETE MODAL */}
-              <input
-                type="checkbox"
-                id="modal_delete"
-                className="modal-toggle"
-              />
-              <div className="modal">
-                <div className="modal-box border-4 border-black bg-white shadow-[6px_6px_0_rgba(0,0,0,1)]">
-                  <h3 className="font-bold text-xl text-red-600 mb-2">
-                    Delete Account
-                  </h3>
-                  <p className="text-sm mb-4 text-gray-700">
-                    Are you sure? This action is permanent.
-                  </p>
-                  <div className="modal-action">
-                    <label
-                      htmlFor="modal_delete"
-                      className="btn border-2 border-black"
+              <AnimatePresence>
+                {isOpen && updateType === "delete" && (
+                  <motion.div
+                    className="fixed inset-0 bg-black/40 flex items-center justify-center z-50"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                  >
+                    <motion.div
+                      className="modal-box w-full max-w-md mx-4 border-4 border-black bg-white shadow-[6px_6px_0_rgba(0,0,0,1)] p-6 rounded-lg"
+                      initial={{ scale: 0.8, opacity: 0 }}
+                      animate={{ scale: 1, opacity: 1 }}
+                      exit={{ scale: 0.8, opacity: 0 }}
+                      transition={{
+                        type: "spring",
+                        stiffness: 300,
+                        damping: 25,
+                      }}
                     >
-                      Cancel
-                    </label>
-                    <button
-                      className="btn bg-red-500 text-white border-2 border-black"
-                      onClick={() => deleteAccount()}
-                    >
-                      Confirm Delete
-                    </button>
-                  </div>
-                </div>
-                <label className="modal-backdrop" htmlFor="modal_delete">
-                  Close
-                </label>
-              </div>
+                      <form className="space-y-3" onSubmit={handleSubmit}>
+                        <h3 className="font-bold text-xl text-red-600 mb-2">
+                          Delete Account
+                        </h3>
+                        <p className="text-md mb-4 text-gray-700">
+                          Are you sure? This action is permanent.
+                        </p>
+                        <p className="text-xs mb-4 text-gray-900">
+                          Enter your password to delete your account.
+                        </p>
+                        <input
+                          type="password"
+                          name="currentPassword"
+                          placeholder="Enter password"
+                          className="input input-bordered w-full border-2 border-black focus:outline-none"
+                          onChange={handleAccountDelete}
+                          value={currentPassword}
+                        />
+                        <div className="modal-action flex justify-end gap-3">
+                          <label
+                            onClick={closeModal}
+                            className="btn border-2 border-black"
+                          >
+                            Cancel
+                          </label>
+                          <button className="btn bg-red-500 text-white border-2 border-black">
+                            Confirm Delete
+                          </button>
+                        </div>
+                      </form>
+                      <label className="modal-backdrop" onClick={closeModal}>
+                        Close
+                      </label>
+                    </motion.div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
             </>
           )}
           {activeTab === "My Links" && (

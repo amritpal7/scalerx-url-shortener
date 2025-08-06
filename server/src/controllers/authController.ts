@@ -1,4 +1,3 @@
-import { User } from "../../generated";
 import { generateJwtCode, verifyJwtCode } from "../utils/jwt";
 import { Request, Response } from "express";
 import {
@@ -7,7 +6,8 @@ import {
   deleteUser,
   getAllUsers,
   updateUserCredential,
-  createSession,
+  userLogin,
+  getRefreshToken,
 } from "../service/user.service";
 import { redisClient } from "../lib/redis";
 import { setCookie } from "../utils/cookieTokens";
@@ -15,8 +15,9 @@ import { setCookie } from "../utils/cookieTokens";
 export const registerUserHandler = async (req: Request, res: Response) => {
   try {
     const user = await createUser(req.body);
-    const token = generateJwtCode(user);
-    setCookie(res, token);
+    const accessToken = generateJwtCode(user, "access");
+    const refreshToken = generateJwtCode(user, "refresh");
+    setCookie(res, { accessToken, refreshToken });
     res.send(user);
   } catch (err: any) {
     res.status(409).send(err);
@@ -25,13 +26,14 @@ export const registerUserHandler = async (req: Request, res: Response) => {
 
 export const loginHandler = async (req: Request, res: Response) => {
   try {
-    const user = await createSession(req.body);
+    const user = await userLogin(req.body);
 
     // console.log("user:", user);
     if (!user) return res.status(401).json({ msg: "User not found" });
 
-    const token = generateJwtCode(user);
-    setCookie(res, token);
+    const accessToken = generateJwtCode(user, "access");
+    const refreshToken = generateJwtCode(user, "refresh");
+    setCookie(res, { accessToken, refreshToken });
 
     res.send(user);
   } catch (e: any) {
@@ -40,14 +42,14 @@ export const loginHandler = async (req: Request, res: Response) => {
 };
 
 export const getUserHandler = async (req: Request, res: Response) => {
-  const userId = req.user?.id;
-  // console.log("get user id: ", userId); // working
-
-  if (!userId) {
-    return res.status(401).json({ msg: "Unauthorised: User not logged in!" });
-  }
   try {
-    const user = await getUserById(userId);
+    const userFromPassport = req.user as { id: string };
+
+    if (!userFromPassport?.id) {
+      return res.status(401).json({ msg: "Unauthorized: User ID missing" });
+    }
+
+    const user = await getUserById(userFromPassport.id);
     // console.log("user: ", user); // working
     if (!user) {
       return res.status(404).json({ msg: "User not found!" });
@@ -89,11 +91,11 @@ export const updateUserCredentialsHandler = async (
   req: Request,
   res: Response
 ) => {
-  const userId = req.user?.id;
+  const user = req.user as { id: string };
 
   // console.log("from update cred", userId); // working
 
-  if (!userId) res.status(404).json({ msg: "User not authorized." });
+  if (!user) res.status(404).json({ msg: "User not authorized." });
 
   if (!req.body)
     return res
@@ -101,7 +103,7 @@ export const updateUserCredentialsHandler = async (
       .json({ msg: "Please provide entries for updating the credentials." });
 
   try {
-    const updatedUser = await updateUserCredential(userId, req.body);
+    const updatedUser = await updateUserCredential(user.id, req.body);
     res.send(updatedUser);
   } catch (err: any) {
     res.status(400).json({ msg: err.message });
@@ -109,21 +111,24 @@ export const updateUserCredentialsHandler = async (
 };
 
 export const deleteUserHandler = async (req: Request, res: Response) => {
-  const userId = req.user?.id;
+  const user = req.user as { id: string };
+
   // get user id
-  if (!userId) return res.status(401).send({ msg: "User not found." });
+  if (!user) return res.status(401).send({ msg: "User not found." });
 
   try {
-    const deleted = await deleteUser(userId, req.body);
+    const deleted = await deleteUser(user.id, req.body);
 
     if (!deleted) return res.status(404).json({ msg: "User not exists." });
 
-    redisClient.del(`shortUrls:${userId}`);
+    redisClient.del(`shortUrls:${user.id}`);
     res.clearCookie("accessToken");
     res.clearCookie("refreshToken");
 
     return res.status(200).json({ success: true });
   } catch (err: any) {
+    console.log(err.message);
+
     res.status(400).json({ msg: err.message });
   }
 
@@ -131,28 +136,26 @@ export const deleteUserHandler = async (req: Request, res: Response) => {
 };
 
 export const refreshTokenHandler = async (req: Request, res: Response) => {
-  const { refreshToken } = req.cookies;
-  // console.log("refreshToken", refreshToken);
-  // console.log("access:", accessToken);
-  if (!refreshToken)
-    return res.status(401).json({ msg: "Session expired, login again!" });
-
   try {
-    const verified = verifyJwtCode(refreshToken, "refresh");
-    // console.log("from refresh route: ", verified);
+    const token = req.cookies.refreshToken;
+    const tokens = await getRefreshToken(token);
 
-    if (!verified) {
-      res.clearCookie("refreshToken");
-      res.clearCookie("accessToken");
-      return res.status(400).send("User was not verified!");
-    }
-
-    const token = generateJwtCode(verified as User);
-    setCookie(res, token);
-    res.send({ success: true });
-  } catch (e) {
-    res.clearCookie("refreshToken");
-    res.clearCookie("accessToken");
-    res.status(403).json({ error: "Invalid or expired token!" });
+    res.cookie("accessToken", tokens.newAccessToken, {
+      httpOnly: true,
+      sameSite: "strict",
+      secure: process.env.NODE_ENV === "production",
+      maxAge: 15 * 60 * 1000, // 15 mins
+      path: "/",
+    });
+    res.cookie("refreshToken", tokens.newRefreshToken, {
+      httpOnly: true,
+      sameSite: "strict",
+      secure: process.env.NODE_ENV === "production",
+      maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
+      path: "/",
+    });
+    res.status(200).json({ message: "Tokens refreshed." });
+  } catch (err: any) {
+    res.status(403).json(err.message);
   }
 };

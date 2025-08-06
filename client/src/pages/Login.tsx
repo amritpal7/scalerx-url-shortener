@@ -1,14 +1,19 @@
-import { Link } from "@tanstack/react-router";
+import { Link, useNavigate } from "@tanstack/react-router";
 import { useLogin } from "../hooks/useLogin";
 import { useAuth } from "../context/authContext";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Loader from "../components/Loader";
 
 function Login() {
   const [form, setForm] = useState({ email: "", password: "" });
 
   const { mutate: loginMutation, isPending, isError, error } = useLogin();
-  const { isLoading } = useAuth();
+  const { isLoading, currentUser } = useAuth();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!isLoading && currentUser) navigate({ to: "/profile" });
+  }, [isLoading, currentUser]);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -26,12 +31,9 @@ function Login() {
         <Loader />
       </div>
     );
-  if (isPending)
-    return (
-      <div className="flex items-center justify-center min-h-screen">
-        <Loader />
-      </div>
-    );
+
+  console.log("Loading:", isLoading);
+  console.log("Current User:", currentUser);
 
   return (
     <div className="w-full max-w-md px-4 mx-auto mt-40">
@@ -106,8 +108,12 @@ function Login() {
             Must be more than 8 characters.
           </p>
           <div className="flex flex-col items-center justify-center">
-            <button className="btn btn-primary btn-block mb-4" type="submit">
-              Login
+            <button
+              className="btn btn-primary btn-block mb-4"
+              type="submit"
+              disabled={isPending}
+            >
+              {isPending ? "Logging In..." : "Login"}
             </button>
             <div>
               Don't have an account ?{" "}

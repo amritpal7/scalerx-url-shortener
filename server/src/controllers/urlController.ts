@@ -15,15 +15,15 @@ export const generateShortUrl = async (req: Request, res: Response) => {
     if (!req.user)
       return res.status(401).json({ error: "Please login first!" });
 
-    const { id: userId } = req.user;
+    const user = req.user as { id: string };
     const newShortUrl = `${process.env.BASE_URL}/${shortCode}`;
     const created = await createShortUrl(
-      userId,
+      user.id,
       newShortUrl,
       longUrl,
       shortCode
     );
-    redisClient.del(`shortUrls:${userId}`);
+    redisClient.del(`shortUrls:${user.id}`);
     res.send(created);
   } catch (error: any) {
     res.status(500).json(error.message);
@@ -48,14 +48,14 @@ export const getShortUrls = async (req: Request, res: Response) => {
       return res.status(401).json({ msg: "Please login first!" });
     }
 
-    const { id: userId } = req.user;
+    const user = req.user as { id: string };
 
-    if (!userId) {
+    if (!user) {
       console.warn("Missing userId in req.user:", req.user);
       return res.status(401).json({ msg: "User not found" });
     }
 
-    const urlsData = await getAllUrls(userId);
+    const urlsData = await getAllUrls(user.id);
 
     res.send(urlsData);
   } catch (error: any) {

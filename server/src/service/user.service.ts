@@ -1,6 +1,7 @@
 import { omit } from "lodash";
 import { PrismaClient, User } from "../../generated";
 import bcrypt from "bcryptjs";
+import { verifyJwtCode, generateJwtCode } from "../utils/jwt";
 
 const prisma = new PrismaClient();
 
@@ -10,6 +11,7 @@ export async function comparePassword(
 ) {
   try {
     const isValid = await bcrypt.compare(newPassword, oldPassword);
+
     if (!isValid) throw new Error("Incorrect password!");
     return isValid;
   } catch (e: any) {
@@ -36,6 +38,7 @@ export async function createUser(input: User) {
     if (isExists) throw new Error("User already exists!");
 
     const newUser = await prisma.user.create({
+      omit: { password: true },
       data: {
         email: input.email,
         password: hashedPassword,
@@ -60,7 +63,7 @@ export async function getUserById(id: string) {
     throw new Error(e);
   }
 }
-export async function createSession(body: { email: string; password: string }) {
+export async function userLogin(body: { email: string; password: string }) {
   try {
     const user = await findUserByEmail(body.email);
     if (!user) throw new Error("User not found!");
@@ -87,7 +90,7 @@ export async function getAllUsers() {
 export async function updateUserCredential(
   userId: string | undefined,
   body: {
-    email?: string;
+    newEmail?: string;
     username?: string;
     newPassword?: string;
     confirmNewPassword?: string;
@@ -101,7 +104,7 @@ export async function updateUserCredential(
     if (!user) throw new Error("User not found.");
     const updatedData: any = {};
 
-    if (body.email) {
+    if (body.newEmail) {
       if (!body.currentPassword)
         throw new Error("Current password is required to update an Email.");
 
@@ -111,7 +114,14 @@ export async function updateUserCredential(
       );
 
       if (!isMatched) throw new Error("Current password is incorrect.");
-      updatedData.email = body.email.trim().toLowerCase();
+
+      const normalizedNewEmail = body.newEmail?.trim().toLowerCase();
+      const normalizedCurrentEmail = user.email?.trim().toLowerCase();
+
+      if (normalizedNewEmail === normalizedCurrentEmail)
+        throw new Error("New email cannot be the same as the current email.");
+
+      updatedData.email = normalizedNewEmail;
     }
     if (body.username) {
       if (!body.currentPassword) throw new Error("New username is required.");
@@ -120,9 +130,18 @@ export async function updateUserCredential(
         user.password
       );
       if (!isMatched) throw new Error("Current password is incorrect.");
-      updatedData.username = body.username.trim().toLowerCase();
+
+      const normalizedNewUsername = body.username?.trim().toLowerCase();
+      const normalizedCurrentUsername = user.username?.trim().toLowerCase();
+
+      if (normalizedNewUsername === normalizedCurrentUsername)
+        throw new Error(
+          "New username cannot be the same as the current username."
+        );
+
+      updatedData.username = normalizedNewUsername;
     }
-    if (body.newPassword) {
+    if (body.newPassword && body.currentPassword) {
       if (!body.currentPassword || !body.confirmNewPassword)
         throw new Error(
           "Current and confirm password is required to update password."
@@ -160,13 +179,21 @@ export async function updateUserCredential(
   }
 }
 
-export async function deleteUser(userId: string, currentPassword: string) {
+export async function deleteUser(
+  userId: string,
+  body: { currentPassword: string }
+) {
   try {
     const user = await getUserById(userId);
     if (!user) return null;
 
-    const isMatched = await comparePassword(currentPassword, user.password);
+    const isMatched = await comparePassword(
+      body.currentPassword,
+      user.password
+    );
+
     if (!isMatched) throw new Error("Invalid password entered.");
+    console.log(isMatched);
 
     // Mark user's data as deleted inside DB.
     await prisma.shortUrl.updateMany({
@@ -180,10 +207,35 @@ export async function deleteUser(userId: string, currentPassword: string) {
       where: { id: userId },
       data: { isDeleted: true },
     });
-    // console.log("user marked as deleted.");
+    console.log("user marked as deleted.");
     return deletedUser;
   } catch (e: any) {
-    // console.log(e.message);
+    console.log(e.message);
     throw new Error(e);
   }
 }
+
+export const getRefreshToken = async (token: string) => {
+  try {
+    if (!token) throw new Error("Refresh token not found.");
+    const { valid, expired, decoded } = verifyJwtCode(token, "refresh");
+
+    if (!decoded || (!valid && !expired)) {
+      throw new Error("Invalid or malformed refresh token.");
+    }
+
+    const { id } = decoded as { id: string };
+
+    const user = await prisma.user.findUnique({
+      where: { id },
+    });
+
+    if (!user) throw new Error("User not found.");
+    const newAccessToken = generateJwtCode(user, "access");
+    const newRefreshToken = generateJwtCode(user, "refresh");
+
+    return { newAccessToken, newRefreshToken };
+  } catch (err: any) {
+    throw new Error(err);
+  }
+};

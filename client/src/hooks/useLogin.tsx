@@ -5,13 +5,14 @@ import toast from "react-hot-toast";
 import { useNavigate } from "@tanstack/react-router";
 
 export const useLogin = () => {
-  const { login } = useAuth();
+  const { login, refetch } = useAuth();
   const navigate = useNavigate();
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: loginApi,
     onSuccess: async data => {
       await queryClient.invalidateQueries({ queryKey: ["me"] });
+      await refetch();
       login(data);
       navigate({ to: "/profile" });
       toast.success("Login successfully!");

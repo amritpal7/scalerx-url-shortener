@@ -5,11 +5,12 @@ import cookieParser from "cookie-parser";
 import shortRoutes from "./routes/shortRoutes";
 import authRoutes from "./routes/authRoutes";
 import { connectRedis } from "./lib/redis";
-import config from "config";
+import passport from "passport";
+import { configurePassport } from "./middleware/auth";
 
 dotenv.config();
 const app = express();
-const PORT = config.get<number>("port") || 8080;
+const port = parseInt(process.env.PORT || "8080", 10);
 
 app.use(
   cors({
@@ -20,6 +21,9 @@ app.use(
 app.use(cookieParser());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+
+configurePassport(passport);
+app.use(passport.initialize());
 
 app.use("/api/log", (req, res) => {
   res.status(200).send("OK");
@@ -40,8 +44,8 @@ app.use("/api/auth", authRoutes);
 
     console.log("✅ [Server] Redis connected successfully!");
 
-    app.listen(PORT, "0.0.0.0", () =>
-      console.log(`🚀 Server running at http://0.0.0.0:${PORT}`)
+    app.listen(port, "0.0.0.0", () =>
+      console.log(`🚀 Server running at http://0.0.0.0:${port}`)
     );
   } catch (error) {
     console.error("❌ Failed to start server due to Redis error:", error);

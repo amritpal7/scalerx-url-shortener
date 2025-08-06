@@ -10,7 +10,7 @@ function GenerateUrls() {
   const [longUrl, setLongUrl] = useState("");
   const [newShortUrl, setNewShortUrl] = useState<string | null>(null);
   const [countdown, setCountdown] = useState<number>(0);
-  const { user } = useAuth();
+  const { currentUser } = useAuth();
 
   const { mutate, isError, isPending, isSuccess } = useShortUrlFetcher();
 
@@ -63,7 +63,7 @@ function GenerateUrls() {
   return (
     <div className="mt-20 flex flex-col items-center w-full px-4">
       {/* Form Section */}
-      {user && (
+      {currentUser && (
         <div className="w-full max-w-2xl">
           {/* Top-right link */}
           <div className="flex justify-start">

@@ -7,11 +7,14 @@ export type User = {
 };
 
 export type AuthContextType = {
-  user: User | null;
   isLoading: boolean;
-  refetchUser: () => void;
   login: (user: User | null) => void;
   logout: () => void;
+  currentUser: User | null;
+  isPending: boolean;
+  isFetching: boolean;
+  isError: boolean;
+  refetch: () => void;
 };
 
 export type Urls = {

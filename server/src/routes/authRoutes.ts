@@ -9,7 +9,7 @@ import {
   getAllUsersHandler,
   updateUserCredentialsHandler,
 } from "../controllers/authController";
-import { authenticate } from "../middleware/auth";
+import passport from "passport";
 import validate from "../middleware/validateResource";
 import userSchema from "../schema/user.schema";
 const router = Router();
@@ -18,17 +18,33 @@ const router = Router();
 router.post("/users", validate(userSchema), registerUserHandler);
 //@ts-ignore
 router.post("/login", loginHandler);
+router.put(
+  "/users/update",
+  passport.authenticate("jwt", { session: false }),
+  //@ts-ignore
+  updateUserCredentialsHandler
+);
 //@ts-ignore
-router.put("/users/update", authenticate, updateUserCredentialsHandler);
-//@ts-ignore
-router.get("/me", authenticate, getUserHandler);
-//@ts-ignore
-router.get("/users", getAllUsersHandler);
+router.get(
+  "/me",
+  passport.authenticate("jwt", { session: false }),
+  //@ts-ignore
+  getUserHandler
+);
+router.get(
+  "/users",
+  passport.authenticate("jwt", { session: false }),
+  getAllUsersHandler
+);
 // @ts-ignore
-router.post("/logout", authenticate, logoutHandler);
+router.post("/logout", logoutHandler);
 // @ts-ignore
 router.post("/refresh", refreshTokenHandler);
-// @ts-ignore
-router.delete("/delete", authenticate, deleteUserHandler);
+router.delete(
+  "/delete",
+  passport.authenticate("jwt", { session: false }),
+  //@ts-ignore
+  deleteUserHandler
+);
 
 export default router;

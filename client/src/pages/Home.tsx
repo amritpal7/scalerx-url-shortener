@@ -2,7 +2,7 @@ import { Link } from "@tanstack/react-router";
 import { useAuth } from "../context/authContext";
 
 function Home() {
-  const { user } = useAuth();
+  const { currentUser } = useAuth();
   return (
     <div className="flex flex-col items-center justify-center mt-25 md:px-30 lg:px-40">
       <div className="flex flex-col-reverse md:flex-row items-center justify-center gap-10 mt-10 px-4 max-w-6xl mx-auto">
@@ -16,7 +16,7 @@ function Home() {
             forever.
           </p>
 
-          <Link to={user ? "/GenerateUrls" : "/register"}>
+          <Link to={currentUser ? "/GenerateUrls" : "/register"}>
             <button className="cursor-pointer group relative font-semibold text-sm px-6 py-3 rounded-full transition-all duration-200 ease-in-out shadow hover:shadow-lg w-40 h-12">
               <div className="relative flex items-center justify-center gap-2">
                 <span className="relative inline-block overflow-hidden">

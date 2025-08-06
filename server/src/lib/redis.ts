@@ -1,6 +1,5 @@
 import { createClient } from "redis";
 import IORedis from "ioredis";
-import config from "config";
 
 // Create a Redis client for caching
 // This client is used for caching data in Redis
@@ -10,11 +9,10 @@ const redisClient = createClient({
 
 // Create a Redis connection for other operations
 // This connection is used for other Redis operations such as Pub/Sub or seperate queue workers or jobs
-const redisConnection = new IORedis({
-  host: config.get<string>("redisHost"),
-  port: config.get<number>("redisPort"),
-  maxRetriesPerRequest: null,
-});
+const redisConnection = new IORedis(
+  process.env.REDIS_URL || "redis://redis:6379",
+  { maxRetriesPerRequest: null }
+);
 
 redisClient.on("error", (err: any) =>
   console.log("❌ [Redis] Redis Client Error", err)

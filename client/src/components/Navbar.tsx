@@ -7,7 +7,7 @@ import { IoMdLogIn, IoMdLogOut } from "react-icons/io";
 import { FaUserAlt } from "react-icons/fa";
 
 function Navbar() {
-  const { user } = useAuth();
+  const { currentUser } = useAuth();
   const { mutate: logoutMutation } = uselogout();
 
   return (
@@ -30,7 +30,7 @@ function Navbar() {
         </nav> */}
 
         {/* User Avatar Dropdown */}
-        {user ? (
+        {currentUser ? (
           <div className="dropdown dropdown-end">
             <label
               tabIndex={0}
@@ -39,7 +39,7 @@ function Navbar() {
               <div className="w-10 rounded-full">
                 <img
                   src={
-                    user?.image ||
+                    currentUser?.image ||
                     "https://api.dicebear.com/9.x/pixel-art/svg?seed=default"
                   }
                   alt="User avatar"

@@ -23,14 +23,14 @@ function Register() {
   };
 
   const { mutate, isPending, isError, error } = useRegister();
-  const { refetchUser, isLoading } = useAuth();
+  const { refetch, isLoading } = useAuth();
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
 
     mutate(form, {
       onSuccess: () => {
-        refetchUser();
+        refetch();
         toast.success("Registered successfully!");
         navigate({ to: "/" });
       },

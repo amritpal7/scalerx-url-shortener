@@ -1,36 +1,34 @@
-import { Request, Response, NextFunction } from "express";
-import { verifyJwtCode } from "../utils/jwt";
-import { getUserById } from "../service/user.service";
+import { Strategy as JwtStrategy, ExtractJwt } from "passport-jwt";
+import { Request } from "express";
+import { PassportStatic } from "passport";
+import { PrismaClient } from "../../generated";
 
-export const authenticate = async (
-  req: Request,
-  res: Response,
-  next: NextFunction
-) => {
-  const accessToken = req.cookies.accessToken;
+const prisma = new PrismaClient();
 
-  if (!accessToken) return res.status(401).json({ msg: "No token found!" });
+const secretKey = process.env.ACCESS_TOKEN!;
 
-  try {
-    const decoded = verifyJwtCode(accessToken, "access") as {
-      id: string;
-      email: string;
-    };
-    const user = await getUserById(decoded.id);
+function accessTokenExtractor(req: Request) {
+  return req.cookies.accessToken || null;
+}
 
-    if (!user)
-      return res.status(401).json({ msg: "Unauthorized user/User not found!" });
+const options = {
+  jwtFromRequest: accessTokenExtractor,
+  secretOrKey: secretKey,
+};
 
-    req.user = user;
-    next();
-  } catch (error) {
-    // Clear the cookie if expired or invalid
-    res.clearCookie("accessToken", {
-      httpOnly: true,
-      secure: process.env.NODE_ENV === "production",
-      sameSite: "strict",
-    });
+export const configurePassport = (passport: PassportStatic) => {
+  passport.use(
+    new JwtStrategy(options, async (payload, done) => {
+      try {
+        const user = await prisma.user.findUnique({
+          where: { id: payload.id },
+        });
 
-    return res.status(401).json({ msg: "Invalid token or token expired!" });
-  }
+        if (user) return done(null, user);
+        return done(null, false);
+      } catch (err: any) {
+        return done(err, false);
+      }
+    })
+  );
 };

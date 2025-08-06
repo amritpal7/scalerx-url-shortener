@@ -1,13 +1,10 @@
-import axios from "axios";
-import api from "../lib/api";
-
-const API_URL = import.meta.env.VITE_API_URL;
+import API from "../lib/api";
 
 export const loginApi = async (credentials: {
   email: string;
   password: string;
 }) => {
-  const response = await axios.post(`${API_URL}/auth/login`, credentials, {
+  const response = await API.post("/auth/login", credentials, {
     withCredentials: true,
   });
 
@@ -20,7 +17,7 @@ export const register = async (credentials: {
   password: string;
   confirmPassword: string;
 }) => {
-  const response = await axios.post(`${API_URL}/auth/users`, credentials, {
+  const response = await API.post("/auth/users", credentials, {
     withCredentials: true,
   });
 
@@ -28,12 +25,11 @@ export const register = async (credentials: {
 };
 
 export const logoutApi = () => {
-  return axios.post(`${API_URL}/auth/logout`, {}, { withCredentials: true });
+  return API.post("/auth/logout", {}, { withCredentials: true });
 };
 
 export const fetchMe = async () => {
-  const response = await api.get("/auth/me");
-
+  const response = await API.get("/auth/me");
   return response.data;
 };
 
@@ -41,11 +37,31 @@ export const updateUserEmail = async (credentials: {
   email: string;
   currentPassword: string;
 }) => {
-  return await api.put(`${API_URL}/auth/users/update`, credentials, {
+  return await API.put("/auth/users/update", credentials, {
+    withCredentials: true,
+  });
+};
+export const updateUsername = async (credentials: {
+  username: string;
+  currentPassword: string;
+}) => {
+  return await API.put("/auth/users/update", credentials, {
+    withCredentials: true,
+  });
+};
+export const updatePassword = async (credentials: {
+  currentPassword: string;
+  newPassword: string;
+  confirmNewPassword: string;
+}) => {
+  return await API.put("/auth/users/update", credentials, {
     withCredentials: true,
   });
 };
 
-export const deleteUserAccount = async () => {
-  return axios.delete(`${API_URL}/auth/delete`, { withCredentials: true });
+export const deleteUserAccount = async (currentPassword: string) => {
+  return await API.delete("/auth/delete", {
+    data: { currentPassword },
+    withCredentials: true,
+  });
 };
