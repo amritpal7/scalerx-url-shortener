@@ -10,7 +10,10 @@ const API = axios.create({
 
 // seperate instance just for refreshing token
 const plainAxios = axios.create({
-  baseURL: import.meta.env.VITE_API_URL,
+  baseURL:
+    import.meta.env.MODE === "production"
+      ? import.meta.env.VITE_PROD_API_URL
+      : import.meta.env.VITE_API_URL,
   withCredentials: true,
 });
 
