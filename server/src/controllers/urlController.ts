@@ -26,6 +26,8 @@ export const generateShortUrl = async (req: Request, res: Response) => {
       return res.status(500).json({ error: "Base URL is not configured" });
     }
 
+    console.log("Base URL:", baseUrl);
+
     const newShortUrl = `${baseUrl}/${shortCode}`;
 
     const created = await createShortUrl(
