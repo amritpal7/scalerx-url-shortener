@@ -12,9 +12,20 @@ dotenv.config();
 const app = express();
 const port = parseInt(process.env.PORT || "8080", 10);
 
+const baseUrl =
+  process.env.NODE_ENV === "production"
+    ? process.env.PROD_CLIENT_URL
+    : process.env.LOCAL_CLIENT_URL;
+
+console.log("NODE_ENV:", process.env.NODE_ENV);
+console.log("Base URL:", baseUrl);
+
 app.use(
   cors({
-    origin: process.env.CLIENT_URL,
+    origin:
+      process.env.NODE_ENV === "production"
+        ? process.env.PROD_CLIENT_URL
+        : process.env.LOCAL_CLIENT_URL,
     credentials: true,
   })
 );

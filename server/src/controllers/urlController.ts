@@ -16,7 +16,18 @@ export const generateShortUrl = async (req: Request, res: Response) => {
       return res.status(401).json({ error: "Please login first!" });
 
     const user = req.user as { id: string };
-    const newShortUrl = `${process.env.BASE_URL}/${shortCode}`;
+    const baseUrl =
+      process.env.NODE_ENV === "production"
+        ? process.env.PROD_API_URL
+        : process.env.LOCAL_API_URL;
+
+    if (!baseUrl) {
+      console.error("Base URL not set for environment:", process.env.NODE_ENV);
+      return res.status(500).json({ error: "Base URL is not configured" });
+    }
+
+    const newShortUrl = `${baseUrl}/${shortCode}`;
+
     const created = await createShortUrl(
       user.id,
       newShortUrl,
