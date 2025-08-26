@@ -50,7 +50,7 @@ export const getUserHandler = async (req: Request, res: Response) => {
     }
 
     const user = await getUserById(userFromPassport.id);
-    console.log("user: ", user); // working
+    // console.log("user: ", user); // working
     if (!user) {
       return res.status(404).json({ msg: "User not found!" });
     }
@@ -78,8 +78,18 @@ export const logoutHandler = async (req: Request, res: Response) => {
   // const token = req.cookies.token;
   // if (!token) return res.status(400).json({ msg: "No cookie token found!" });
   try {
-    res.clearCookie("accessToken");
-    res.clearCookie("refreshToken");
+    const cookieOptions = {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      sameSite:
+        process.env.NODE_ENV === "production"
+          ? ("none" as const)
+          : ("lax" as const),
+      path: "/",
+    };
+
+    res.clearCookie("accessToken", cookieOptions);
+    res.clearCookie("refreshToken", cookieOptions);
   } catch (err) {
     res.status(400).json({ msg: "Error logging out!" });
   }

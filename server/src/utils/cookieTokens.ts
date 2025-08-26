@@ -4,18 +4,16 @@ export function setCookie(
   res: Response,
   token: { accessToken: string; refreshToken: string }
 ) {
-  // store token in cookie
-  res.cookie("refreshToken", token.refreshToken, {
+  const cookieOptions = {
     httpOnly: true,
     secure: process.env.NODE_ENV === "production",
-    sameSite: process.env.NODE_ENV === "production" ? "none" : "strict",
-    maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
-  });
-  // store token in cookie
-  res.cookie("accessToken", token.accessToken, {
-    httpOnly: true,
-    secure: process.env.NODE_ENV === "production",
-    sameSite: process.env.NODE_ENV === "production" ? "none" : "strict",
-    maxAge: 15 * 60 * 1000, // 15 mins
-  });
+    sameSite:
+      process.env.NODE_ENV === "production"
+        ? ("none" as const)
+        : ("lax" as const),
+    path: "/",
+  };
+
+  res.cookie("accessToken", token.accessToken, cookieOptions);
+  res.cookie("refreshToken", token.refreshToken, cookieOptions);
 }
