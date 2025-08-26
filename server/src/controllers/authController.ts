@@ -50,7 +50,7 @@ export const getUserHandler = async (req: Request, res: Response) => {
     }
 
     const user = await getUserById(userFromPassport.id);
-    // console.log("user: ", user); // working
+    console.log("user: ", user); // working
     if (!user) {
       return res.status(404).json({ msg: "User not found!" });
     }
@@ -142,17 +142,15 @@ export const refreshTokenHandler = async (req: Request, res: Response) => {
 
     res.cookie("accessToken", tokens.newAccessToken, {
       httpOnly: true,
-      sameSite: "strict",
+      sameSite: process.env.NODE_ENV === "production" ? "none" : "strict",
       secure: process.env.NODE_ENV === "production",
       maxAge: 15 * 60 * 1000, // 15 mins
-      path: "/",
     });
     res.cookie("refreshToken", tokens.newRefreshToken, {
       httpOnly: true,
-      sameSite: "strict",
+      sameSite: process.env.NODE_ENV === "production" ? "none" : "strict",
       secure: process.env.NODE_ENV === "production",
       maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
-      path: "/",
     });
     res.status(200).json({ message: "Tokens refreshed." });
   } catch (err: any) {

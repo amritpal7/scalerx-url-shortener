@@ -12,23 +12,38 @@ dotenv.config();
 const app = express();
 const port = parseInt(process.env.PORT || "8080", 10);
 
-const baseUrl =
-  process.env.NODE_ENV === "production"
-    ? process.env.PROD_CLIENT_URL
-    : process.env.LOCAL_CLIENT_URL;
-
-console.log("NODE_ENV:", process.env.NODE_ENV);
-console.log("Base URL:", baseUrl);
+const allowedOrigins = [
+  process.env.PROD_CLIENT_URL, // deployed frontend
+  process.env.LOCAL_CLIENT_URL, // if you set one
+];
 
 app.use(
   cors({
-    origin:
-      process.env.NODE_ENV === "production"
-        ? process.env.PROD_CLIENT_URL
-        : process.env.LOCAL_CLIENT_URL,
+    origin: (origin, callback) => {
+      console.log("Request origin:", origin);
+
+      // Always allow non-browser requests (like curl, Postman with no Origin)
+      if (!origin) return callback(null, true);
+
+      // Check if matches explicit allowed origins
+      if (allowedOrigins.includes(origin)) {
+        return callback(null, true);
+      }
+
+      // ✅ Allow localhost/127.0.0.1 on any port
+      const localhostRegex = /^http:\/\/(localhost|127\.0\.0\.1):\d+$/;
+      if (localhostRegex.test(origin)) {
+        return callback(null, true);
+      }
+
+      // ❌ Otherwise block
+      console.log("❌ Blocked by CORS:", origin);
+      return callback(new Error("CORS not allowed for this origin"));
+    },
     credentials: true,
   })
 );
+
 app.use(cookieParser());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
