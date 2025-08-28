@@ -15,6 +15,7 @@ const port = parseInt(process.env.PORT || "8080", 10);
 const allowedOrigins = [
   process.env.PROD_CLIENT_URL,
   process.env.LOCAL_CLIENT_URL,
+  "http://localhost:5173",
 ];
 
 app.use(
