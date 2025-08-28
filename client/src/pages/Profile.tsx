@@ -21,6 +21,7 @@ import { IoMdSettings } from "react-icons/io";
 import { IoCreateOutline } from "react-icons/io5";
 import { Urls } from "../types/types";
 import { uselogout } from "../hooks/useLogout";
+import GenerateUrl from "../components/GenerateUrls";
 import {
   emailUpdate,
   usernameUpdate,
@@ -35,7 +36,7 @@ function Profile() {
   const { mutate: updateUsername } = usernameUpdate();
   const { mutate: updatePassword } = passwordUpdate();
   const [updateType, setUpdateType] = useState<
-    "email" | "username" | "password" | "delete" | null
+    "email" | "username" | "password" | "delete" | "url" | null
   >(null);
   const [isOpen, setIsOpen] = useState(false);
   const [newEmail, setNewEmail] = useState("");
@@ -68,7 +69,9 @@ function Profile() {
     );
   }
 
-  const handleModal = (type: "email" | "username" | "password" | "delete") => {
+  const handleModal = (
+    type: "email" | "username" | "password" | "delete" | "url"
+  ) => {
     setUpdateType(type);
     setIsOpen(true);
     // console.log(type);
@@ -141,21 +144,55 @@ function Profile() {
     setUpdateType(null);
   };
 
-  console.log("profile:", currentUser);
+  // console.log("profile:", currentUser);
 
   return (
     <div className="flex w-full flex-1">
       <div className="flex w-full md:flex-row">
         {/* <!-- Sidebar --> */}
         <aside className="w-24 md:w-64 border-r-4 border-black bg-white m-4 p-6 shadow-[6px_6px_0_0_rgba(0,0,0,1)] flex flex-col items-center md:items-start transition-all duration-300">
-          <div className="mb-6 w-full flex flex-col items-center md:items-start">
-            <Link
-              to="/GenerateUrls"
-              className="md:flex items-center gap-2 bg-primary border-2 border-black px-6 py-2 font-bold text-white shadow-[3px_3px_0_0_rgba(0,0,0,1)] transition hover:translate-x-[2px] hover:translate-y-[2px] w-full"
-            >
-              <IoCreateOutline size={30} />
-              <span className="hidden md:inline"> Create Links</span>
-            </Link>
+          <div className="mb-6 w-full flex flex-col items-center md:items-start cursor-pointer">
+            <div className="md:flex items-center gap-2 bg-primary border-2 border-black px-6 py-2 font-bold text-white shadow-[3px_3px_0_0_rgba(0,0,0,1)] transition hover:translate-x-[2px] hover:translate-y-[2px] w-full">
+              <IoCreateOutline size={25} />
+              <label
+                htmlFor="modal_url"
+                className="w-full"
+                onClick={() => handleModal("url")}
+              >
+                Create Link
+              </label>
+            </div>
+            <div className="w-full max-w-2xl">
+              <AnimatePresence>
+                {isOpen && updateType === "url" && (
+                  <motion.div
+                    className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 px-4 py-6 overflow-y-auto"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    onClick={closeModal}
+                  >
+                    <motion.div
+                      className="modal-box w-full max-w-md border-4 border-black bg-white shadow-[6px_6px_0_rgba(0,0,0,1)] p-6 rounded-lg relative"
+                      initial={{ scale: 0.8, opacity: 0 }}
+                      animate={{ scale: 1, opacity: 1 }}
+                      exit={{ scale: 0.8, opacity: 0 }}
+                      transition={{
+                        type: "spring",
+                        stiffness: 300,
+                        damping: 25,
+                      }}
+                      onClick={e => e.stopPropagation()} // prevent modal close on content click
+                    >
+                      <GenerateUrl />
+                      <label className="modal-backdrop" onClick={closeModal}>
+                        Close
+                      </label>
+                    </motion.div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </div>
           </div>
 
           <ul className="space-y-3 font-semibold w-full">

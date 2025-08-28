@@ -16,7 +16,7 @@ function Home() {
             forever.
           </p>
 
-          <Link to={currentUser ? "/GenerateUrls" : "/register"}>
+          <Link to={currentUser ? "/profile" : "/register"}>
             <button className="cursor-pointer group relative font-semibold text-sm px-6 py-3 rounded-full transition-all duration-200 ease-in-out shadow hover:shadow-lg w-40 h-12">
               <div className="relative flex items-center justify-center gap-2">
                 <span className="relative inline-block overflow-hidden">
