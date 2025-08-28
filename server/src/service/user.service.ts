@@ -1,9 +1,13 @@
 import { omit } from "lodash";
 import { PrismaClient, User } from "../../generated";
+
+import { Omit } from "lodash";
 import bcrypt from "bcryptjs";
 import { verifyJwtCode, generateJwtCode } from "../utils/jwt";
 
 const prisma = new PrismaClient();
+
+type UserCreateInput = Omit<User, "id" | "createdAt" | "updatedAt">;
 
 export async function comparePassword(
   newPassword: string,
@@ -19,37 +23,41 @@ export async function comparePassword(
   }
 }
 
-export async function findUserByEmail(email: string) {
+export async function findUser(username: string) {
+  console.log("from find user:", username);
   try {
     return await prisma.user.findFirst({
-      where: { email, isDeleted: false },
+      where: { username, isDeleted: false },
     });
   } catch (err: any) {
     throw new Error(err);
   }
 }
 
-export async function createUser(input: User) {
+export async function createUser(input: {
+  username: string;
+  password: string;
+}) {
+  if (!input.username && !input.password) {
+    throw new Error("Username and password are required");
+  }
   const hashedPassword = await bcrypt.hash(input.password, 10);
   try {
     // check if user exists
-    const isExists = await findUserByEmail(input.email);
+    const isExists = await findUser(input.username);
 
     if (isExists) throw new Error("User already exists!");
 
     const newUser = await prisma.user.create({
-      omit: { password: true },
       data: {
-        email: input.email,
+        username: input.username,
         password: hashedPassword,
-        username: input.username || input.email.split("@")[0],
-        image: `https://api.dicebear.com/9.x/pixel-art/svg?seed=${
-          input.username || input.email.split("@")[0]
-        }`,
+        image: `https://api.dicebear.com/9.x/pixel-art/svg?seed=${input.username}`,
       },
     });
 
-    return newUser;
+    const { password, ...userWithoutPassword } = newUser;
+    return userWithoutPassword;
   } catch (e: any) {
     throw new Error(e);
   }
@@ -63,12 +71,16 @@ export async function getUserById(id: string) {
     throw new Error(e);
   }
 }
-export async function userLogin(body: { email: string; password: string }) {
+export async function userLogin(input: { username: string; password: string }) {
+  console.log(input.username);
+
   try {
-    const user = await findUserByEmail(body.email);
+    const user = await findUser(input.username);
+    console.log("from login service: ", user);
+
     if (!user) throw new Error("User not found!");
-    if (!body.password) throw new Error("Please enter password!");
-    const isMatch = await comparePassword(body.password, user.password);
+    if (!input.password) throw new Error("Please enter password!");
+    const isMatch = await comparePassword(input.password, user.password);
     if (!isMatch) throw new Error("Invalid password entered.");
 
     return user;
@@ -177,6 +189,34 @@ export async function updateUserCredential(
   } catch (e: any) {
     throw new Error(e);
   }
+}
+
+export async function updateUser(userId: string, body: any) {
+  // to be implemented later if needed
+  const updatedUser = await prisma.user.update({
+    where: { id: userId },
+    data: {
+      email: body.email,
+      image: body.image,
+      height: body.height,
+      weight: body.weight,
+      age: body.age,
+      gender: body.gender,
+      phone: body.phone,
+      bloodGroup: body.bloodGroup,
+      birthDate: body.birthDate,
+      eyeColor: body.eyeColor,
+      ip: body.ip,
+      macAddress: body.macAddress,
+      university: body.university,
+      address: body.address,
+      company: body.company,
+      bank: body.bank,
+    },
+  });
+
+  const { password, ...userWithoutPassword } = updatedUser;
+  return userWithoutPassword;
 }
 
 export async function deleteUser(

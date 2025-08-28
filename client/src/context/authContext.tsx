@@ -11,12 +11,12 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 export const AuthProvider = ({ children }: AuthProviderProps) => {
   const [currentUser, setCurrentUser] = React.useState<User | null>(null);
 
-  const { user, isError, isLoading, refetch, isFetching, isPending } =
+  const { data, isError, isLoading, refetch, isFetching, isPending } =
     profileApi();
 
   useEffect(() => {
-    if (user) setCurrentUser(user);
-  }, [user]);
+    if (data) setCurrentUser(data);
+  }, [data]);
 
   const login = (user: User | null) => setCurrentUser(user);
   const logout = () => setCurrentUser(null);

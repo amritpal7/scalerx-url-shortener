@@ -38,7 +38,7 @@ model User {
   university String?
   bank       Bank?
   company    Company?
-  email      String     @unique
+  email      String?    @unique
   image      String?
   isAdmin    Boolean    @default(false)
   isVerified Boolean    @default(false)
@@ -50,10 +50,10 @@ model User {
   createdAt  DateTime   @default(now())
 }
 
-model Address {
-  id          String           @id @default(auto()) @map("_id") @db.ObjectId
-  userId      String           @unique @db.ObjectId
-  address     String           @unique
+type Address {
+  id          String
+  userId      String
+  address     String
   city        String
   state       String
   stateCode   String
@@ -61,7 +61,6 @@ model Address {
   coordinates UserCoordinates?
   country     String
   zipcode     String
-  user        User             @relation(fields: [userId], references: [id])
 }
 
 type UserCoordinates {

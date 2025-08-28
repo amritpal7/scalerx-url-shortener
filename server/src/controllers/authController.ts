@@ -1,4 +1,5 @@
 import { generateJwtCode, verifyJwtCode } from "../utils/jwt";
+import { pickUserFields } from "../utils/pickUserFields";
 import { Request, Response } from "express";
 import {
   createUser,
@@ -8,9 +9,11 @@ import {
   updateUserCredential,
   userLogin,
   getRefreshToken,
+  updateUser,
 } from "../service/user.service";
 import { redisClient } from "../lib/redis";
 import { setCookie } from "../utils/cookieTokens";
+import { omit } from "lodash";
 
 export const registerUserHandler = async (req: Request, res: Response) => {
   try {
@@ -20,6 +23,7 @@ export const registerUserHandler = async (req: Request, res: Response) => {
     setCookie(res, { accessToken, refreshToken });
     res.send(user);
   } catch (err: any) {
+    console.log(err);
     res.status(409).send(err);
   }
 };
@@ -27,15 +31,14 @@ export const registerUserHandler = async (req: Request, res: Response) => {
 export const loginHandler = async (req: Request, res: Response) => {
   try {
     const user = await userLogin(req.body);
-
-    // console.log("user:", user);
     if (!user) return res.status(401).json({ msg: "User not found" });
 
     const accessToken = generateJwtCode(user, "access");
     const refreshToken = generateJwtCode(user, "refresh");
     setCookie(res, { accessToken, refreshToken });
 
-    res.send(user);
+    const { password, ...userData } = user;
+    res.send(userData);
   } catch (e: any) {
     res.status(400).json({ msg: e.message });
   }
@@ -50,12 +53,12 @@ export const getUserHandler = async (req: Request, res: Response) => {
     }
 
     const user = await getUserById(userFromPassport.id);
-    // console.log("user: ", user); // working
     if (!user) {
       return res.status(404).json({ msg: "User not found!" });
     }
 
-    res.send(user);
+    const { password, ...userData } = user;
+    res.send(userData);
   } catch (err: any) {
     res.status(400).json({ msg: err.message });
   }
@@ -66,12 +69,21 @@ export const getAllUsersHandler = async (req: Request, res: Response) => {
     const users = await getAllUsers();
 
     if (!users) res.status(404).json({ msg: "Users not found." });
-    // console.log("from handler", users);
-
     res.send(users);
   } catch (e: any) {
     res.status(400).json({ msg: "Error fetching users data", e });
   }
+};
+
+export const updateUserDataHandler = async (req: Request, res: Response) => {
+  try {
+    const user = req.user as { id: string };
+    if (!user) throw new Error("User not found");
+    const updateUserData = pickUserFields(req.body);
+    const updatedUserData = await updateUser(user.id, updateUserData);
+
+    return res.send(updatedUserData);
+  } catch (err) {}
 };
 
 export const logoutHandler = async (req: Request, res: Response) => {

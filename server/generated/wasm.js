@@ -148,18 +148,6 @@ exports.Prisma.UserScalarFieldEnum = {
   createdAt: 'createdAt'
 };
 
-exports.Prisma.AddressScalarFieldEnum = {
-  id: 'id',
-  userId: 'userId',
-  address: 'address',
-  city: 'city',
-  state: 'state',
-  stateCode: 'stateCode',
-  postalCode: 'postalCode',
-  country: 'country',
-  zipcode: 'zipcode'
-};
-
 exports.Prisma.BankScalarFieldEnum = {
   id: 'id',
   userId: 'userId',
@@ -192,7 +180,6 @@ exports.Prisma.QueryMode = {
 exports.Prisma.ModelName = {
   ShortUrl: 'ShortUrl',
   User: 'User',
-  Address: 'Address',
   Bank: 'Bank',
   Session: 'Session'
 };

@@ -1,19 +1,20 @@
 import axios from "axios";
 
+const baseURL =
+  import.meta.env.MODE === "development"
+    ? import.meta.env.VITE_API_URL
+    : import.meta.env.VITE_PROD_API_URL;
+
+console.log("Base URL:", baseURL);
+
 const API = axios.create({
-  baseURL:
-    import.meta.env.MODE === "production"
-      ? import.meta.env.VITE_PROD_API_URL
-      : import.meta.env.VITE_API_URL,
+  baseURL,
   withCredentials: true,
 });
 
 // seperate instance just for refreshing token
 const plainAxios = axios.create({
-  baseURL:
-    import.meta.env.MODE === "production"
-      ? import.meta.env.VITE_PROD_API_URL
-      : import.meta.env.VITE_API_URL,
+  baseURL: import.meta.env.VITE_PROD_API_URL,
   withCredentials: true,
 });
 

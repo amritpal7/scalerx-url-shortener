@@ -1,10 +1,10 @@
 import { object, string } from "zod";
 
 const userScehma = object({
-  email: string({
-    required_error: "Email is required!",
-  }).email("Not a valid email address."),
-  username: string().optional(),
+  username: string({ required_error: "Username is required!" }).min(
+    6,
+    "Username must be 6 characters."
+  ),
   password: string({
     required_error: "Password is required!",
   }).min(8, "password must be 8 characters"),

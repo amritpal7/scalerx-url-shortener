@@ -141,6 +141,8 @@ function Profile() {
     setUpdateType(null);
   };
 
+  console.log("profile:", currentUser);
+
   return (
     <div className="flex w-full flex-1">
       <div className="flex w-full md:flex-row">
@@ -223,7 +225,7 @@ function Profile() {
                   {currentUser.username}
                 </h2>
                 <p className="text-sm text-gray-700 bg-gray-100 px-3 py-1 rounded-full border border-black">
-                  {currentUser.email}
+                  {currentUser.email || "N/A"}
                 </p>
                 <div className="mb-4 flex space-x-6">
                   <div className="text-center">
@@ -290,7 +292,7 @@ function Profile() {
                   Analytics
                 </h2>
                 <p className="text-sm text-gray-700 bg-gray-100 px-3 py-1 rounded-full border border-black">
-                  {currentUser.email}
+                  {currentUser.username}
                 </p>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4 w-full mt-4">
@@ -328,7 +330,7 @@ function Profile() {
                     Settings <FaEdit className="ml-2" />
                   </h2>
                   <p className="text-sm text-gray-700 bg-gray-100 px-3 py-1 rounded-full border border-black">
-                    {currentUser.email}
+                    {currentUser.username}
                   </p>
 
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-6 w-full">

@@ -5,7 +5,7 @@ import React, { useEffect, useState } from "react";
 import Loader from "../components/Loader";
 
 function Login() {
-  const [form, setForm] = useState({ email: "", password: "" });
+  const [form, setForm] = useState({ username: "", password: "" });
 
   const { mutate: loginMutation, isPending, isError, error } = useLogin();
   const { isLoading, currentUser } = useAuth();
@@ -32,8 +32,8 @@ function Login() {
       </div>
     );
 
-  console.log("Loading:", isLoading);
-  console.log("Current User:", currentUser);
+  // console.log("Loading:", isLoading);
+  // console.log("Current User:", currentUser);
 
   return (
     <div className="w-full max-w-md px-4 mx-auto mt-40">
@@ -65,15 +65,15 @@ function Login() {
               </g>
             </svg>
             <input
-              type="email"
-              name="email"
-              value={form.email}
+              type="text"
+              name="username"
+              value={form.username}
               onChange={handleInputChange}
-              placeholder="mail@site.com"
+              placeholder="Username"
               required
             />
           </label>
-          <p className="validator-hint hidden">Enter valid email address</p>
+          <p className="validator-hint hidden">Enter valid username</p>
 
           <label className="input validator">
             <svg

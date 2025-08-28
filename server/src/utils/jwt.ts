@@ -4,13 +4,13 @@ import jwt from "jsonwebtoken";
 const refresh_secret = process.env.REFRESH_TOKEN;
 const access_secret = process.env.ACCESS_TOKEN;
 export const generateJwtCode = (
-  payloadData: Pick<User, "id" | "email">,
+  payloadData: Pick<User, "id" | "username">,
   type: "access" | "refresh" = "access",
   options?: jwt.SignOptions | undefined
 ) => {
   const payload = {
     id: payloadData.id,
-    email: payloadData.email,
+    username: payloadData.username,
   };
 
   const secretKey = type === "access" ? access_secret : refresh_secret;

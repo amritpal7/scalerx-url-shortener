@@ -8,7 +8,6 @@ import Loader from "../components/Loader";
 
 function Register() {
   const [form, setForm] = useState({
-    email: "",
     username: "",
     password: "",
     confirmPassword: "",
@@ -82,9 +81,6 @@ function Register() {
 
   return (
     <div className="w-full max-w-lg px-4 mx-auto mt-40">
-      {fieldErrors.email && (
-        <p className="text-red-400 text-sm mt-1">{fieldErrors.email}</p>
-      )}
       {fieldErrors.password && (
         <p className="text-red-400 text-sm mt-1">{fieldErrors.password}</p>
       )}
@@ -103,34 +99,6 @@ function Register() {
       <fieldset className="fieldset bg-base-200 border-base-300 rounded-box w-xs border p-4 light:glass">
         <legend className="fieldset-legend text-2xl">Register</legend>
         <form className="space-y-2" onSubmit={handleSubmit}>
-          <label className="input validator">
-            <svg
-              className="h-[1em] opacity-50"
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 24 24"
-            >
-              <g
-                strokeLinejoin="round"
-                strokeLinecap="round"
-                strokeWidth="2.5"
-                fill="none"
-                stroke="currentColor"
-              >
-                <rect width="20" height="16" x="2" y="4" rx="2"></rect>
-                <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path>
-              </g>
-            </svg>
-            <input
-              type="email"
-              name="email"
-              value={form.email}
-              onChange={handleInputChange}
-              placeholder="mail@site.com"
-              required
-            />
-          </label>
-          <p className="validator-hint hidden">Enter valid email address</p>
-
           <label className="input validator">
             <svg
               className="h-[1em] opacity-50"
